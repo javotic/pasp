@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: 
+              - '*'             
+            allowedHeaders: 
+              - Content-Type
+              - x-requested-with
+              - origin
+              - authorization
+              - accept
+              - client-security-token
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      httpclient:
+       connect-timeout: 70000
+       response-timeout: 190s
+          

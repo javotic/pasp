@@ -1,0 +1,63 @@
+<div class="menu-principal">
+    <div style="height: 52px !important; display: flex;">
+        <div class="tooltip_custom" (click)="display = true" style="cursor: pointer; margin: auto;">
+            <img src="/PortalAutoservicio/assets/Images/menu-point.svg" height="12px" />
+            <span class="tooltiptext_custom_home">Mostrar menu</span>
+        </div>
+    </div>
+    <!-- Menu fijo -->
+    <nav class="flex-column">
+        <ul class="nav flex-column">
+            <li class="nav-item tooltip_custom">
+                <a routerLink="/home" routerLinkActive="active-link" style="width: 100% !important;">
+                    <img class="tam-icono-menu" src="/PortalAutoservicio/assets/Images/menu/small/home.svg" />
+                </a>
+                <span class="tooltiptext_custom">Home</span>
+            </li>
+            <li *ngFor="let menu of menu " class="tooltip_custom" routerLinkActive="active-link">
+                <a href="#" class="link-menu" routerLink="{{menu.DSURL}}">
+                    <img class="menu_negro tam-icono-menu" src="/PortalAutoservicio/assets/Images/menu/small/{{menu.DSICONO}}" />
+                    <img class="menu_blanco tam-icono-menu" style="display: none;" src="/PortalAutoservicio/assets/Images/menu/small_blanco/{{menu.DSICONO}}" />
+                </a>
+                <span class="tooltiptext_custom">{{menu.DSMENU}}</span>
+            </li>
+        </ul>
+    </nav>
+    <!-- Menu colapsable -->
+    <p-sidebar [(visible)]="display">
+        <div style="margin: 0px auto 20px auto; height: 12px !important;">
+            &nbsp;</div>
+        <ul class="nav flex-column">
+            <li class="nav-item tooltip_custom item-menu-completo">
+                <a routerLink="/home" style="width: 100% !important; display: block; height: 26px !important;">
+                    <img class="tam-icono-menu" src="/PortalAutoservicio/assets/Images/menu/small/home.svg" />
+                    <span class="txt-menu-float">Home</span>
+                </a>
+            </li>
+            <li *ngFor="let menu of menu" class="tooltip_custom item-menu-completo" routerLinkActive="active-link">
+                <a href="#" routerLink="{{menu.DSURL}}" class="link-menu">
+                    <img class="menu_negro tam-icono-menu" src="/PortalAutoservicio/assets/Images/menu/small/{{menu.DSICONO}}" />
+                    <img class="menu_blanco tam-icono-menu" style="display: none;" src="/PortalAutoservicio/assets/Images/menu/small_blanco/{{menu.DSICONO}}" />
+                    <span class="txt-menu-float">{{menu.DSMENU}}</span>
+                </a>
+            </li>
+        </ul>
+    </p-sidebar>
+</div>
+
+<p-dialog [(visible)]="displayModalSalir" [modal]="true" [style]="{width: '40vw'}" [baseZIndex]="100000" [closable]="false" [draggable]="false" [resizable]="false">
+    <div class="popup" pd-popup="popupNew" style="text-align: center;">
+        <div class="popup-inner">
+            <h2 class="display-4">
+                <countdown #cd1 [config]="configTimer" (event)="handleEventSalir($event)"></countdown>
+            </h2>
+            <h4 style="color: black !important;">No cuentas con plazas activas o tu usuario se encuentra desactivado.
+            </h4>
+            <p style="color: black !important;">Serás redirigido a la pantalla inicial</p>
+            <br />
+            <p>
+                <a pd-popup-close="popupNew" class="btn btn-danger" (click)="cerrarDialogSalir()">Salir</a>
+            </p>
+        </div>
+    </div>
+</p-dialog>

@@ -1,0 +1,17 @@
+body {
+  font-family: "Roboto-Thin" !important;
+}
+
+/*
+  :host ::ng-deep .ui-widget{
+    font-family: 'Roboto-Thin' !important;
+  }
+  */
+
+body .ui-widget-overlay {
+  background-color: white !important;
+}
+
+elemento {
+  width: 150px;
+}

@@ -1,0 +1,46 @@
+.titulo-evaluacion{
+    font-family: 'Roboto-Light';
+    font-size: 23px;
+}
+
+.ui-button-primary{
+    background-color: #027D7F !important;
+}
+
+
+:host ::ng-deep .ui-table .ui-table-caption:hover .tooltiptext_custom_header {
+    visibility: visible;
+}
+
+
+/* Tooltip text */
+:host ::ng-deep .ui-table .ui-table-caption .tooltiptext_custom_header {
+    visibility: hidden;
+    width: 500px;
+    background-color: #636569 ;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: -60px;
+    left: 50%;
+    white-space: nowrap;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: -250px;
+  }
+
+  :host ::ng-deep .ui-table .ui-table-caption .tooltiptext_custom_header::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }

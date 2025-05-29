@@ -1,0 +1,137 @@
+<p-toast></p-toast>
+<p-toast [style]="{marginTop: '1px'}" position="top-left" key="notifi"></p-toast>
+<p-toast position="center" key="d"></p-toast>
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-12 text-right" style="margin-bottom: 10px;">
+        <a class="a-regresar" (click)="showRegresar()">Regresar</a>
+    </div>
+    <div class="col-md-12">
+        <p-panel header="Evaluación del desempeño" [toggleable]="false">
+            <div class="row contenido-pantalla">
+                <div class="col-md-12" style="text-align: center;">
+                    <h5>EJECUCIÓN DE EVALUACIÓN DEL DESEMPEÑO</h5>
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <h6> {{precesoSesion.claveProceso}} - {{precesoSesion.nombreProceso}}</h6>
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <h6>{{precesoSesion.claveUnidad}} -{{precesoSesion.nombreUnidad}}</h6>
+                </div>
+                <div class="col-md-12" style="text-align: center; font-weight: bold;">Evaluador:
+                    {{currentUser.CLAVESERVIDOR}} - {{currentUser.MOMBRE}} {{currentUser.APELLIDOPATERNO}}
+                    {{currentUser.APELLIDOMATERNO}}</div>
+                <div class="col-md-12" style="text-align: center; font-weight: bold;">Evaluado:
+                    {{precesoSesion.claveEvaluado}} - {{precesoSesion.nombreEvaluado}} </div>
+                <div class="col-md-12" style="text-align: center;"></div>
+
+            </div>
+
+            <p-tabView #tview (onChange)="handleChange($event)" [activeIndex]="index"
+                       [style.background-color]="'#12d900'">
+                <div class="row">
+                    <div class="col-md-6" style="margin-bottom: 10px;">
+                        <p-progressBar [value]="progressBar"></p-progressBar>
+                    </div>
+                </div>
+
+                <p-tabPanel *ngFor="let tab of seccionFinal"
+                            header="{{tab.nombreseccion}}"
+                            [headerStyleClass]="tab.nombreseccion == 'COMPETENCIAS APTITUDINALES' ? 'magenta': 
+                            tab.nombreseccion == 'COMPETENCIAS SOCIOPERSONALES' ? 'verde' : '' ">
+                    <p-table #dt selectionMode="single" [value]="tab.preguntas" [filterDelay]="0" [responsive]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="row center-h center-v">
+                                {{tab.nombreseccion}}
+                                <br />
+                            </div>
+                            <div class="row" style="text-align: justify;">
+                                {{tab.DESCRIPCIONVALOR}}
+                                <br />
+                            </div>
+                            <div class="row izquierda" style="text-align: justify;">
+                                {{tab.VALOR}}
+                                <br />
+                            </div>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" style="padding-top: 3em !important;" let-preguntased>
+                            <tr class="tabletr" [pSelectableRow]="preguntased"
+                                style="padding-top: 2em !important;  padding-bottom: 2em !important;"
+                                [pSelectableRowDisabled]="true">
+                                <th colspan="6" style="padding-top: 3em !important;">
+                                    <p>{{preguntased.descripcionpregunta}}</p>
+                                    <div class="row">
+                                        <div class="col-md-12" *ngIf="preguntased.tipoCampo === '1'">
+                                            <div class="row">
+                                                <div class="col-md-2" *ngFor="let tabi of preguntased.respuestas">
+                                                    <p-radioButton name="{{tabi.namegroup}}"
+                                                                   (onClick)="changeColor(preguntased,tabi,tab)"
+                                                                   value="true"
+                                                                   [(ngModel)]="tabi.selected"
+                                                                   label="{{tabi.respuesta}}">
+                                                    </p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" *ngIf="preguntased.tipoCampo !== '1'">
+                                            <div class="row">
+                                                <div class="col-md-12" *ngFor="let tabi of preguntased.respuestas">
+                                                    <input type="text" pInputText pTooltip="Puntos" placeholder="Puntos"
+                                                           [(ngModel)]="tabi.puntaje"
+                                                           (click)="changeColor(preguntased,tabi, tab)"
+                                                           tooltipEvent="focus" (blur)="onBlurMethod(tabi)"
+                                                           style="margin-left:.5em; width: 10em !important;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+
+            </p-tabView>
+            <br />
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-2">
+                    <button pButton type="button" *ngIf="btnDemeritos()" label="Guardar Demeritos" style="width:90%"
+                            class="ui-button-primary btn-primary-search" (click)="guardarDemeritos()"></button>
+                </div>
+
+                <div class="col-md-2">
+                    <button pButton type="button" label="Vista Previa" style="width:90%"
+                            *ngIf="!showSiguiente && btnFinalizar()"
+                            class="ui-button-primary btn-primary-search" (click)="finalizarEncuesta()"></button>
+                </div>
+                <div class="col-md-2">
+                    <button class="ui-button-primary btn-primary-search" style="width:90%" type="button" pButton
+                            (click)="openNext()"
+                            label="Siguiente" icon="pi pi-arrow-right" iconPos="right"
+                            *ngIf="showSiguiente && btnFinalizar()"></button>
+                </div>
+            </div>
+            <br />
+        </p-panel>
+    </div>
+
+</div>

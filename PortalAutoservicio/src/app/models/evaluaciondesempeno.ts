@@ -1,0 +1,7 @@
+export class Evaluaciondesempeno {
+    IDPROCESOEVALUACION: string;
+    NOMBREPROCESOEVALUACION: string;
+    FECHAINICIOPROCESOEVALUACION: string;
+    FECHAFINPROCESOEVALUACION: string;
+    TIPOEVALUACION: string;
+}

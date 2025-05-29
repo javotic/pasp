@@ -1,0 +1,10 @@
+import { MisEdd } from '../models/misedd';
+
+export const MISEVALDMOCK: MisEdd[] = [
+    /* { nombreProcesoEvaluacion: 'Evaluación del Desempeño Primer Semestre 2020', fechaInicioProcesoEvaluacion: new Date('01/02/2020'), fechaFinProcesoEvaluacion: new Date('05/30/2020'), nombreUnidadAdministrativa: 'DIRECCIÓN GENERAL DE PERSONAL', nombrePuesto: 'ANALISTA B', calificacion: '10', constancia: '' },
+    { nombreProcesoEvaluacion: 'Evaluación del Desempeño Segundo Semestre 2019', fechaInicioProcesoEvaluacion: new Date('01/07/2019'), fechaFinProcesoEvaluacion: new Date('11/30/2019'), nombreUnidadAdministrativa: 'DIRECCIÓN GENERAL DE PERSONAL', nombrePuesto: 'ANALISTA B', calificacion: '8.6', constancia: '' },
+    { nombreProcesoEvaluacion: 'Evaluación del Desempeño Primer Semestre 2019', fechaInicioProcesoEvaluacion: new Date('01/02/2019'), fechaFinProcesoEvaluacion: new Date('04/30/2019'), nombreUnidadAdministrativa: 'DIRECCIÓN GENERAL DE PERSONAL', nombrePuesto: 'ANALISTA B', calificacion: '7.1', constancia: '' },
+    { nombreProcesoEvaluacion: 'Evaluación del Desempeño Segundo Semestre 2018', fechaInicioProcesoEvaluacion: new Date('01/06/2018'), fechaFinProcesoEvaluacion: new Date('10/30/2018'), nombreUnidadAdministrativa: 'DIRECCIÓN GENERAL DE PERSONAL', nombrePuesto: 'ANALISTA B', calificacion: '9.2', constancia: '' },
+    { nombreProcesoEvaluacion: 'Evaluación del Desempeño Primer Semestre 2018', fechaInicioProcesoEvaluacion: new Date('01/03/2018'), fechaFinProcesoEvaluacion: new Date('05/30/2018'), nombreUnidadAdministrativa: 'DIRECCIÓN GENERAL DE INNOVACIÓN', nombrePuesto: 'ANALISTA B', calificacion: '6.7', constancia: '' },
+    { nombreProcesoEvaluacion: 'Evaluación del Desempeño Segundo Semestre 2017', fechaInicioProcesoEvaluacion: new Date('01/07/2017'), fechaFinProcesoEvaluacion: new Date('11/30/2017'), nombreUnidadAdministrativa: 'DIRECCIÓN GENERAL DE INNOVACIÓN', nombrePuesto: 'ANALISTA B', calificacion: '8.8', constancia: '' } */
+]

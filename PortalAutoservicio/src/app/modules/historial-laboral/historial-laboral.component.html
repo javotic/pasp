@@ -1,0 +1,163 @@
+<p-toast [style]="{marginTop: '1px'}" position="top-left"></p-toast>
+<p-toast key="c" position="center"
+         [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi {{tipoMensaje}} {{colorIcono}}" style="font-size: 3em;"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+    </ng-template>
+</p-toast>
+
+<!-- Formulario principal -->
+<form>
+    <p-panel header="{{etiquetas.get('ttl.tituloHistorialLaboral')}}" [toggleable]="false">
+        <!-- Boton de nueva solicitud y Boton de instrucciones de pantalla -->
+        <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: space-between;">
+                <button id="btnNuevaSolicitud"
+                        type="button"
+                        class="ui-button-primary"
+                        pButton icon="pi pi-plus-circle"
+                        label="{{etiquetas.get('btn.nuevaSolicitud')}}"
+                        (click)="btnNuevaSolicitudClick()"
+                        style="width: 150px;"></button>
+
+                <button type="button" class="ui-button-primary"
+                        pButton icon="pi pi-question-circle"
+                        label="Información"
+                        (click)="mostrarInstrucciones = true"
+                        style="width: 150px;"></button>
+            </div>
+        </div>
+        <!-- Seccion de resultados -->
+        <div class="col-md-12" style="margin-top: 20px;">
+            <p-table #dt [value]="lsSolicitudesHistorial" [rows]="10"
+                     [rowsPerPageOptions]="[10,25,50]" [paginator]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th [style]="{width: '80px'}">Folio</th>
+                        <th [style]="{width: '125px'}">Clave Servidor Público</th>
+                        <th>Servidor Público</th>
+                        <th>Fecha de solicitud</th>
+                        <th [style]="{width: '110px'}">Motivo</th>
+                        <th [style]="{width: '90px'}">Estatus</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-motivo>
+                    <tr>
+                        <td>{{motivo.folio}}</td>
+                        <td [style]="{textAlign: 'center'}">{{motivo.claveServidorPublico}}</td>
+                        <td>{{motivo.nombreServidorPublico}}</td>
+                        <td>{{motivo.fechaSolicitudCadena}}</td>
+                        <td>{{motivo.motivo}}</td>
+                        <td>{{motivo.estatus}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="6" style="font-weight: bold;">
+                            No se encontraron registros
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <!-- Descarga de documento -->
+        <div class="row" style="margin: 20px 0;">
+            <div class="col-md-12" style="text-align: end;">
+                <button id="btnDescargarHistorial"
+                        type="button"
+                        class="ui-button-primary"
+                        pButton icon="pi pi-arrow-circle-down"
+                        label="Descargar Historial"
+                        (click)="btnDescargarHistorialClick()"
+                        style="width: 180px;"></button>
+
+            </div>
+        </div>
+    </p-panel>
+</form>
+
+<!-- Dialogo de solicitud de historial laboral -->
+<p-dialog header="{{etiquetas.get('btn.nuevaSolicitud')}}"
+          [(visible)]="mostrarDialogoNuevaSolicitud"
+          [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true"
+          [style]="{width: '700px', border: '0px', padding: '0px !important'}">
+    <!-- Tipo de solicitud -->
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label>Tipo de solicitud</label>
+                <br />
+                <p-dropdown [options]="lsMotivosSolicitud"
+                            [(ngModel)]="motivoSeleccionado"
+                            placeholder="-- Seleccione --"
+                            [showClear]="true">
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <!-- Comentarios -->
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-12">
+            <div class="form-group">
+                <label>Comentarios</label>
+                <br />
+                <textarea id="txtComentarios"
+                          rows="3" cols="79"
+                          maxlength="100"
+                          [(ngModel)]="comentario"
+                          pInputTextarea></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de gestion-->
+    <div class="row">
+        <div class="col-md-12"
+             style="display: flex; justify-content: space-between; 
+             margin-bottom: 50px !important">
+            <button id="btnCancelarSolicitud"
+                    type="button"
+                    class="ui-button-danger"
+                    pButton icon="pi pi-times-circle"
+                    label="{{etiquetas.get('btn.cancelar')}}"
+                    (click)="mostrarDialogoNuevaSolicitud = false"
+                    style="width: 150px;"></button>
+
+            <button id="btnAceptarSolicitud"
+                    type="button"
+                    class="ui-button-primary"
+                    pButton icon="pi pi-check-circle"
+                    label="Aceptar"
+                    style="width: 150px;"
+                    (click)="btnAceptarSolicitudClick()"></button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- Dialogo de instrucciones -->
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <p style="font-weight: bold;">Funcionalidad:</p>
+            <p style="text-align: justify;">
+                Esta pantalla muestra las solicitudes de historial laboral que ha realizado el servidor público.
+            </p>
+            <br />
+            <p style="font-weight: bold;">Instrucciones:</p>
+            <p style="text-align: justify;">
+                En este módulo, se puede realizar la solicitud de historial laboral, así como obtener el estatus con
+                el que se encuentra la última solicitud realizada. De igual forma, se puede consultar el histórico de
+                solicitudes realizadas, así como la descarga del último historial laboral generado.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- Loader general -->
+<ngx-spinner></ngx-spinner>

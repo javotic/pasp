@@ -1,0 +1,157 @@
+<!-- Seccion de slide -->
+<div class="row not-mar-pad">
+    <div class="col-md-12 col-sm-12 not-mar-pad">
+        <swiper [pagination]="{ clickable: true}" [autoplay]="{ delay: 4000, disableOnInteraction: false}" class="spinerHome">
+            <ng-template swiperSlide>
+                <div class="row not-mar-pad">
+                    <div class="col-md-5 slide-description">
+                        <p class="titulo-slide">Jardín botánico Cosmovitral</p>
+                        <p class="fecha-slide"></p>
+                        <p class="contenido-slide">
+                            Se encuentra en la ciudad de Toluca capital del Estado de México, en México. El edificio que alberga el jardín botánico es una estructura Art Nouveau de hierro forjado construida durante el Porfiriato, a principios del siglo XX para alojar al Mercado
+                            16 de septiembre.
+                        </p>
+                    </div>
+                    <div class="col-md-7 slide-imagen not-mar-pad">
+                        <img src="/PortalAutoservicio/assets/banner/cosmovitral.JPG">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="row not-mar-pad">
+                    <div class="col-md-5 slide-description">
+                        <p class="titulo-slide">Torres Bicentenario</p>
+                        <p class="fecha-slide">15 de septiembre de 2010</p>
+                        <p class="contenido-slide">Monumento conmemorativo con motivo del 200 aniversario del inicio de la lucha de Independencia en México. Ubicada en la antigua puerta Tollotzin, sobre Paseo Tollocan, en el municipio de Toluca </p>
+                    </div>
+                    <div class="col-md-7 slide-imagen not-mar-pad">
+                        <img src="/PortalAutoservicio/assets/banner/museo-torres.jpg">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="row not-mar-pad">
+                    <div class="col-md-5 slide-description">
+                        <p class="titulo-slide">Plaza Juárez Metepec</p>
+                        <p class="fecha-slide"></p>
+                        <p class="contenido-slide">Aprecia la Tlanchana (una sirena de barro), su quiosco octagonal y las fuentes danzarinas que se iluminan al caer la noche. </p>
+                    </div>
+                    <div class="col-md-7 slide-imagen not-mar-pad">
+                        <img src="/PortalAutoservicio/assets/banner/plaza-juarez.jpg">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="row not-mar-pad">
+                    <div class="col-md-5 slide-description">
+                        <p class="titulo-slide">Iglesia del Calvario, Metepec</p>
+                        <p class="fecha-slide"></p>
+                        <p class="contenido-slide">Contempla la obra de arte de mosaico en el área verde inclinada que está en este templo ubicado sobre una colina y disfruta la vista del centro del pueblo histórico de Metepec. </p>
+                    </div>
+                    <div class="col-md-7 slide-imagen not-mar-pad">
+                        <img src="/PortalAutoservicio/assets/banner/iglesia-calvario.jpg">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="row not-mar-pad">
+                    <div class="col-md-5 slide-description">
+                        <p class="titulo-slide">Mercado de Artesanías de Metepec</p>
+                        <p class="fecha-slide"></p>
+                        <p class="contenido-slide">Podrás encontrar todo tipo de artesanías para llevar a casa, las más importantes son las de barro, ya que, son características de este hermoso pueblo mágico. </p>
+                    </div>
+                    <div class="col-md-7 slide-imagen not-mar-pad">
+                        <img src="/PortalAutoservicio/assets/banner/mercado-artesanias.jpg">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class="row not-mar-pad">
+                    <div class="col-md-5 slide-description">
+                        <p class="titulo-slide">Santuarios de la Mariposa Monarca </p>
+                        <p class="fecha-slide"></p>
+                        <p class="contenido-slide">En la actualidad, el Estado de México tiene tres “Santuarios de la Mariposa Monarca”, ubicados en el Capulín, La Mesa y Piedra Herrada, en los municipios de Donato Guerra, San José del Rincón y Temascaltepec.
+                        </p>
+                    </div>
+                    <div class="col-md-7 slide-imagen not-mar-pad">
+                        <img src="/PortalAutoservicio/assets/banner/mariposa.jpg">
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+    </div>
+
+    <!-- Seccion de menu -->
+    <div class="col-md-2 col-sm-12">
+        <br />
+    </div>
+    <div class="col-md-8 col-sm-12" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-md-3 item_menu" *ngFor="let menu of menu">
+                <a href="#" class="txt-menu" routerLink="{{menu.DSURL}}">
+                    <div class="borde_menu">
+                        <!-- /PortalAutoservicio/ -->
+                        <img class="image-menu" src="/PortalAutoservicio/assets/Images/menu/{{menu.DSICONO}}" />
+                    </div>
+                    <p>{{menu.DSMENU}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Seccion de enlaces -->
+    <div class="col-md-12 col-sm-12" style="margin-top: 35px;">
+        <div class="row">
+            <div class="col-md-1 col-sm-1"></div>
+            <div class="col-md-10 col-sm-10">
+                <swiper [navigation]="true" [slidesPerView]="3" [autoplay]="{ delay: 4000, disableOnInteraction: false}" class="spiner-footer">
+                    <ng-template swiperSlide class="tamanio-pie">
+                        <div class="row not-mar-pad item-contenido-footer">
+                            <div class=" not-mar-pad slide-desc-footer" style="width: 100%;">
+                                <img src="/PortalAutoservicio/assets/Images/logo_edomex2.svg" alt="" style="margin: auto !important; width: 100px;">
+                            </div>
+                            <div class="not-mar-pad slide-text-footer" style="width: 100%;">
+                                <p style="margin-top: auto; margin-left: 10px;">Turismo</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide class="tamanio-pie">
+                        <div class="row not-mar-pad item-contenido-footer">
+                            <div class="not-mar-pad slide-desc-footer" style="width: 100%;">
+                                <img src="/PortalAutoservicio/assets/Images/logo_edomex2.svg" alt="" style="margin: auto !important; width: 100px;">
+                            </div>
+                            <div class="not-mar-pad slide-text-footer" style="background-color: #B550A4 !important; width: 100%;">
+                                <p style="margin-top: auto; margin-left: 10px;">Emplacamiento</p>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide class="tamanio-pie">
+                        <div class="row not-mar-pad item-contenido-footer">
+                            <div class="not-mar-pad slide-desc-footer" style="width: 100%;">
+                                <img src="/PortalAutoservicio/assets/Images/logo_edomex2.svg" alt="" style="margin: auto !important; width: 100px;">
+                            </div>
+                            <div class="not-mar-pad slide-text-footer" style="background-color: #653387; width: 100%;">
+                                <p style="margin-top: auto; margin-left: 10px;">Secretaría de Seguridad Pública</p>
+                            </div>
+                        </div>
+                    </ng-template>}
+                </swiper>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<p-dialog [(visible)]="displayDialogLogOut" [modal]="true" [style]="{width:
+    '50vw'}" [baseZIndex]="1000000" [closable]="false" [draggable]="false" [resizable]="false">
+    <div class="popup" pd-popup="popupNew" style="text-align: center;">
+        <div class="popup-inner">
+            <img src="/PortalAutoservicio/assets/Images/alerta.png" style="width: 150px;
+                height: 150px;">
+
+            <h2>Cierre de sesión automatica</h2>
+            <p>Para ingresar inicie sesión desde el portal SIGAP </p>
+            <p></p>
+            <a class="popup-close" pd-popup-close="popupNew" href="#"> </a>
+        </div>
+    </div>
+</p-dialog>

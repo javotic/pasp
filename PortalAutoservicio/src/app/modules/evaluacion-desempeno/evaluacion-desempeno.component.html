@@ -1,0 +1,194 @@
+<p-toast [style]="{marginTop: '1px'}" position="top-left" key="notifi"></p-toast>
+<p-toast position="center" key="d" ></p-toast>
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <p-panel header="Evaluación del desempeño" [toggleable]="false">
+            <div class="row contenido-pantalla">
+                <div class="col-md-12 not-mar-pad" *ngIf="isValid;">
+                    <div class="col-md-12">
+                        <p class="titulo-evaluacion">
+                            PROCESO DE EVALUACIÓN VIGENTE: {{procesoVig.CLAVEPROCESOEVALUACION}} - {{procesoVig.NOMBREPROCESOEVALUACION}}
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row center-h center-v" style="padding-top: 1em;">
+                            <div class="col-md-3 col-sm-3">
+                                <h6 style="font-weight: bold;">Proceso General:</h6>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: bold;">Inicia:</h6>
+                            </div>
+                            <div class="col-md-2  col-sm-2">
+                                {{procesoVig.FECHAINICIOPROCESOGENERAL  | dateFormat}}
+                            </div>
+                            <div>
+                                <h6 style="font-weight: bold;">Finaliza:</h6>
+                            </div>
+                            <div class="col-md-2  col-sm-2">
+                                {{procesoVig.FECHAFINPROCESOGENERAL  | dateFormat}}
+                            </div>
+                        </div>
+
+                        <div class="row center-h center-v">
+                            <div class="col-md-3 col-sm-3">
+                                <h6 style="font-weight: bold;">Captura Deméritos:</h6>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: bold;">Inicia:</h6>
+                            </div>
+                            <div class="col-md-2  col-sm-2">
+                                {{procesoVig.FECHAINICIOCAPTURADEMERITOS  | dateFormat}}
+                            </div>
+                            <div>
+                                <h6 style="font-weight: bold;">Finaliza:</h6>
+                            </div>
+                            <div class="col-md-2  col-sm-2">
+                                {{procesoVig.FECHAFINCAPTURADEMERITOS  | dateFormat}}
+                            </div>
+                        </div>
+                        <div class="row center-h center-v" style="padding-top: 2em;">
+                            <div class="col-md-6" style="text-align: center;">
+                                {{procesoVig.DESCRIPCIONPROCESOVIGENTE}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button pButton type="button" (click)="redirectDetalleedd()"
+                                    label="Iniciar" class="ui-button-primary"></button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 15px!important;">
+                                <div class="col-md-9"></div>
+                            <div class="col-md-3" style="text-align: right;">
+                                <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle" 
+                                label="Preguntas frecuentes" (click)="mostrarPreguntasFrecuentes()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="!isValid;"
+                    style="width: 100% !important; max-width: 100% !important; text-align: center; padding: auto; margin: auto;">
+                    <strong> NO EXISTE PROCESO DE EVALUACIÓN VIGENTE. </strong>
+                </div>
+                <div style="padding-top: 1px !important;">&nbsp;</div>
+
+                <p-table #dt selectionMode="single" [filterDelay]="0" [value]="movimientos" [rows]="10"
+                     [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+                    [responsive]="true">
+        
+                    <ng-template pTemplate="caption">
+                        HISTORIAL DE EVALUACIONES / TU COMO EVALUADOR
+                        <span class="tooltiptext_custom_header">En esta pantalla el responsable podrá visualizar 
+                            <br />
+                            evaluaciónes  realizadas a los servidores públicos asignados a sus unidades</span>
+                    </ng-template>
+        
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="tabletr">
+                            <th>Proceso de Evaluación</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Desempeño</th>
+                            <th>Deméritos</th>
+                            <th>Consultar Detalle</th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'PROCESOEVA', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'FECHAINI', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'FECHAINI', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true" (input)="dt.filter($event.target.value, 'DESEMPENO', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true" (input)="dt.filter($event.target.value, 'DEMERITOS', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true" (input)="dt.filter($event.target.value, 'DEMERITOS', 'contains')">
+                            </th>
+                        </tr>
+                    </ng-template>
+    
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr class="tabletr" [pSelectableRow]="rowData">
+                            <td>{{rowData.NOMBREPROCESOEVALUACION}}</td>
+                            <td>{{rowData.FECHAINICIOPROCESOEVALUACION  | dateFormat}}</td>
+                            <td>{{rowData.FECHAFINPROCESOEVALUACION  | dateFormat}}</td>
+                            <td  style="text-align: center;">
+                                <!-- /PortalAutoservicio/-->
+                                <img src="/PortalAutoservicio/assets/Images/correcto_color.svg" class="tamanioIco" *ngIf="mostrarDesempenio(rowData.TIPOEVALUACION)"/>
+                            </td>
+                            <td  style="text-align: center;">
+                                <img src="/PortalAutoservicio/assets/Images/correcto_color.svg" class="tamanioIco" *ngIf="mostrarDemeritos(rowData.TIPOEVALUACION)"/>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="/PortalAutoservicio/assets/Images/detalle_color.svg" class="tamanioIco" (click)="redirectDetalleeddH(rowData)"/>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="6">
+                                <strong> NO EXISTE HISTÓRICO DE PROCESO DE EVALUACIÓN RELACIONADOS </strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-panel>
+    </div>
+</div>
+
+<p-dialog header="Preguntas frecuentes" [(visible)]="displayPreguntas" [focusOnShow]="false" [responsive]="true"
+    showEffect="fade" [modal]="true"
+    [style]="{'width': '850px', 'height':'auto', 'max-width':'800px'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <strong>¿Qué mide la Evaluación del Desempeño?</strong>
+            <br>
+            <p align="justify">
+                En este proceso se evalúa de forma periódica el desarrollo constante de competencias que una
+                persona servidora pública posee para realizar sus labores con calidad, eficiencia y eficacia
+                dentro del Gobierno del Estado de México, el instrumento se divide en tres segmentos que valoran
+                los conocimientos teóricos con los que cuenta la persona servidora pública aplicados a la
+                practica en las actividades diarias, así como la destreza social que requiere la misma para
+                contribuir a formar un ambiente de trabajo armonioso y respetuoso, finalmente la puntualidad y
+                asistencia son a la vez igual de importantes para lograr una valoración multidimensional.
+            </p>
+            <br>
+            <strong>¿Para qué sirve la Evaluación del Desempeño?</strong>
+            <br>
+            <p align="justify">
+                La Evaluación del Desempeño debe llevarse a cabo de forma presencial entre la jefa o jefe y la
+                persona servidora pública, esto permite que la primer figura mencionada brinde una
+                retroalimentación sobre el rendimiento en las funciones, actividades y labores en general que
+                realiza la persona servidora pública, por otro lado esta última puede ser consciente sobre sus
+                áreas de oportunidad así como tener la posibilidad de recibir el reconocimiento por su empeño y
+                esfuerzo al mantener la calidad en su labor.
+            </p>
+
+            <br>
+            <p align="justify">
+                Además la Evaluación del Desempeño tiene un valor dentro del puntaje escalafonario para quienes
+                deseen participar en concursos de Ascenso Escalafonario.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+<ngx-spinner></ngx-spinner>

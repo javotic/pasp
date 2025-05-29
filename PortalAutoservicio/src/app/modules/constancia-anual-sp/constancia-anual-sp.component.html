@@ -1,0 +1,160 @@
+<p-toast [style]="{marginTop: '1px'}" position="top-left"></p-toast>
+<p-toast key="c" (onClose)="rechazar()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+    </ng-template>
+</p-toast>
+
+
+<form [formGroup]="theFormGroup">
+    <p-panel header="Constancia anual" [toggleable]="false" >       
+        <div class="row">
+
+            <div class="col-md-12" style="text-align: end;">        
+                <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle" 
+                label="Información" (click)="mostrarInstrucciones = true" style="width: 150px;"></button>
+            </div>
+
+            <div class="col-md-12 div-panel">                    
+                <h6>{{lblfiltrofechas}}</h6>
+                <div class="row">
+
+                    <div class="col-md-5" style="text-align: center;">
+                        <p-fieldset legend="Servidor Público">
+                            <div class="row">
+                                    <div class="col-md-6 text-left" *ngIf="!isMultiple">
+                                        <label>Clave</label>
+                                        <input type="text" id="claveSPBusqueda" [(ngModel)]="claveSPBusqueda"
+                                        pInputText formControlName="claveSPBusqueda">
+                                    </div>
+                                    <div class="col-md-12 text-left" *ngIf="isMultiple">
+                                        <label>Claves</label>
+                                        <input type="text" id="claveSPBusqueda" [(ngModel)]="claveSPBusqueda"
+                                        pInputText formControlName="claveSPBusqueda">
+                                    </div>
+                                <div class="col-md-6 text-left" *ngIf="!isMultiple">
+                                    <label>Nombre</label>
+                                    <input type="text" id="nombreSPBusqueda" [(ngModel)]="nombreSPBusqueda" formControlName="nombreSPBusqueda"
+                                    pInputText>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-left" style="padding: 0px; margin-top: 5px;" *ngIf="SPRequerido">
+                                <p-message severity="error" text="Servidor Público es requerido"></p-message>
+                            </div>
+                            <div class="col-md-12 text-left not-mar-pad" >
+                                <div tooltipPosition="top" style="margin-top: 10px;"
+                                pTooltip="Permite realizar el envió de múltiples servidores públicos separados por “,” por ejemplo: “851851525, 851851527, 851851525, 851851525”">
+                                    <p-checkbox [(ngModel)]="isMultiple" binary="true" inputId="binary"  formControlName="isMultiple"
+                                   (ngModelChange)="activaMultiple()"></p-checkbox>
+                                    <label for="binary">&nbsp;Multiples Servidores Públicos</label>
+                                </div>
+                            </div>
+
+                        </p-fieldset>
+                    </div>
+                    
+                    <div class="col-md-4" style="text-align: center;">
+                        <p-fieldset legend="Periodo" >
+                            <div class="row">
+                                <div class="col-md-12 text-left">
+                                    <label>Año</label>
+                                    <p-dropdown [options]="aniosSeleccion" (onChange)="cambiaAnioSeleccion($event)" >
+                                    </p-dropdown>
+                                </div>
+                            </div>                        
+                        </p-fieldset>
+                    </div>
+
+                    <div class="col-md-3" style="text-align: end; margin-top: 10px;">
+                        <button pButton type="button" label="{{btnbuscar}}" [style]="{'width':'150px'}"
+                        class="ui-button-primary" icon="pi pi-search"
+                         (click)="obtenerLstConstanciasAnuales()"></button>
+                         <!-- [disabled]="theFormGroup.invalid" -->
+                    </div>
+
+                </div>
+                <hr />
+
+            </div>
+            <div class="col-md-12">
+                <label class="font-message-search">*Para mostrar resultados, es importante que realice la búsqueda por periodo y Servidor Público</label>
+            </div>
+            <div class="col-md-3">
+                <button pButton type="button" label="Descargar pagas seleccionadas" [style]="{'width':'100%'}"
+                class="ui-button-primary" icon="pi pi-download"
+                [disabled]="1 >= archivosSelect.length" (click)="descargarFormato(null, true)"></button>
+            </div>
+            <br />
+            <br />
+            <div class="col-md-12">
+                <p-table [value]="archivos" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+                [(selection)]="archivosSelect">
+                    <ng-template pTemplate="header"  [responsive]="true">
+                        <tr>
+                            <th>Clave Servidor Público</th>
+                            <th>Nombre Servidor Público</th>
+                            <th>Paga</th>
+                            <th>Nombre Paga</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th style="width: 4rem">Recibo</th>
+                            <th style="width: 3rem">
+                                <!--<p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-car>
+                        <tr>
+                            <td>{{car.idServidor}}</td>
+                            <td>{{car.nServidor}}</td>
+                            <td>{{car.idPaga}}</td>
+                            <td>{{car.nPaga}}</td>
+                            <td style="width: 20px !important;">{{car.fechaInicio | dateFormat }}</td>
+                            <td style="width: 20px !important;">{{car.fechaFin | dateFormat }}</td>
+                            <!--
+                            <td style="width: 20px !important;">{{car.PERIODO}}</td>
+                            
+                            <td style="text-align: center;"><img src="/PortalAutoservicio/assets/Images/xls.png"  /> </td>
+                            -->
+                            <td style="text-align: center; cursor: pointer;"><img src="/PortalAutoservicio/assets/Images/pdf.png" (click)="descargarFormato(car, false)"  /> </td>
+                            <td>
+                                <p-tableCheckbox [value]="car"></p-tableCheckbox>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="8" style="font-weight: bold;">
+                                No se encontraron registros
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    
+    </p-panel>
+</form>
+
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false" [responsive]="true"
+showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}" >
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <p style="font-weight: bold;">Funcionalidad:</p>
+        <p style="text-align: justify;">
+            Esta pantalla muestra las incidencias del tiempo y registros de sanciones y estímulos.
+        </p>
+        <br />
+        <p style="font-weight: bold;">Instrucciones:</p>
+        <p style="text-align: justify;">
+            En la pantalla se indicarán los últimos registros por fecha, además se podrá consultar la información por medio de la búsqueda por rango de fechas, existen tres pestañas, una donde se muestran las incidencias de tiempo, otra donde se presentarán sanciones y una final donde se presentan estímulos.
+        </p>
+    </div>
+</div>
+</p-dialog>
+
+<ngx-spinner></ngx-spinner>

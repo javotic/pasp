@@ -1,0 +1,142 @@
+<p-panel header="Mis evaluaciones" [toggleable]="false">
+    <div class="row" style="margin-bottom: 15px;" >
+        <div class="col-md-12" style="text-align: center;"> 
+            <br />
+            <h4>
+                {{userCurrent.CLAVESERVIDOR}} - {{userCurrent.MOMBRE}} {{userCurrent.APELLIDOPATERNO}} {{userCurrent.APELLIDOMATERNO}}
+            </h4>
+        </div>
+    
+        <div class="col-md-10"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle" 
+            label="Preguntas frecuentes" (click)="mostrarPreguntasFrecuentes()"></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p-table #dt selectionMode="single" [paginator]="true" [rows]="10" [value]="misEvaluaciones"
+                [rowsPerPageOptions]="[10,25,50]" [filterDelay]="0" [responsive]="true">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Proceso de Evaluación</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Unidad Administrativa</th>
+                        <th>Puesto</th>
+                        <th>Calificación</th>
+                        <th>Constancia</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'HISTORICOEDDDTO', 'contains')">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'NOMBREPROCESOEVALUACION', 'contains')">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'FECHAINICIOPROCESOEVALUACION', 'contains')">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'NOMBREUNIDADADMINISTRATIVA', 'contains')">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'NOMBREPUESTO', 'contains')">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'CALIFICACION', 'contains')">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [style]="{'width':'100%','margin-top':'8px'}"
+                                [disabled]="true"
+                                (input)="dt.filter($event.target.value, 'CONSTANCIA', 'contains')">
+                        </th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-car>
+                    <tr>
+                        <td style="width: 20px !important;">{{car.NOMBREPROCESOEVALUACION}}</td>
+                        <td style="width: 20px !important;">{{car.FECHAINICIOPROCESOEVALUACION  | dateFormat}}</td>
+                        <td style="width: 20px !important;">{{car.FECHAFINPROCESOEVALUACION | dateFormat}}</td>
+                        <td style="width: 20px !important;">{{car.NOMBREUNIDADADMINISTRATIVA  }}</td>
+                        <td style="width: 20px !important;">
+                            {{car.NOMBREPUESTO }}</td>
+                        <td style="width: 20px !important;">{{car.CALIFICACION}}</td>
+                        <td style=" text-align: center;" >
+                            <img src="/PortalAutoservicio/assets/Images/pdf.png" (click)="descargarPDF(car)" *ngIf="disabledHis(car)"
+                                style="width: 2em !important; height: 2em !important; cursor:  pointer;" />
+                        </td>
+
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="7" style="font-weight: bold;">
+                            Sin evaluaciones
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+
+
+    </div>
+
+</p-panel>
+<p-dialog header="Preguntas frecuentes" [(visible)]="displayPreguntas" [focusOnShow]="false" [responsive]="true"
+showEffect="fade" [modal]="true"
+[style]="{'width': '850px', 'height':'auto', 'max-height':'900px', 'max-width':'800px'}">
+
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <div class="ui-g-12">
+            <strong>¿Qué mide la Evaluación del Desempeño?</strong>
+            <br>
+            <p align="justify">
+                En este proceso se evalúa de forma periódica el desarrollo constante de competencias que una
+                persona servidora pública posee para realizar sus labores con calidad, eficiencia y eficacia
+                dentro del Gobierno del Estado de México, el instrumento se divide en tres segmentos que valoran
+                los conocimientos teóricos con los que cuenta la persona servidora pública aplicados a la
+                practica en las actividades diarias, así como la destreza social que requiere la misma para
+                contribuir a formar un ambiente de trabajo armonioso y respetuoso, finalmente la puntualidad y
+                asistencia son a la vez igual de importantes para lograr una valoración multidimensional.
+            </p>
+            <br>
+            <strong>¿Para qué sirve la Evaluación del Desempeño?</strong>
+            <br>
+            <p align="justify">
+                La Evaluación del Desempeño debe llevarse a cabo de forma presencial entre la jefa o jefe y la
+                persona servidora pública, esto permite que la primer figura mencionada brinde una
+                retroalimentación sobre el rendimiento en las funciones, actividades y labores en general que
+                realiza la persona servidora pública, por otro lado esta última puede ser consciente sobre sus
+                áreas de oportunidad así como tener la posibilidad de recibir el reconocimiento por su empeño y
+                esfuerzo al mantener la calidad en su labor.
+            </p>
+
+            <br>
+            <p align="justify">
+                Además la Evaluación del Desempeño tiene un valor dentro del puntaje escalafonario para quienes
+                deseen participar en concursos de Ascenso Escalafonario.
+            </p>
+        </div>
+        <div class="ui-g-6">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</p-dialog>

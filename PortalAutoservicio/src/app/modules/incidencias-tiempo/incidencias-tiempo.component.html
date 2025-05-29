@@ -1,0 +1,435 @@
+<p-toast position="bottom-center" key="d"></p-toast>
+
+
+<p-panel header="{{consultaIncidenciasEtiquetas.titulo}}" [toggleable]="false">
+    <div class="col-md-12 div-panel" style="text-align: end;">        
+        <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle" 
+        label="Información" (click)="mostrarInstrucciones = true" style="width: 150px;"></button>
+    </div>
+    <form [formGroup]="theFormGroup">
+        <p-tabView>
+            <p-tabPanel header="Incidencias de tiempo">
+                <br />
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-5">
+                        <p-fieldset legend="Periodo Inicio" style="text-align: center; width: 100%;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Mes y Año</label>
+                                    <p-calendar [readonlyInput]="true" [locale]="es" [monthNavigator]="true"
+                                        [yearNavigator]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                        placeholder="{{consultaIncidenciasEtiquetas.fechainicioL}}" [maxDate]="maxDate"
+                                        [(ngModel)]="fechaInicio" dateFormat="MM/yy" view="month"
+                                        formControlName="startDate" ValidatorCalendar></p-calendar>
+                                    <div *ngIf="!theFormGroup.valid">
+                                        <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                            *ngIf="theFormGroup.get('startDate').hasError('startDateIsLess')">
+                                        </p-message>
+                                        <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioreq}}"
+                                            *ngIf="theFormGroup.get('startDate').hasError('startDateIsRequired')">
+                                        </p-message>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Quincena</label>
+                                    <p-dropdown [options]="quincenas" (onChange)="cambiar15Inicio($event)" >
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="ui-g-5">
+                        <p-fieldset legend="Periodo Fin" style="text-align: center; width: 100%;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Mes y Año</label>
+                                    <p-calendar [readonlyInput]="true" [locale]="es" [monthNavigator]="true"
+                                        [yearNavigator]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                        dateFormat="MM/yy" view="month"
+                                        placeholder="{{consultaIncidenciasEtiquetas.fechafin}}" [maxDate]="maxDate"
+                                        [(ngModel)]="fechaFin" formControlName="endDate" ValidatorCalendar></p-calendar>
+                                    <div *ngIf="!theFormGroup.valid">
+                                        <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                            *ngIf="theFormGroup.get('endDate').hasError('startDateIsLess')">
+                                        </p-message>
+                                        <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                            *ngIf="theFormGroup.get('endDate').hasError('endDateIsRequired')">
+                                        </p-message>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Quincena</label>
+                                    <p-dropdown [options]="quincenas" (onChange)="cambiar15Fin($event)">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="ui-g-2" style="display: flex;  flex-direction: column-reverse;">
+
+                        <button pButton type="button" label="{{consultaIncidenciasEtiquetas.botonBuscar}}"
+                            class="ui-button-primary" icon="pi pi-search" (click)="consultaincidenciasTiempo(1, 0)"
+                            [disabled]="theFormGroup.invalid"></button>
+                    </div>
+                </div>
+                <!--
+                        <div class="col-md-12 div-panel">
+                            <label class="font-message-search">{{consultaIncidenciasEtiquetas.tooltipfechas}}</label>
+                            <h6>{{consultaIncidenciasEtiquetas.filtrofechas}}</h6>
+                            <div class="row">
+                            </div>
+                            <hr />
+                        </div>
+                    -->
+                <br />
+                <p-table #dt [value]="incidenciasTiempo" [columns]="cols" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+                    [paginator]="true">
+
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{col.header}}
+                            </th>
+                            <th  *ngIf="showImporteIncidencia">
+                                Importe
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                <input *ngSwitchCase="'CLAVE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'NOMBRE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                                <input *ngSwitchCase="'FECHAINICIO'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'FECHAFIN'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                                <input *ngSwitchCase="'NUMEROUNIDADES'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'IMPORTE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                            </th>
+                            <th  *ngIf="showImporteIncidencia">
+                                <input pInputText type="text"
+                                [style]="{'width':'100%','margin-top':'8px'}"
+                                (input)="dt.filter($event.target.value, 'IMPORTE', 'contains')">
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr [pSelectableRow]="rowData">
+                            <td>{{rowData.IDINCIDENCIA}}</td>
+                            <td>{{rowData.NMINCIDENCIA}}</td>
+
+                            <td>{{rowData.FECHA| dateFormat}}</td>
+                            <td>{{rowData.FECHAAPLICA| dateFormat}}</td>
+                            <td>{{rowData.UNIDADES + ' ' +  rowData.TPUNIDADES }}</td>
+                            <td *ngIf="showImporteIncidencia">
+                                {{  rowData.IMPORTE.indexOf(".") == -1 
+                                ? rowData.IMPORTE
+                                : rowData.IMPORTE.slice(0, (rowData.IMPORTE.indexOf("."))+4) }}
+                            </td>
+
+
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td *ngIf="showImporteIncidencia" [attr.colspan]="6">
+                                <strong> {{consultaIncidenciasEtiquetas.noseencontraron}} </strong>
+                            </td>
+                            <td *ngIf="!showImporteIncidencia" [attr.colspan]="5">
+                                <strong> {{consultaIncidenciasEtiquetas.noseencontraron}} </strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+
+            </p-tabPanel>
+
+            <p-tabPanel header="Sanciones" style="width: 100%;" class="not-mar-pad">
+                <div class="col-md-12 div-panel">
+                    <br />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <p-calendar [readonlyInput]="true" [locale]="es" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                placeholder="{{consultaIncidenciasEtiquetas.fechainicioL}}" [maxDate]="maxDate"
+                                [(ngModel)]="fechaInicioSancion" dateFormat="MM/yy" view="month"
+                                formControlName="startDate" ValidatorCalendar></p-calendar>
+                            <div *ngIf="!theFormSanciones.valid">
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                    *ngIf="theFormSanciones.get('startDate').hasError('startDateIsLess')">
+                                </p-message>
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioreq}}"
+                                    *ngIf="theFormSanciones.get('startDate').hasError('startDateIsRequired')">
+                                </p-message>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-5">
+                            <p-calendar [readonlyInput]="true" [locale]="es" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                dateFormat="MM/yy" view="month" placeholder="{{consultaIncidenciasEtiquetas.fechafin}}"
+                                [maxDate]="maxDate" [(ngModel)]="fechaFinSancion" formControlName="endDate"
+                                ValidatorCalendar></p-calendar>
+                            <div *ngIf="!theFormSanciones.valid">
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                    *ngIf="theFormSanciones.get('endDate').hasError('startDateIsLess')">
+                                </p-message>
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                    *ngIf="theFormSanciones.get('endDate').hasError('endDateIsRequired')">
+                                </p-message>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+
+                            <button pButton type="button" label="{{consultaIncidenciasEtiquetas.botonBuscar}}"
+                                [style]="{'width':'100%'}" class="ui-button-primary"
+                                icon="pi pi-search" (click)="consultaincidenciasTiempo(2, 0)"
+                                [disabled]="theFormSanciones.invalid"></button>
+
+
+                        </div>
+
+                    </div>
+                    <hr />
+                </div>
+
+
+                <p-table #dt [value]="dataSanciones" [columns]="cols" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+                    [paginator]="true">
+
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{col.header}}
+                            </th>
+                            <th *ngIf="showImporteSancion">
+                                Importe
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                <input *ngSwitchCase="'CLAVE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'NOMBRE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                                <input *ngSwitchCase="'FECHAINICIO'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'FECHAFIN'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+
+                                <input *ngSwitchCase="'NUMEROUNIDADES'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                
+
+                            </th>
+                            <th *ngIf="showImporteSancion">
+                                <input  pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, 'IMPORTE', 'contains')">
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr [pSelectableRow]="rowData">
+                            <td>{{rowData.IDINCIDENCIA}}</td>
+                            <td>{{rowData.NMINCIDENCIA}}</td>
+
+                            <td>{{rowData.FECHA| dateFormat}}</td>
+                            <td>{{rowData.FECHAAPLICA| dateFormat}}</td>
+                            <td>{{rowData.UNIDADES + ' ' + rowData.TPUNIDADES }}</td>
+                            <td *ngIf="showImporteSancion">
+                                {{  rowData.IMPORTE.indexOf(".") == -1 
+                                    ? rowData.IMPORTE
+                                    : rowData.IMPORTE.slice(0, (rowData.IMPORTE.indexOf("."))+4) }}
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="6" *ngIf="showImporteSancion">
+                                <strong> {{consultaIncidenciasEtiquetas.noseencontraron}} </strong>
+                            </td>
+                            <td [attr.colspan]="5" *ngIf="!showImporteSancion">
+                                <strong> {{consultaIncidenciasEtiquetas.noseencontraron}} </strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </p-tabPanel>
+
+            <p-tabPanel header="Estímulos" class="not-mar-pad">
+                <div class="col-md-12 div-panel">
+                    <br />
+                    <div class="row">
+
+                        <div class="col-md-5">
+                            <p-calendar [readonlyInput]="true" [locale]="es" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                placeholder="{{consultaIncidenciasEtiquetas.fechainicioL}}" [maxDate]="maxDate"
+                                [(ngModel)]="fechaInicioEstimulo" dateFormat="MM/yy" view="month"
+                                formControlName="startDate" ValidatorCalendar></p-calendar>
+                            <div *ngIf="!theFormEstimulos.valid">
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                    *ngIf="theFormEstimulos.get('startDate').hasError('startDateIsLess')">
+                                </p-message>
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioreq}}"
+                                    *ngIf="theFormEstimulos.get('startDate').hasError('startDateIsRequired')">
+                                </p-message>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-5">
+                            <p-calendar [readonlyInput]="true" [locale]="es" [monthNavigator]="true"
+                                [yearNavigator]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                dateFormat="MM/yy" view="month" placeholder="{{consultaIncidenciasEtiquetas.fechafin}}"
+                                [maxDate]="maxDate" [(ngModel)]="fechaFinEstimulo" formControlName="endDate"
+                                ValidatorCalendar></p-calendar>
+                            <div *ngIf="!theFormEstimulos.valid">
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                    *ngIf="theFormEstimulos.get('endDate').hasError('startDateIsLess')">
+                                </p-message>
+                                <p-message severity="error" text="{{consultaIncidenciasEtiquetas.finicioffin}}"
+                                    *ngIf="theFormEstimulos.get('endDate').hasError('endDateIsRequired')">
+                                </p-message>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+
+                            <button pButton type="button" label="{{consultaIncidenciasEtiquetas.botonBuscar}}"
+                                [style]="{'width':'100%'}" class="ui-button-primary"
+                                icon="pi pi-search" (click)="consultaincidenciasTiempo(3, 0)"
+                                [disabled]="theFormEstimulos.invalid"></button>
+
+                        </div>
+
+                    </div>
+                    <hr />
+                </div>
+
+
+                <p-table #dt [value]="dataEstimulos" [columns]="cols" [rows]="10" [rowsPerPageOptions]="[10,25,50]"
+                    [paginator]="true">
+
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                {{col.header}}
+
+                            </th>
+                            <th *ngIf="showImporteEstimulo">
+                                Importe
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                <input *ngSwitchCase="'CLAVE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'NOMBRE'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                                <input *ngSwitchCase="'FECHAINICIO'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'FECHAFIN'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+
+                                <input *ngSwitchCase="'NUMEROUNIDADES'" pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+              
+
+                            </th>
+                            <th *ngIf="showImporteEstimulo">
+                                                  <input pInputText type="text"
+                                    [style]="{'width':'100%','margin-top':'8px'}"
+                                    (input)="dt.filter($event.target.value, 'IMPORTE', 'contains')">
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr [pSelectableRow]="rowData">
+                            <td>{{rowData.IDINCIDENCIA}}</td>
+                            <td>{{rowData.NMINCIDENCIA}}</td>
+
+                            <td>{{rowData.FECHA| dateFormat}}</td>
+                            <td>{{rowData.FECHAAPLICA| dateFormat}}</td>
+                            <td>{{rowData.UNIDADES + ' ' + rowData.TPUNIDADES}}</td>
+                            <td *ngIf="showImporteEstimulo">
+                                {{  rowData.IMPORTE.indexOf(".") == -1 
+                                ? rowData.IMPORTE
+                                : rowData.IMPORTE.slice(0, (rowData.IMPORTE.indexOf("."))+4) }}
+                            </td>
+
+
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td *ngIf="showImporteEstimulo" [attr.colspan]="6">
+                                <strong> {{consultaIncidenciasEtiquetas.noseencontraron}} </strong>
+                            </td>
+                            <td *ngIf="!showImporteEstimulo" [attr.colspan]="5">
+                                <strong> {{consultaIncidenciasEtiquetas.noseencontraron}} </strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+
+            </p-tabPanel>
+        </p-tabView>
+    </form>
+</p-panel>
+
+
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false" [responsive]="true"
+showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}" >
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <p style="font-weight: bold;">Funcionalidad:</p>
+        <p style="text-align: justify;">
+            Esta pantalla muestra las incidencias del tiempo y registros de sanciones y estímulos.
+        </p>
+        <br />
+        <p style="font-weight: bold;">Instrucciones:</p>
+        <p style="text-align: justify;">
+            En la pantalla se indicarán los últimos registros por fecha, además se podrá consultar la información por medio de la búsqueda por rango de fechas, existen tres pestañas, una donde se muestran las incidencias de tiempo, otra donde se presentarán sanciones y una final donde se presentan estímulos.
+        </p>
+    </div>
+</div>
+</p-dialog>
+
+<ngx-spinner></ngx-spinner>

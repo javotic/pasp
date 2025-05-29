@@ -1,0 +1,189 @@
+<p-toast position="center" key="error" [modal]="true" [baseZIndex]="5000"></p-toast>
+<p-toast position="center" key="kpi"   [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 120px"></i>
+            <h3>Instrucciones</h3>
+            <p>
+                {{instruccionesEvaluacionKPI.INSTRUCCIONES}} </p>
+        </div>
+        <div class="ui-g ui-fluid">
+
+            <div class="ui-g-6" style="text-align: center;">
+                <button type="button" pButton (click)="cerrarDialog()" label="Regresar"
+                    class="ui-button-danger"></button>
+            </div>
+            <div class="ui-g-6"  style="text-align: center;">
+                <button type="button" pButton (click)="startEval()" label="Iniciar"
+                    class="ui-button-success"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-12">
+    <p-panel header="Evaluación de encuesta" [toggleable]="false">
+        <div class="row contenido-pantalla">
+
+            <div class="col-md-12 text-center" style="padding: 15px !important;" *ngIf="!exiteKPI">
+                <h5 style="font-weight: bold !important;">
+                    NO HAY NINGÚN PROCESO ENCUESTA VIGENTE.
+                </h5>
+            </div>
+
+            <div class="col-md-12" *ngIf="exiteKPI">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h5 style="font-weight: bold !important;">PROCESO ENCUESTA VIGENTE</h5>
+                    </div>
+                    <div class="col-md-12" style="text-align: center; font-size: large;">
+                        {{procesoKPIVigente.CLAVEPROCESOEVALUACIONKPI}} - {{procesoKPIVigente.NOMBREPROCESOEVALUACIONKPI}}
+                    </div>
+                </div>
+                <div class="col-md-12" style="padding-bottom: 10px;">
+                    <div class="row" style="text-align: center; align-content: center;">
+                        <div class="form-group row" style="margin: auto;">
+                            <label class="col-md-3 col-form-label" style="font-size: large;">Proceso general</label>
+                            <label class="col-md-1 col-form-label" style="font-size: large;">Inicia:</label>
+                            <label
+                                class="col-md-3 col-form-label" style="font-size: large;">{{procesoKPIVigente.FECHAINICIOPROCESOGENERAL | dateFormat}}</label>
+                            <label class="col-md-1 col-form-label" style="font-size: large;">Finaliza:</label>
+                            <label
+                                class="col-md-4 col-form-label" style="font-size: large;">{{procesoKPIVigente.FECHAFINPROCESOGENERAL | dateFormat}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="exiteKPI"   >
+                <div class="col-md-12" style="text-align: center; font-size: medium;">
+                    {{procesoKPIVigente.DESCRIPCIONPROCESOKPIVIGENTE}}
+                </div>
+                <div class="col-md-12 text-center" style="margin-top: 15px !important;">
+                    <button *ngIf="permiteContestar" pButton type="button" label="Comenzar" [style]="{'width':'180px'}"
+                        class="ui-button-primary" (click)="iniciarEvaluacion()"></button>
+                </div>
+            </div>
+
+            <div class="col-md-10"></div>
+            <div class="col-md-2 text-right" style="cursor: pointer;">
+                <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle" 
+                label="Preguntas frecuentes" (click)="muestraPreguntas()"></button>
+            </div>  
+        </div>
+  
+
+        <div class="row" style="padding-top: 2em;">
+            <hr />
+            <div class="col-md-12">
+                <p-table #dt selectionMode="single" [paginator]="true" [rows]="10" [value]="historialKPI"
+                    [rowsPerPageOptions]="[10,25,50]" [filterDelay]="0" [responsive]="true">
+                    <ng-template pTemplate="caption">
+                        HISTORIAL DE PROCESOS ENCUESTA / TU COMO EVALUADOR
+                    </ng-template>
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Clave del proceso</th>
+                            <th>Nombre del proceso</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha fin</th>
+                            <th>Realizado</th>
+                            <th style="width: 100px !important;">Documento</th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'CLAVEPROCESOKPI', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'NOMBREPROCESOKPI', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'FECHAINICIOPROCESOEVALUACION', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'FECHAFINPROCESOEVALUACION', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    [disabled]="true" (input)="dt.filter($event.target.value, 'IDESTATUS', 'contains')">
+                            </th>
+                            <th style="width: 100px !important;"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-car>
+                        <tr>
+                            <td>{{car.CLAVEPROCESOKPI}}</td>
+                            <td>{{car.NOMBREPROCESOEVALUACION}}</td>
+                            <td>{{car.FECHAINICIOPROCESOKPI | dateFormat}}</td>
+                            <td>{{car.FECHAFINPROCESOKPI  | dateFormat}}</td>
+                            <td>
+                                <div style="display: flex; justify-content: center;">
+                                    <img src="/PortalAutoservicio/assets/Images/correcto_color.svg" class="tamanioIco" 
+                                    [hidden]="car.IDESTATUS != 1"/>  
+
+                                    <i class="pi pi-times-circle" style="color:red; font-size:xx-large;"
+                                        [hidden]="car.IDESTATUS == 1"></i>
+                                    <i class="ico-center" style="color:red; font-size:small;"[hidden]="car.IDESTATUS == 1"> Incompleto</i>
+                                </div>
+                            </td>
+                            <td style="width: 100px !important; text-align: center;">
+                                <!-- /PortalAutoservicio/ -->
+                                <img src="/PortalAutoservicio/assets/Images/pdf.png" [hidden]="car.IDESTATUS != 1" class="tamanioIco"
+                                (click)="generarReporteEncuesta(car.FECHAEVAL, car.NOMBREPROCESOEVALUACION)" /> 
+                            </td>                            
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="6" style="font-weight: bold;">
+                                NO EXISTE HISTÓRICO DE PROCESOS DE ENCUESTA RELACIONADOS
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </div>
+        </div>
+
+
+        <p-dialog header="Detalle" [(visible)]="displayPreguntas" [focusOnShow]="false" [responsive]="true"
+            showEffect="fade" [modal]="true"
+            [style]="{'width': '750px', 'height':'350px', 'max-height':'700px', 'max-width':'700px'}">
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12" style="text-align: center;">
+                    <div class="ui-g-12" >
+                        <strong>¿Para qué sirven los Procesos de encuestas?</strong>
+                        <br>
+                        <p align="justify">
+                            La información que usted proporcione quedará bajo el resguardo y análisis de la Subdirección de 
+                            Proceso Escalafonario y Evaluación del Capital Humano, los procesos de encuestas y otros nos 
+                            permiten conocer su punto de vista sobre diversas situaciones actuales tanto de sus vivencias 
+                            laborales, así como la retroalimentación de los procesos que se llevan a cabo dentro de 
+                            nuestra Subdirección.
+
+                        </p>
+                    </div>
+                    <div class="ui-g-12">
+                        <strong>¿Cada cuánto debo responder una encuesta?</strong>
+                        <p align="justify">
+                            Las encuestas carecen de un tiempo fijo o periódico para ser aplicadas por nuestra Subdirección, 
+                            cuando se abra un proceso se le hará saber mediante avisos por correo electrónico, 
+                            así como notificaciones en el portal de autoservicio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </p-dialog>
+
+    </p-panel>
+</div>
+</div>
+<ngx-spinner></ngx-spinner>

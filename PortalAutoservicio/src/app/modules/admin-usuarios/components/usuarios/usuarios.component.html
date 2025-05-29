@@ -1,0 +1,292 @@
+<p-toast position="bottom-center" key="d"></p-toast>
+
+    <div class="container" *ngIf="!mostrarEditarUsuario">
+        <br />
+        <!-- Administracion de usuarios -->
+        <p-panel header="Administración de usuarios" [toggleable]="false">
+            <div class="row">
+                <div class="col-md-12 div-panel">
+                    <form [formGroup]="formConsulta" (ngSubmit)="consultaUsuarios($event)">
+                        <h6>Filtros de búsqueda</h6>
+                        <div class="row">
+                        
+                            <div class="col-md-3">
+                                <input placeholder="Clave" pInputText type="text" formControlName="clave" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <input placeholder="Nombre" pInputText type="text" formControlName="nombre" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <button pButton type="submit" label="Buscar" class="ui-button-primary"
+                                    style="width: 100%; height: 90%; font-size: medium;" icon="pi pi-search"></button>
+                            </div>
+                        
+                        </div>
+                        <br />
+                        <label class="font-message-search">* Para mostrar resultados y poder asignar un rol es importante
+                            que realice la búsqueda por nombre o clave del usuario.</label>
+                        <hr />
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <p-table #dt [value]="listUsuarios" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" >
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Clave de Servidor Público</th>
+                                <th style="width: 40% !important;">Nombre de Servidor Público</th>
+                                <th>Rol</th>
+                                <th>Cambiar Rol</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData>
+                            <tr [pSelectableRow]="rowData">
+                                <td>{{rowData.ID_PERSON}}</td>
+                                <td>{{rowData.APELLIDO_P + ' ' + rowData.APELLIDO_M + ' ' + rowData.NOMBRE}}</td>
+                                <td>{{rowData.ROL.DSROL}}</td>
+                                <td style="padding: 2px; text-align: center; width: 30px;">
+                                    <button pButton type="button" icon="pi pi-user-edit" (click)="editarUsuario(rowData)"
+                                        style="width: 30px; height: 30px;" ></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="4">
+                                    <strong>No se encontraron resultados</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-panel>
+
+        <!-- Tiempo de prorroga -->
+        
+        <br />
+        <p-panel header="Tiempo de prorroga" [toggleable]="false">
+            <div class="row">
+                <div class="col-md-12 div-panel">
+                    <form [formGroup]="formProrroga" (ngSubmit)="ActualizarProrroga($event)">
+                        <h6>La prórroga indica los días en los que el usuario podrá ingresar al sistema después de su baja.</h6>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="txtprorroga">Tiempo de prorroga (en días)</label>
+                                <input pInputText name="txtprorroga" [attr.disabled]="!esEdicionProrroga ? 'disabled' : null"  type="number" formControlName="nodias" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="txtuserprorroga">Ultima actualización</label>
+                                <input name="txtuserprorroga" pInputText type="text"
+                                [value]="formProrroga.get('fcupdate').value | date:'medium': 'mx'" formControlName="fcupdate" disabled class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="txtusuarioupd">Usuario que actualizó</label>
+                                <input name="txtusuarioupd" pInputText type="text" formControlName="dsusuario" disabled class="form-control">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p-message severity="error" text="El tiempo debe ser un numero entero"
+                                *ngIf="(!formProrroga.controls['nodias'].valid&&formProrroga.controls['nodias'].dirty)|| isErrorDias">
+                            </p-message>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button pButton type="button" label="Editar" class="ui-button-primary" *ngIf="!esEdicionProrroga"
+                                    style="width: 90%; font-size: medium;" icon="pi pi-pencil" (click)="interactuaProrroga()"></button>
+
+                                <button pButton type="submit" label="Actualizar" *ngIf="esEdicionProrroga" class="ui-button-success"
+                                style="width: 90%; font-size: medium;" icon="pi pi-check"></button>
+                            </div>
+                            <div class="col-md-2">
+                                <button pButton type="button" label="Cancelar" *ngIf="esEdicionProrroga" class="ui-button-danger"
+                                style="width: 90%; font-size: medium;" icon="pi pi-times" (click)="interactuaProrroga(true)" ></button>
+                            </div>
+                        </div>
+                    </form>
+                    <br />
+                </div>
+            </div>
+        </p-panel>
+        <!-- Termina Administracion de usuarios-->
+    </div>
+
+
+    <div class="container" *ngIf="mostrarEditarUsuario">
+        <br />
+        <!-- Administracion de usuarios -->
+        <p-panel header="Modificar usuario" [toggleable]="false">
+            <div class="row">
+                <div class="col-md-12 div-panel">
+                    <form [formGroup]="formEdicion" (ngSubmit)="actualizarUsuario($event)">
+                        <div class="ui-g ui-fluid">
+                                <div class="ui-g-6">
+                                    <label for="year">Clave de Servidor Público </label>
+                                    <input pInputText size="49" maxlength="20" formControlName="clave" disabled
+                                        class="form-control" />
+                                </div>
+                                <div class="ui-g-6">
+                                    <label for="brand">Nombre de Servidor Público</label>
+                                    <input pInputText *ngIf="usuarioEdicion != null" 
+                                    value="{{usuarioEdicion.APELLIDO_P + ' ' + usuarioEdicion.APELLIDO_M + ' ' + usuarioEdicion.NOMBRE}}" 
+                                    class="form-control" disabled />
+                                </div> 
+        
+                                <div class="ui-g-6">
+                                    <label for="color">Rol</label>
+                                    <p-dropdown [options]="roles" optionLabel="DSROL" optionValue="IDROL"
+                                         id="idRol" name="idRol" formControlName="idRol"
+                                        placeholder="Seleccione un Rol:" required (onChange)="onChangeRol($event)"> </p-dropdown>
+                                      <p-message severity="error" text="El rol es requerido"
+                                      *ngIf="!formEdicion.controls['idRol'].valid && executeUpdate">
+                                      </p-message>
+                                </div>
+                                <div class="ui-g-3" style="text-align: center;">
+                                    <label for="edicionActivo">Activo</label>
+                                    <br>
+                                    <p-inputSwitch name="edicionActivo" formControlName="boActivo">
+                                    </p-inputSwitch>
+                                </div>
+
+                                <div class="ui-g-12" *ngIf="idRolEdicion >=3 && 5 >= idRolEdicion ">
+                                    <hr>
+                                    <p style="font-weight: bold;">
+                                        Dependencias
+                                    </p>
+                                </div>
+                               
+                                <div class="ui-g-5" *ngIf="idRolEdicion  >=3 && 5 >= idRolEdicion ">
+  
+                                    
+                                    <label for="brand">Secretaria</label>
+                                    <p-dropdown   [options]="lstDependencia" [(ngModel)]="selectSecretaria"
+                                    [ngModelOptions]="{standalone: true}" id="idDependencia" name="idDependencia" 
+                                        placeholder="-- Seleccione --" (onChange)="onChangeSec($event)"> 
+                                      
+                                        <ng-template let-value pTemplate="selectedItems">
+                                            <div *ngIf="value && 4 > value.length">
+                                                {{value}}
+                                            </div>
+                                            <span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all">-- Seleccione --</span>
+                                            <span *ngIf="value && value.length > 3" class="ui-multiselected-empty-token ui-corner-all">{{value.length}} Secretarias seleccionadas</span>
+                                        </ng-template>
+                                        <ng-template let-dependencia pTemplate="item">
+                                                {{dependencia.value + ' - ' +  dependencia.label}}
+                                        </ng-template>
+                                    </p-dropdown >
+                                </div>
+
+                                <div class="ui-g-5" *ngIf="idRolEdicion  == 4">
+                                    <label for="brand">Subsecretaria</label>
+                                    <p-dropdown [options]="lstSubSecretaria" [(ngModel)]="selectSubSecretaria"
+                                    [ngModelOptions]="{standalone: true}" id="idSubSecretaria" name="idSubSecretaria"
+                                    placeholder="-- Seleccione --" [showClear]="true"  > 
+
+                                        <ng-template let-dependencia pTemplate="item">
+                                            {{dependencia.value + ' - ' +  dependencia.label}}
+                                        </ng-template>
+                                    </p-dropdown  >
+                                </div>     
+                                
+                                <div class="ui-g-5" *ngIf="idRolEdicion  == 5 ">
+                                    <label for="brand">Dirección General</label>
+                                    <p-dropdown   [options]="lstDirGeneral" [(ngModel)]="selectDireccionG"
+                                    [ngModelOptions]="{standalone: true}"
+                                    id="idDireccionGeneral" name="idDireccionGeneral" placeholder="-- Seleccione --"> 
+                                      
+                                        <ng-template let-value pTemplate="selectedItems">
+                                            <div *ngIf="value && 4 > value.length">
+                                                {{value}}
+                                            </div>
+                                            <span *ngIf="!value || value.length === 0" class="ui-multiselected-empty-token ui-corner-all">-- Seleccione --</span>
+                                            <span *ngIf="value && value.length > 3" class="ui-multiselected-empty-token ui-corner-all">{{value.length}} Secretarias seleccionadas</span>
+                                        </ng-template>
+                                        <ng-template let-dependencia pTemplate="item">
+                                            {{dependencia.value + ' - ' +  dependencia.label}}
+                                        </ng-template>
+                                    </p-dropdown  >
+                                </div> 
+                                
+                                <div class="ui-g-2" style="display: flex; flex-direction: column; align-self: flex-end"
+                                *ngIf="idRolEdicion  >=3 && 5 >= idRolEdicion "
+                                   >
+                                    <button style="width: 140px; height: 35px; font-size: medium; margin-top: auto; margin-bottom: auto;" label="Agregar" pButton
+                                    type="button" class="ui-button-success" (click)="agregarElemento()"></button>
+                                </div>
+
+
+
+                                <div class="ui-g-12" *ngIf="idRolEdicion  >=3 && 5 >= idRolEdicion "
+                                    >
+                                    <div class="ui-g-12">
+                                        <hr>
+                                        <p style="font-weight: bold;">
+                                            Dependencias Seleccionadas
+                                        </p>
+                                        
+                                    </div>
+                                    <br />
+
+
+                                    <p-table #dt [value]="lstSeleccionados" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" >
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>Unidad</th>
+                                                <th style="width: 40% !important;">Nombre Unidad</th>
+                                                <th>Quitar</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData>
+                                            <tr [pSelectableRow]="rowData">
+                                                <td>{{rowData.value}}</td>
+                                                <td>{{rowData.label}}</td>
+                                                <td style="padding: 2px; text-align: center; width: 30px;">
+                                                    <button pButton type="button" icon="pi pi-minus-circle" label="Quitar" (click)="quitarElemento(rowData.value)"
+                                                        style="width: 110px; height: 30px;" class="ui-button-danger" ></button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage" let-columns>
+                                            <tr>
+                                                <td [attr.colspan]="3">
+                                                    <strong>No se ha agregado ninguna dependencia</strong>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                 </div>
+
+                                 <div class="ui-g-12">
+                                    <hr>                                    
+                                </div>
+
+
+                                      
+                        </div>
+                            <br />
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-12" style=" text-align: right;">
+                                    <button pButton type="submit" label="Guardar" class="ui-button-success"
+                                    style="width: 140px; height: 35px; font-size: medium; margin-right: 25px;"></button>
+
+                                    <button style="width: 140px; height: 35px; font-size: medium;" label="Cancelar" pButton
+                                        type="button" class="ui-button-danger" (click)="ocultarEdicionUsuario()"></button>
+                                </div>
+                            </div>
+                            <br />
+                    </form>
+                </div>
+            </div>
+        </p-panel>
+        <!-- Termina Administracion de usuarios-->
+    </div>
+
+
+
+
+
+<ngx-spinner></ngx-spinner>

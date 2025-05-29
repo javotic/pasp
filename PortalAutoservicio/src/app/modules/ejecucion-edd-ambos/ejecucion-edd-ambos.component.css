@@ -1,0 +1,37 @@
+
+:host ::ng-deep .ui-panel .ui-panel-titlebar {
+  background-color: #636569 !important;
+  color: white;
+  }
+
+:host ::ng-deep .ui-widget-header{
+  background: #fff !important;
+  border : 1px solid #fff !important;
+}
+/* barra de progreso */
+:host ::ng-deep  .ui-progressbar{
+  background: #E2E2E2 !important;
+}
+:host ::ng-deep  .ui-progressbar .ui-progressbar-value{
+  background: #A0E1DA !important;
+}
+
+
+
+:host ::ng-deep .ui-tabview-nav li.ui-state-active{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid transparent !important;
+}
+
+:host ::ng-deep .ui-tabview-nav li.ui-state-active a{
+  color: black !important;
+}
+
+:host ::ng-deep .ui-tabview-nav li.magenta {
+  background-color: #B9007C !important;
+}
+
+:host ::ng-deep .ui-tabview-nav li.verde {
+  background-color: #70B43D !important;
+}

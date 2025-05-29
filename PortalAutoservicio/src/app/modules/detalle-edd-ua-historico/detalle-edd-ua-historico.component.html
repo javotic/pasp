@@ -1,0 +1,164 @@
+<p-toast [style]="{marginTop: '1px'}" position="top-left" key="notifi"></p-toast>
+<p-toast position="center" key="d"></p-toast>
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<p-toast position="center" key="endDem" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>Quedan {{spPendientes}} Personas Servidoras Públicas por evaluar.</h3>
+            <p>Todos los faltantes obtendran 0 puntos en la sección de demeritos.</p>
+            <p>¿Está seguro de finalizar las evaluaciones?</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+            </div>
+            <div class="ui-g-6">
+                
+                <button type="button" pButton (click)="cerrarDialog()" label="Cancelar"
+                class="ui-button-rounded btn-no"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-12 text-right" style="margin-bottom: 10px;">
+        <a class="a-regresar" (click)="showRegresar()">Regresar</a>
+    </div>
+    <div class="col-md-12">
+        <p-panel header="Evaluación del desempeño" [toggleable]="false">  
+            <div class="row contenido-pantalla">
+                <div class="col-md-12" style="text-align: center;">
+                    <h5> DETALLE DEL PROCESO DE EVALUACIÓN POR UNIDAD ADMINISTRATIVA</h5>
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                    <h6>{{ movimidetalleproua.IDEVALUACIONVIGENTE }} - {{movimidetalleproua.NOMBREEVALUACIONVIGENTE}}</h6>
+                </div>
+                <div class="col-md-12" style="text-align: center; font-weight: bold;">
+                    {{movimidetalleproua.IDUNIDADADMINISTRATIVA}} - {{movimidetalleproua.NOMBREUNIDADADMINISTRATIVA}}
+                </div>
+    
+                <div class="col-md-12" style="padding-top: 1em;">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-3" style="display: inline-flex">Total de Personas Servidoras Públicas: <h6>{{movimidetalleproua.TOTALSERVIDORESPUBLICOS}}</h6>
+                        </div>
+                        <div class="col-md-3" style="display: inline-flex">Evaluados: <h6 class="evaluados">{{movimidetalleproua.TOTALSERVIDORESPUBLICOSEVALUADOS}}</h6>
+                        </div>
+                        <div class="col-md-3" style="display: inline-flex">Faltantes: <h6 class="faltantes">{{movimidetalleproua.TOTALSERVIDORESPUBLICOSFALTANTES}}</h6>
+                        </div>
+                        <div class="col-md-3" style="display: inline-flex">Porcentaje de avance: <h6>{{movimidetalleproua.PORCENTAJEAVANZE}}</h6>
+                        </div>
+                    </div>
+                </div>
+        
+
+                <p-table #dt selectionMode="single" [filterDelay]="0" [value]="movimidetalleproua.LSTSERVIDORESPUBLICOS" 
+                [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [responsive]="true">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="tabletr">
+                            <th>Clave SP</th>
+                            <th>Nombre SP</th>
+                            <th>Clave UA</th>
+                            <th>Nombre UA</th>
+                            <th>Puesto</th>
+                            <th>Desempeño</th>
+                            <th>Deméritos</th>
+                            <th>Evaluación Cerrada</th>
+                            <th>Visualizar Formato</th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'CLAVESERVIDORPUBLICO', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'NOMBRESERVIDORPUBLICO', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'IDUNIDAD_ASIGNADA', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'UNIDAD_ASIGNADA', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'PUESTOSERVIDORPUBLICO', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true"
+                                    (input)="dt.filter($event.target.value, 'DESEMPENO', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true"
+                                    (input)="dt.filter($event.target.value, 'DEMERITOS', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true"
+                                    (input)="dt.filter($event.target.value, 'EVALUCERRA', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" [disabled]="true"
+                                    (input)="dt.filter($event.target.value, 'EVALUCERRA', 'contains')">
+                            </th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr class="tabletr" [pSelectableRow]="rowData" [pSelectableRowDisabled]="true">
+                            <td>{{rowData.CLAVESERVIDORPUBLICO}}</td>
+                            <td>{{rowData.NOMBRESERVIDORPUBLICO}} {{rowData.APELLIDOPATERNOSERVIDORPUBLICO}} {{rowData.APELLIDOMATERNOSERVIDORPUBLICO}}</td>
+                            <td>{{rowData.IDUNIDAD_ASIGNADA}}</td>
+                            <td>{{rowData.UNIDAD_ASIGNADA}}</td>
+                            <td>{{rowData.PUESTOSERVIDORPUBLICO}}</td>                    
+                            <td class="text-center">
+                                <img src="/PortalAutoservicio/assets/Images/correcto_color.svg" class="tamanioIco"
+                                *ngIf="validaEvaluacionCerrada(rowData.ESTATUSEVALUACION)"
+                                 />          
+                            </td>
+                            <td class="text-center">
+                                <img src="/PortalAutoservicio/assets/Images/correcto_color.svg" class="tamanioIco" 
+                                *ngIf="validaEvaluacionCerradaDemeritos(rowData.ESTATUSEVALUACION)"/> 
+                            </td>                    
+                            <td *ngIf="validacionEstatus(rowData.ESTATUSEVALUACION)">Si</td>
+                            <td *ngIf="!validacionEstatus(rowData.ESTATUSEVALUACION)">No</td>
+                            <td *ngIf="!validacionEstatus(rowData.ESTATUSEVALUACION)"></td>
+                            <td *ngIf="validacionEstatus(rowData.ESTATUSEVALUACION)" class="text-center">
+                                <!-- /PortalAutoservicio/ -->
+                                <img src="/PortalAutoservicio/assets/Images/pdf.png" (click)="descargarPDF(rowData)" title="{{tooltipimg}}"
+                                 class="tamanioIco"/>                          
+                            </td>
+                        </tr>
+                    </ng-template>
+        
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="6" style="font-weight: bold;">
+                                <strong> NO HAY INFORMACION ASOCIADA AL DETALLE DEL PROCESO </strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-panel>
+    </div>
+</div>    
+<ngx-spinner></ngx-spinner>

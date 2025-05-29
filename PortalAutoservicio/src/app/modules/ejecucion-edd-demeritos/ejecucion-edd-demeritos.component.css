@@ -1,0 +1,3 @@
+:host ::ng-deep .wide-toast .ui-toast-message {
+	width: 600px;
+}

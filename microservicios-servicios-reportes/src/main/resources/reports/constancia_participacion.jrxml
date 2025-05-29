@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="constancia_participacion" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="dd062e57-7e62-4161-ac23-84957f59bdc2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="ireport.zoom" value="1.6105100000000079"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="528"/>
+	<style name="ColorColumn" mode="Opaque" backcolor="#000000" isBold="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="asignacionPuntajeDataset" uuid="6a7dd4e8-0d85-449c-ab8b-b2fc41931875">
+		<parameter name="V_P_ESCALAFONARIA" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="puntos" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="claveServidorPublico" class="java.lang.String"/>
+	<parameter name="puestoNominal" class="java.lang.String"/>
+	<parameter name="categoria" class="java.lang.String"/>
+	<parameter name="secretaria" class="java.lang.String"/>
+	<parameter name="desconocido3" class="java.lang.String"/>
+	<parameter name="numeroRegistro" class="java.lang.String"/>
+	<parameter name="asignacionPuntajeDataset" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="puntajeEscalafonario" class="java.lang.String"/>
+	<parameter name="examen" class="java.lang.String"/>
+	<parameter name="totalPuntuacionEscalafonario" class="java.lang.String"/>
+	<parameter name="numPlaza" class="java.lang.String"/>
+	<parameter name="puestoConcursa" class="java.lang.String"/>
+	<parameter name="categoriaPlazaConcursa" class="java.lang.String"/>
+	<parameter name="secretariaPlazaConcursa" class="java.lang.String"/>
+	<parameter name="puntajeMinimo" class="java.lang.String"/>
+	<parameter name="idPlazaConcursa" class="java.lang.String"/>
+	<parameter name="nombre2" class="java.lang.String"/>
+	<parameter name="V_NOMBRE_SERVIDOR" class="java.lang.String"/>
+	<parameter name="V_CLAVE_SERVIDOR" class="java.lang.String"/>
+	<parameter name="V_PUESTO_NOMINAL" class="java.lang.String"/>
+	<parameter name="V_CATEGORIA" class="java.lang.String"/>
+	<parameter name="V_ADSCRIPCION" class="java.lang.String"/>
+	<parameter name="V_ID_PROCESO" class="java.lang.String"/>
+	<parameter name="V_NUMERO_PLAZA" class="java.lang.String"/>
+	<parameter name="V_PUESTO_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_CATEGORIA_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_ADSCRIPCION_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_NUMERO_REGISTRO" class="java.lang.String"/>
+	<parameter name="V_P_MINIMO" class="java.lang.String"/>
+	<parameter name="V_P_ESCALAFONARIA" class="java.lang.String"/>
+	<parameter name="V_SECRETARIA" class="java.lang.String"/>
+	<parameter name="V_SECRETARIA_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_DICTAMEN" class="java.lang.String"/>
+	<parameter name="V_GENERAL_NATURAL" class="java.lang.String"/>
+	<parameter name="V_DICTAMEN_SI_NO" class="java.lang.String"/>
+	<parameter name="DICTAMEN_FINAL" class="java.lang.String"/>
+	<parameter name="img_firma_3" class="java.lang.String"/>
+	<parameter name="img_firma_1" class="java.lang.String"/>
+	<parameter name="image_encabezado" class="java.lang.String"/>
+	<parameter name="image_pie" class="java.lang.String"/>
+	<parameter name="img_firma_2" class="java.lang.String"/>
+	<parameter name="fondo" class="java.lang.String"/>
+	<parameter name="firma_4" class="java.lang.String"/>
+	<parameter name="firma_5" class="java.lang.String"/>
+	<parameter name="firma_6" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="792" splitType="Stretch">
+			<staticText>
+				<reportElement x="499" y="713" width="111" height="13" uuid="f1daa5a0-923b-4289-94d6-0c68ff366f17">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[DGP/DCHE/SPEECH/CPOPE]]></text>
+			</staticText>
+			<image>
+				<reportElement x="96" y="552" width="419" height="227" uuid="dda00813-6f1f-4126-b246-2162c6ad46c3"/>
+				<imageExpression><![CDATA[$P{fondo}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="612" height="66" uuid="8fe82c99-7f22-4876-952c-c2e50f0a5e8f"/>
+				<imageExpression><![CDATA[$P{image_encabezado}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="93" splitType="Stretch">
+			<textField>
+				<reportElement x="35" y="54" width="266" height="13" uuid="6c41e7f5-0018-4f47-9f6a-afae97e380b5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_PUESTO_NOMINAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="311" y="80" width="266" height="13" isPrintWhenDetailOverflows="true" uuid="82c29ab3-2394-4c93-8aa9-70f01f438dba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_ADSCRIPCION_CONCURSA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="67" width="266" height="13" uuid="03ae9a2a-5060-457b-9721-6b7061639c21">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_CATEGORIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="35" y="2" width="542" height="13" forecolor="#FFFCFC" backcolor="#000000" uuid="d665e1c3-5c64-4d9d-9ff0-d9b3b2ec59ac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS GENERALES]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="35" y="80" width="266" height="13" isPrintWhenDetailOverflows="true" uuid="fd5a9d84-1fc0-4f13-a97a-74c35b458d77">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_ADSCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="54" width="266" height="13" uuid="d4157977-250a-4899-9bb5-1529045855c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_PUESTO_CONCURSA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="41" width="266" height="13" uuid="80745141-a1de-4234-b0b1-a7badf2915b8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_NUMERO_PLAZA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="311" y="16" width="266" height="12" forecolor="#FFFCFC" backcolor="#000000" uuid="cb7ba184-5ed1-4407-917f-faceafbe5956">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA PLAZA POR LA QUE SE CONCURSA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="35" y="16" width="266" height="13" forecolor="#FFFCFC" backcolor="#000000" uuid="dcabed99-6741-4807-a4e2-4c2cb118200b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DE LA PERSONA CANDIDATA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="311" y="28" width="266" height="13" uuid="4629dc99-2fb3-426f-9ab7-32217c238c51">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_ID_PROCESO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="28" width="266" height="13" uuid="6024df27-bb57-48fe-afd7-2312fa8e2c40">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_NOMBRE_SERVIDOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="67" width="266" height="13" uuid="89157396-a74f-4222-b79d-90e4d60be98a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_CATEGORIA_CONCURSA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="41" width="266" height="13" uuid="8e2c6238-e409-4de3-b66f-81d1aa484a84">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_CLAVE_SERVIDOR}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="104">
+			<staticText>
+				<reportElement x="35" y="88" width="420" height="13" uuid="5b642434-0f0a-478c-b76c-c80c3a01c6a7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Examinada la documentación respectiva, se concluye que arroja el siguiente puntaje:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="35" y="34" width="542" height="53" uuid="201d3470-9c99-459d-8ba9-a73f06ca07f6"/>
+				<box leftPadding="2" rightPadding="2"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["El Secretariado Técnico en funciones de apoyo a la Comisión Mixta de Escalafón con fundamento en el Art. 30 fracc. V del Reglamento del Proceso Escalafonario, HACE CONSTAR que <b>"+$P{V_NOMBRE_SERVIDOR}+"</b> ha hecho entrega de la Constancia de Recepción de Documentos y Estimación sobre Puntaje Escalafonario y la documentación conforme al Art. 65 del Reglamento del Proceso Escalafonario"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="0" width="266" height="13" uuid="5b8c2514-da51-4626-b55a-8e29c432da37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_SECRETARIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="0" width="266" height="13" uuid="974b892a-890d-4a20-a0d4-bb291b607062">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_SECRETARIA_CONCURSA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="13" width="266" height="13" uuid="7850aed8-16dd-40da-90ea-fe0edfd19488">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NÚMERO DE REGISTRO: " + $P{V_NUMERO_REGISTRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="13" width="266" height="13" uuid="cc740775-1da3-48b3-87bd-de18adf5373f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PUNTAJE MÍNIMO: " + $P{V_P_MINIMO}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="43">
+			<componentElement>
+				<reportElement x="35" y="2" width="542" height="40" uuid="c74a9deb-0be2-42ec-960f-4d7e51a117d2">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="asignacionPuntajeDataset" uuid="3772acd1-ffc1-41b5-b6c3-d6c24773a4ca">
+						<datasetParameter name="V_P_ESCALAFONARIA">
+							<datasetParameterExpression><![CDATA[$P{V_P_ESCALAFONARIA}]]></datasetParameterExpression>
+						</datasetParameter>
+						<dataSourceExpression><![CDATA[$P{asignacionPuntajeDataset}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="402" uuid="0d374a61-3f28-4898-864b-16f3b53e5859">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="ColorColumn" height="14" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="402" height="14" forecolor="#FCFAFA" uuid="1edfdfae-358e-4e16-9b5e-8502d6548515"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[ASIGNACIÓN DE PUNTAJES ESCALAFONARIOS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="ColorColumn" height="13" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="402" height="13" forecolor="#FCFAFA" uuid="a71f0d52-2636-46a5-a360-df99181790a4"/>
+								<box leftPadding="2" rightPadding="2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PUNTUACIÓN ESCALAFONARIA]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell height="14" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="402" height="14" uuid="2332b7cf-04a2-4751-81ce-c455dda52cbc"/>
+								<box leftPadding="2" rightPadding="2">
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="140" uuid="da60db68-7208-4e86-9644-69f8ba26ac19">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="ColorColumn" height="14" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="14" forecolor="#FFFAFA" uuid="97ea4245-ed0f-449b-84e0-f6904be63e9f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PUNTOS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="ColorColumn" height="13" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement mode="Transparent" x="0" y="0" width="140" height="13" forecolor="#FCFAFA" backcolor="#FFFFFF" uuid="0b56fb93-392b-4bb5-9ffa-2216d17700b4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{V_P_ESCALAFONARIA}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="14" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="140" height="14" uuid="ae29bb64-7588-4312-9d11-baa34b118de5"/>
+								<box leftPadding="2" rightPadding="2">
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{puntos}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="56">
+			<staticText>
+				<reportElement mode="Opaque" x="437" y="2" width="140" height="13" forecolor="#FFFFFF" backcolor="#000000" uuid="fc466973-e2e7-4ef1-8703-dcf22401e9c1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANDIDATO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="35" y="2" width="402" height="13" forecolor="#FCFCFC" backcolor="#000000" uuid="c7586ff6-5533-4533-b31a-23d5bff32e86">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DICTAMEN ESCALAFONARIO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="35" y="15" width="402" height="13" uuid="7400f2af-c601-41a2-895e-bf681a67c321">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_DICTAMEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="28" width="402" height="26" uuid="7856c722-a2d4-41ee-b8dd-21fd3f928c01">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Razón por la cual " + $P{V_DICTAMEN_SI_NO} + " podrá presentarse en el lugar, fecha y hora señalados en la convocatoria."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="15" width="140" height="39" uuid="5c9f17ec-9cdd-440c-8988-b1f08bdf915f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_GENERAL_NATURAL}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<staticText>
+				<reportElement mode="Opaque" x="35" y="2" width="155" height="13" forecolor="#FFFFFF" backcolor="#000000" uuid="113c0ff2-5b24-4acb-be1a-ac945b31710d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DICTAMEN FINAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="422" y="16" width="155" height="14" uuid="bbd42242-d713-4b05-8d5c-610d38ea0175"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{examen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="292" y="16" width="130" height="14" uuid="f6bdb6f5-558a-42a1-b3f6-100993eca512">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[EXAMEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="32" width="174" height="14" uuid="20718fb2-a3bb-4d28-9267-401464f96bdd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TOTAL PUNTUACIÓN ESCALAFONARIA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="422" y="32" width="155" height="14" uuid="bd4e1352-2fac-45e5-a71a-799f72a546d5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalPuntuacionEscalafonario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="422" y="2" width="155" height="13" forecolor="#FFFFFF" backcolor="#000000" uuid="efa33bf4-0679-4219-9576-6550944ed3ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_P_ESCALAFONARIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="251" y="2" width="171" height="13" uuid="733ab86e-88c9-4f49-9f31-0fa070c12ab5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[PUNTUACIÓN ESCALAFONARIA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="35" y="16" width="155" height="30" uuid="fbf4b387-d4cd-4d53-89f5-bd9bf5b3cf6b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DICTAMEN_FINAL}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="183">
+			<staticText>
+				<reportElement x="397" y="72" width="180" height="26" uuid="9c839fd6-3cc7-45ac-9fa9-f1625312ebb3"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Raúl Uriel Pineda Montufar
+Secretario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="72" width="182" height="26" uuid="ed1c2150-1819-4c1a-b8d8-da8306f85040"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Isaac Pérez Quiroz
+Coordinador del Secretariado Técnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="35" y="2" width="542" height="13" forecolor="#FCFCFC" backcolor="#000000" uuid="9988c752-5d66-41f9-a295-00c051dee1c7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECRETARIADO TÉCNICO DE LA COMISIÓN MIXTA DE ESCALAFÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="72" width="180" height="26" uuid="6f4763ad-5160-4d89-baa7-a3ea80bb947c"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Edgar Solís Vera
+Secretario
+]]></text>
+			</staticText>
+			<image>
+				<reportElement x="422" y="17" width="122" height="55" uuid="dc6f55ca-4d6c-483c-b1b1-085b46b95011"/>
+				<imageExpression><![CDATA[$P{img_firma_3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="68" y="17" width="122" height="55" uuid="58b22dba-2c1d-4227-a94c-3fb36aa152a5"/>
+				<imageExpression><![CDATA[$P{img_firma_1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="251" y="17" width="122" height="55" uuid="22cbf363-d04a-4c0f-97a9-c39f07c1194c"/>
+				<imageExpression><![CDATA[$P{img_firma_2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="35" y="155" width="180" height="26" uuid="01bafff4-b3d0-48cf-9c4d-52e60cb6d539"/>
+				<box>
+					<pen lineStyle="Double" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="155" width="182" height="26" uuid="4cc90cea-b6b4-4f10-9049-790c374a14ee"/>
+				<box>
+					<pen lineStyle="Double" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="397" y="155" width="180" height="26" backcolor="#FFFFFF" uuid="72078efa-c0bf-4885-8d3c-d959b1ae5736"/>
+				<box>
+					<pen lineStyle="Double" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Double" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_6}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="66" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="612" height="66" uuid="377628d4-62a1-4a43-a945-84e003a66dac"/>
+				<imageExpression><![CDATA[$P{image_pie}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

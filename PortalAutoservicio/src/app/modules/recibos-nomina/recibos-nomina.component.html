@@ -1,0 +1,193 @@
+<p-toast [style]="{marginTop: '1px'}" position="top-left"></p-toast>
+<p-toast key="c" (onClose)="rechazar()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+    </ng-template>
+</p-toast>
+
+
+<form [formGroup]="theFormGroup">
+    <p-panel header="Consulta de recibo de nomina" [toggleable]="false">
+        <div class="row">
+
+            <div class="col-md-12" style="text-align: end;">
+                <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle"
+                        label="Información" (click)="mostrarInstrucciones = true" style="width: 150px;"></button>
+            </div>
+
+            <div class="col-md-12 div-panel">
+                <h6>{{lblfiltrofechas}}</h6>
+                <div class="row">
+
+                    <div class="col-md-5" style="text-align: center;">
+                        <p-fieldset legend="Periodo Inicio">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Mes y Año</label>
+                                    <p-calendar formControlName="startDate" [readonlyInput]="true" [locale]="es"
+                                                [(ngModel)]="fechaInicio" [yearNavigator]="true"
+                                                [required]="true" [yearRange]="rangoAnios" [style]="{'width':'100%'}"
+                                                placeholder="{{lblfechainicio}}" [minDate]="minDate" [maxDate]="maxDate"
+                                                dateFormat="MM-yy" view="month"
+                                                ValidatorCalendar></p-calendar>
+                                    <div *ngIf="!theFormGroup.valid">
+                                        <p-message severity="error" text="{{finicioffin}}"
+                                                   *ngIf="theFormGroup.get('startDate').hasError('startDateIsLess')">
+                                        </p-message>
+                                        <p-message severity="error" text="{{finicioreq}}"
+                                                   *ngIf="theFormGroup.get('startDate').hasError('startDateIsRequired')">
+                                        </p-message>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Quincena</label>
+                                    <p-dropdown [options]="quincenas" (onChange)="cambiar15Inicio($event)">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+
+                    <div class="col-md-5" style="text-align: center;">
+                        <p-fieldset legend="Periodo Fin">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Mes y Año</label>
+                                    <p-calendar formControlName="endDate" [readonlyInput]="true" [locale]="es"
+                                                [monthNavigator]="true" [yearNavigator]="true" [yearRange]="rangoAnios"
+                                                [required]="true"
+                                                [(ngModel)]="fechaFin" [style]="{'width':'100%'}"
+                                                placeholder="{{lblfechafin}}"
+                                                [maxDate]="maxDate" dateFormat="MM-yy" ngModel ValidatorCalendar
+                                                view="month"></p-calendar>
+                                    <div *ngIf="!theFormGroup.valid">
+                                        <p-message severity="error" text="{{finicioffin}}"
+                                                   *ngIf="theFormGroup.get('endDate').hasError('startDateIsLess')">
+                                        </p-message>
+                                        <p-message severity="error" text="{{finicioreq}}"
+                                                   *ngIf="theFormGroup.get('endDate').hasError('endDateIsRequired')">
+                                        </p-message>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Quincena</label>
+                                    <p-dropdown [options]="quincenas" (onChange)="cambiar15Fin($event)">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+
+                    <div class="col-md-2" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                        <button pButton type="button"
+                                label="{{btnbuscar}}"
+                                [style]="{'width':'100%'}"
+                                class="ui-button-primary"
+                                icon="pi pi-search"
+                                [disabled]="theFormGroup.invalid"
+                                (click)="obtenerRecibosNomina()"></button>
+                    </div>
+
+                </div>
+                <hr />
+            </div>
+            <div class="col-md-3">
+                <button pButton type="button" label="Descargar pagas seleccionadas" [style]="{'width':'100%'}"
+                        class="ui-button-primary" icon="pi pi-download"
+                        [disabled]="1 >= archivosSelect.length" (click)="descargarFormato(null, true)"></button>
+
+            </div>
+            <br />
+            <br />
+            <div class="col-md-12">
+                <p-table #dt [value]="archivos" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+                         [(selection)]="archivosSelect">
+                    <ng-template pTemplate="header" [responsive]="true">
+                        <tr>
+                            <th>Paga</th>
+                            <th>Nombre Paga</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th style="width: 4rem">Recibo</th>
+                            <th style="width: 3rem">
+                                <!--  <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                            </th>
+                        </tr>
+                        <!--
+                        <tr>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'idPaga', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'nPaga', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'fechaInicio', 'contains')">
+                            </th>
+                            <th>
+                                <input pInputText type="text" (input)="dt.filter($event.target.value, 'fechaFin', 'contains')">
+                            </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        -->
+                    </ng-template>
+                    <ng-template pTemplate="body" let-car>
+                        <tr>
+                            <td>{{car.idPaga}}</td>
+                            <td>{{car.nPaga}}</td>
+                            <td style="width: 20px !important;">{{car.fechaInicio | dateFormat }}</td>
+                            <td style="width: 20px !important;">{{car.fechaFin | dateFormat }}</td>
+                            <!--
+                            <td style="width: 20px !important;">{{car.PERIODO}}</td>
+                            
+                            <td style="text-align: center;"><img src="/PortalAutoservicio/assets/Images/xls.png"  /> </td>
+                            -->
+                            <td style="text-align: center;">
+                                <img style="cursor: pointer;" src="/PortalAutoservicio/assets/Images/pdf.png"
+                                     (click)="descargarFormato(car, false)">
+                            </td>
+                            <td>
+                                <p-tableCheckbox [value]="car" [disabled]="car.cancelado"></p-tableCheckbox>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="6" style="font-weight: bold;">
+                                No se encontraron registros
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+
+    </p-panel>
+</form>
+
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <p style="font-weight: bold;">Funcionalidad:</p>
+            <p style="text-align: justify;">
+                Esta pantalla muestra las incidencias del tiempo y registros de sanciones y estímulos.
+            </p>
+            <br />
+            <p style="font-weight: bold;">Instrucciones:</p>
+            <p style="text-align: justify;">
+                En la pantalla se indicarán los últimos registros por fecha, además se podrá consultar la información
+                por medio de la búsqueda por rango de fechas, existen tres pestañas, una donde se muestran las
+                incidencias de tiempo, otra donde se presentarán sanciones y una final donde se presentan estímulos.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+
+<ngx-spinner></ngx-spinner>

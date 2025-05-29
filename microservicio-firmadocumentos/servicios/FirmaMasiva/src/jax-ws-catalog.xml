@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://qasistemas2.edomex.gob.mx/ceroPapel/webService?wsdl" uri="wsdl/qasistemas2.edomex.gob.mx/ceroPapel/webService.wsdl"/>
+    <system systemId="http://qasistemas2.edomex.gob.mx:80/ceroPapel/webService?xsd=1" uri="wsdl/qasistemas2.edomex.gob.mx_80/ceroPapel/webService.xsd_1.xsd"/>
+    <system systemId="http://qasistemas2.edomex.gob.mx:80/ceroPapel/webService?xsd=2" uri="wsdl/qasistemas2.edomex.gob.mx_80/ceroPapel/webService.xsd_2.xsd"/>
+    <system systemId="http://sistemas4.edomex.gob.mx/ceroPapel/webService?wsdl" uri="wsdl/sistemas4.edomex.gob.mx/ceroPapel/webService.wsdl"/>
+    <system systemId="http://sistemas4.edomex.gob.mx:80/ceroPapel/webService?xsd=1" uri="wsdl/sistemas4.edomex.gob.mx_80/ceroPapel/webService.xsd_1.xsd"/>
+    <system systemId="http://sistemas4.edomex.gob.mx:80/ceroPapel/webService?xsd=2" uri="wsdl/sistemas4.edomex.gob.mx_80/ceroPapel/webService.xsd_2.xsd"/>
+</catalog>

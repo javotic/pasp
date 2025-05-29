@@ -1,0 +1,901 @@
+<p-toast position="bottom-center" key="d"></p-toast>
+<p-confirmDialog header="Confirmación" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<br />
+<p-panel header="Puntaje escalafonario" [toggleable]="false" style="text-align: center;">
+    <br />
+    <strong>
+        Recuerda que el puntaje total para el proceso Escalafonario se compone de los factores
+        Capacitación, Escolaridad, Eficiencia, Antigüedad, Examen y Deméritos. Procura mantener tus
+        datos de Capacitación y Escolaridad actualizados para que se tome en cuenta la realidad de tu
+        puntaje.
+    </strong>
+    <br />
+    <br />
+    <strong>
+        La suma de estos factores siempre estará sujeta a validación por parte del Secretario Técnico de la Comisión
+        Mixta de Escalafón.
+    </strong>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-2" style="text-align: right;">
+            <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle"
+                    label="Preguntas frecuentes" (click)="muestraPreguntas()"></button>
+        </div>
+    </div>
+    <hr />
+    <p-panel header="Mi puntaje actual" [toggleable]="false">
+        <div class="row">
+            <div class="col-md-12 div-puntaje">
+                <table class="tb_sombreado_grid">
+                    <tr>
+                        <td>CAPACITACIÓN</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/interrogacion.svg"
+                                 pTooltip="Se tomará un puntaje máximo de 20 puntos"
+                                 class="iconos_action" style="cursor: pointer;" />
+                        </td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.CAPACITACION : '0.00'}}</td>
+                        <!-- /PortalAutoservicio/  (click)="descargarPDF(rowData)" -->
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/detalle_color.svg"
+                                 (click)="showDetallePuntaje('CAPA')"
+                                 pTooltip="Detalle" class="iconos_action" style="cursor: pointer;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ESCOLARIDAD</td>
+                        <td></td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.ESCOLARIDAD : '0.00'}}</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/detalle_color.svg"
+                                 (click)="showDetallePuntaje('ESCO')"
+                                 pTooltip="Detalle" class="iconos_action" style="cursor: pointer;" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>EFICIENCIA</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/interrogacion.svg" class="iconos_action"
+                                 pTooltip="Se tomarán en cuenta las últimas 5 Evaluaciones del Desempeño"
+                                 style="cursor: pointer;" />
+                        </td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.EFICIENCIA: '0.00'}}</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/detalle_color.svg"
+                                 (click)="showDetallePuntaje('EFIC')"
+                                 pTooltip="Detalle" class="iconos_action" style="cursor: pointer;" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ANTIGÜEDAD</td>
+                        <td></td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.ANTIGUEDAD : '0.00'}}</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/detalle_color.svg"
+                                 (click)="showDetallePuntaje('ANTI')"
+                                 pTooltip="Detalle" class="iconos_action" style="cursor: pointer;" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> DEMÉRITOS</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/interrogacion.svg" class="iconos_action"
+                                 style="cursor: pointer;"
+                                 pTooltip="Se tomarán en cuenta las últimas 2 Evaluaciones del Desempeño. 
+                            Si el puntaje es igual o mayor a los 20  puntos, se cancelará el proceso de inscripción" />
+                        </td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.DEMERITOS : '0.00'}}</td>
+                        <td>
+                            <img src="/PortalAutoservicio/assets/Images/detalle_color.svg"
+                                 (click)="showDetallePuntaje('DEME')"
+                                 pTooltip="Detalle" class="iconos_action" style="cursor: pointer;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td></td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.TOTAL: '0.00'}}</td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3" style="margin-top: 15px;">
+                <button #myelement type="button" style="width: 100%;" pButton label="Actualizar Capacitación"
+                        (click)="redirectCapacitacion()"
+                        class="ui-button-success"></button>
+            </div>
+            <div class="col-md-3" style="margin-top: 15px;">
+                <button type="button" style="background-color: #32742C; width: 100%;" pButton
+                        label="Actualizar Escolaridad" (click)="redirectEscolaridad()"
+                        class="ui-button-success"></button>
+            </div>
+        </div>
+    </p-panel>
+    <br />
+</p-panel>
+
+<hr />
+
+<p-panel header="Árbol escalafonario" [toggleable]="false" style="padding-top: 5em !important; text-align: center;">
+    <strong>
+        El siguiente listado de puestos representa las posiblidades de ascenso escalafonario de acuerdo a tu puesto
+        actual, sin embargo, deberás cumplir con los requisitos de escolaridad que marque la respectiva convocatoria.
+    </strong>
+    <br />
+    <br />
+    <div class="col-md-12">
+        <h5 style="text-align: center">Puesto actual: {{puestoActual.idPuesto}} - {{puestoActual.nombrePuesto}}</h5>
+    </div>
+    <p-table #dt [value]="procesoEscalafonario" [paginator]="true" [rows]="10" [columns]="cols"
+             dataKey="IDNIVELESTUDIOS" [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            Puestos a los que puedo participar por Proceso Escalafonario
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <input *ngSwitchCase="'LINEA'" pInputText type="text"
+                           [style]="{'width':'100%','margin-top':'8px'}"
+                           (input)="dt.filter($event.target.value, col.field, 'contains')">
+                    <input *ngSwitchCase="'GRUPO'" pInputText type="text"
+                           [style]="{'width':'100%','margin-top':'8px'}"
+                           (input)="dt.filter($event.target.value, col.field, 'contains')">
+                    <input *ngSwitchCase="'RAMA'" pInputText type="text"
+                           [style]="{'width':'100%','margin-top':'8px'}"
+                           (input)="dt.filter($event.target.value, col.field, 'contains')">
+                    <input *ngSwitchCase="'CLAVE'" pInputText type="text"
+                           [style]="{'width':'100%','margin-top':'8px'}"
+                           (input)="dt.filter($event.target.value, col.field, 'contains')">
+                    <input *ngSwitchCase="'NOMBRE'" pInputText type="text"
+                           [style]="{'width':'100%','margin-top':'8px'}"
+                           (input)="dt.filter($event.target.value, col.field, 'contains')">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRow]="rowData">
+                <td>{{rowData.GRUPO}}</td>
+                <td>{{rowData.RAMA}}</td>
+                <td>{{rowData.LINEA}}</td>
+                <td>{{rowData.CLAVE}}</td>
+                <td>{{rowData.NOMBRE}}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length">
+                    <strong> No se encontraron registros </strong>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog header="Detalle" [(visible)]="displayPreguntas" [focusOnShow]="false" [responsive]="true"
+              showEffect="fade" [modal]="true"
+              [style]="{'width': '750px', 'height':'2350px', 'max-height':'700px', 'max-width':'700px'}">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Quiénes pueden participar en los concursos escalafonarios?</strong>
+                    <br>
+                    <p align="justify">
+                        Las Personas Servidoras Públicas generales con nivel 1 al 23 sindicalizadas y no
+                        sindicalizadas, pertenecientes a las dependencias del Sector Central del Poder Ejecutivo del
+                        Estado de México.
+                    </p>
+                    <p align="justify">
+                        Quedan excluidos quienes cuenten con puesto de confianza, de acuerdo con la Cédula de
+                        Identificación del Puesto del Catálogo General de Puestos.
+                    </p>
+                </div>
+
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Puedo participar por plazas de mí mismo nivel?</strong>
+                    <br>
+                    <p align="justify">
+                        No, el escalafón por definición es estrictamente ascendente. Sólo puedes participar por
+                        puestos superiores.
+                    </p>
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>Si gano una plaza no sindicalizada ¿Pierdo mi sindicato?</strong>
+                    <br>
+                    <p align="justify">
+                        No, recuerda que quien se sindicaliza es la persona servidora pública, no la plaza.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Dónde puedo revisar mi puntaje escalafonario?</strong>
+                    <br>
+                    <p align="justify">
+                        En la pestaña de “Mi Información Actual” puedes consultar y actualizar tu puntaje
+                        escalafonario dentro del portal de autoservicio.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Cómo puedo saber por qué puesto puedo concursar?</strong>
+                    <br>
+                    <p align="justify">
+                        En la pestaña de “Mi Información Actual” podrás visualizar por qué puestos
+                        puedes escalar con base al puesto que tienes.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Por qué no puedo ver en el sistema todas las plazas que están en concurso?</strong>
+                    <br>
+                    <p align="justify">
+                        El sistema de escalafón está programado para mostrarte sólo las plazas por las que puedes
+                        participar de acuerdo a tu nivel salarial.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Por qué no puedo ver la convocatoria para inscribirme?</strong>
+                    <br>
+                    <p align="justify">
+                        Si no te aparecen plazas para inscribirte en una convocatoria que sabes que se encuentra
+                        publicada, posiblemente sea porque no cuentas con el <b>puesto inmediato inferior</b> de ninguna
+                        de las vacantes, tienes <b>20 o más deméritos</b> en tus Evaluaciones del Desempeño del último
+                        año, cuentas con alguna <b>sanción</b> o aun no cuentas con la <b>antigüedad</b> necesaria.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Puedo entregar mis documentos para inscribirme a una convocatoria en la Dirección de
+                        Capital Humano y Escalafón?</strong>
+                    <br>
+                    <p align="justify">
+                        No, debes entregar tu documentación en tu área de recursos humanos y/o Coordinación
+                        Administrativa.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué pasa si seleccioné una plaza que no quería?</strong>
+                    <br>
+                    <p align="justify">
+                        Lo sentimos ya no podrás hacer otra selección, el sistema está diseñado para que sólo puedas
+                        seleccionar una plaza por proceso escalafonario.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué documentación necesito para inscribirme a una convocatoria?</strong>
+                    <br>
+                    <p align="justify">
+                        Constancia de Participación: Es el documento que imprimes al momento de hacer tu registro en
+                        el sistema de escalafón.
+                        Grado académico: Certificado, título o cédula del último grado obtenido (sólo en caso de aun
+                        no estar validado en el sistema).
+                        Actividades de capacitación: Cursos, certificados de competencia laboral y diplomados (sólo
+                        en caso de que aún no estén validados en el sistema).
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Cuál es la diferencia entre una CONVOCATORIA ORDINARIA y una CONVOCATORIA
+                        GENERAL?</strong>
+                    <br>
+                    <p align="justify">
+                        Convocatoria ordinaria: Las Personas Servidoras Publicas sólo podrán concursar por las
+                        vacantes que pertenezcan a la secretaría en la que ellas se encuentren adscritas. En este
+                        concurso participan las personas candidatas naturales y generales.
+
+                    </p>
+                    <p align="justify">
+                        Convocatoria general: Las Personas Servidoras Publicas podrán concursar por las vacantes de
+                        cualquier dependencia. Dichas vacantes son aquellas que quedaron disponibles de la
+                        convocatoria ordinaria. En este concurso todas las personas participan en calidad de
+                        candidatas generales.
+
+                    </p>
+                </div>
+
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Cuál es la diferencia entre las personas candidatas naturales y generales?</strong>
+                    <br>
+                    <p align="justify">
+                        Persona Candidata General: Es aquella que ocupa un puesto inmediato inferior al de la plaza
+                        vacante, adscrita a cualquier otra unidad administrativa donde se generó la vacante.
+                    </p>
+                    <p align="justify">
+                        Persona Candidata Natural: Es aquella que pertenece a la misma unidad administrativa a donde
+                        se genera la vacante, que ocupa un puesto inmediato inferior al de la plaza vacante y cuyo
+                        grado académico podrá ser de hasta un nivel inferior al que pide la Cédula de Identificación
+                        del Puesto (esta figura solo existe en la convocatoria ordinaria).
+
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>Si no puedo asistir a la “Asesoría” del concurso ¿Esto afectará mi
+                        participación?</strong>
+                    <br>
+                    <p align="justify">
+                        No, la asesoría es una actividad adicional que se lleva a cabo con el fin de apoyar tu
+                        participación y que puedas prepararte de mejor manera para el examen de conocimientos, si no
+                        puedes asistir, siempre tienes la opción de consultar las “guías de estudio”.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Dónde puedo consultar las guías de estudio?</strong>
+                    <br>
+                    <p align="justify">
+                        Podrás descargar la guía de estudio del puesto por el concursas, en cuanto
+                        realices el registro por el mismo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué tipo de SANCIONES existen? </strong>
+                    <br>
+                    <p align="justify">
+                        Existen 3 tipos de sanciones:
+                    </p>
+                    <p align="justify">
+                        Rechazo de plaza: La Persona Servidora Pública que resulte ganadora de un concurso y rechace
+                        el ascenso no podrá participar durante los NUEVE MESES siguientes en los concursos que se
+                        realicen.
+                    </p>
+                    <p align="justify">
+                        Falta de probidad en el examen: La Persona Servidora Pública qué efectúe el uso de
+                        dispositivos electrónicos, así como de cualquier accesorio capaz de grabar o reproducir
+                        audio o video, de guías de estudio, anotaciones o de cualquier documento ajeno al examen
+                        durante la evaluación, será causa de anulación del mismo y de suspensión de los derechos
+                        escalafonarios durante los DOS AÑOS subsecuentes contados a partir de la fecha de
+                        publicación de resultados.
+                    </p>
+                    <p align="justify">
+                        Alteración de documentos: La Persona Servidora Pública que incurra en la alteración de datos
+                        o documentos quedará descalificada del concurso y suspendida para participar en los
+                        concursos que se realicen en los TRES AÑOS subsecuentes.
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Cuál es el criterio para asignar una plaza en concurso? </strong>
+                    <br>
+                    <p align="justify">
+                        La plaza en concurso será ganada por la Persona Servidora Pública que alcance mayor puntaje
+                        en la suma de todos los factores escalafonarios, exceptuando a quienes no presenten o
+                        reprueben el examen de conocimientos, así como a quien incurra en una falta que ocasione la
+                        cancelación de su participación.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Cuáles son los factores para valorar mi puntaje escalafonario? </strong>
+                    <br>
+                    <p align="justify">
+                        Capacitación: Cursos, seminarios, talleres, certificados de competencia laboral y
+                        diplomados.
+                        Escolaridad: Último grado académico.
+                        Examen. Examen de conocimientos de acuerdo al puesto por el que participas.
+                        Eficiencia: Evaluación del desempeño.
+                        Antigüedad en el servicio público.
+                        *Cada factor tiene un peso porcentual de 20.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué valor tienen mis actividades de capacitación? </strong>
+                    <br>
+                    <p align="justify">
+                        <b>Curso de Inducción al Servicio Público:</b> 1 punto. Con vigencia de dos años. <br />
+                        <b>Cursos, seminarios y talleres:</b> 1 punto cada uno, se aceptan 4 máximo. Con duración mínima
+                        de
+                        20 horas y vigencia de dos años. <br />
+                        <b>Certificados de competencia laboral:</b> 3 puntos cada uno, se aceptan 2 máximo. <br />
+                        <b>Diplomados:</b> 5 puntos cada uno, se aceptan 4 máximo. Con duración mínima de 120 horas o 25
+                        créditos y vigencia de 4 años. <br />
+                        *La suma de estos factores no podrá exceder de 20 puntos.
+
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Por qué fueron rechazados una o varias de mis actividades de capacitación? </strong>
+                    <br>
+                    <p align="justify">
+                        -No son afines al puesto por el que concursas. <br />
+                        -Antigüedad mínima: 2 años para cursos y 4 años para diplomados. <br />
+                        -Duración mínima en horas o créditos académicos: 20 horas para cursos, 120 horas o 25
+                        créditos para diplomados. <br />
+                        -Comprobación de datos: Si el documento emitido no contiene en si mismo la fecha de emisión,
+                        duración, créditos u otro dato esencial que permita comprobar los requisitos para hacerla
+                        valida, no podrá ser tomada en cuenta. <br />
+                        -Duplicidad: No será tomada en cuenta una misma capacitación con diferente fecha. <br />
+                        -Límite: Recuerda que el puntaje máximo a obtener en este factor es de 20 puntos, por lo
+                        tanto si la suma de tus actividades supera este valor, no se tomará en cuenta el excedente.
+
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué valor tiene mi escolaridad? </strong>
+                    <br>
+                    <p align="justify">
+                        La escolaridad tiene un valor de 20% sobre tu puntaje escalafonario total y se valora de
+                        acuerdo a tu grado máximo de estudios con base en la siguiente tabla:
+                    </p>
+
+                    <p>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>GRADO</th>
+                                <th>PUNTAJE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td colspan="2"><strong>EDUCACIÓN BÁSICA</strong></td>
+
+                            </tr>
+                            <tr>
+                                <td>Certificado total de primaria</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Certificado total de secundaria</td>
+                                <td>4</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2"><strong>EDUCACIÓN MEDIA SUPERIOR</strong></td>
+
+                            </tr>
+                            <tr>
+                                <td>Certificado total de carrera técnica con secundaria</td>
+                                <td>6</td>
+                            </tr>
+
+                            <tr>
+                                <td>Certificado total de preparatoria</td>
+                                <td>8</td>
+                            </tr>
+
+                            <tr>
+                                <td>Carrera técnica con bachillerato</td>
+                                <td>8</td>
+                            </tr>
+
+                            <tr>
+                                <td>Carrera técnica profesional</td>
+                                <td>8</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2"><strong>EDUCACIÓN SUPERIOR</strong></td>
+
+                            </tr>
+                            <tr>
+                                <td>Certificado total de licenciatura</td>
+                                <td>12</td>
+                            </tr>
+
+                            <tr>
+                                <td>Acta de titulación de licenciatura</td>
+                                <td>12</td>
+                            </tr>
+
+                            <tr>
+                                <td>Certificado de carrera técnica superior universitaria </td>
+                                <td>12</td>
+                            </tr>
+
+                            <tr>
+                                <td>Certificado de Profesional asociado </td>
+                                <td>12</td>
+                            </tr>
+
+                            <tr>
+                                <td>Título o cédula de licenciatura </td>
+                                <td>14</td>
+                            </tr>
+
+                            <tr>
+                                <td>Diploma, título o cédula de especialidad a nivel posgrado </td>
+                                <td>16</td>
+                            </tr>
+
+                            <tr>
+                                <td>Título o cédula de grado de maestría </td>
+                                <td>18</td>
+                            </tr>
+
+                            <tr>
+                                <td>Título o cédula de grado de doctorado </td>
+                                <td>20</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué valor tiene el examen? </strong>
+                    <br>
+                    <p align="justify">
+                        El examen de conocimientos tiene un valor de 20% sobre tu puntaje escalafonario total, el
+                        cual se calificará en escala de 0 a 10, donde la mínima aprobatoria será de 6. En caso de no
+                        aprobar o no presentar el examen, se te considera no apto para ocupar la plaza.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué valor tiene mi puntaje de eficiencia? </strong>
+                    <br>
+                    <p align="justify">
+                        La Eficiencia tiene un valor de 20% sobre tu puntaje escalafonario total. Se obtiene al
+                        promediar las últimas 5 evaluaciones del desempeño y dividir el resultado entre el factor
+                        0.5. En caso de no tenerlas, al menos se tomará en cuenta la del primer semestre evaluado.
+                        El máximo valor a obtener en este factor es de 20 puntos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué valor tiene mi antigüedad? </strong>
+                    <br>
+                    <p align="justify">
+                        La antigüedad tiene un valor de 20% sobre tu puntaje escalafonario total. Para valorar la
+                        antigüedad en el servicio público se considerará la permanencia de las personas servidoras
+                        públicas en las instituciones públicas en términos de la ley, de la manera siguiente:
+                    </p>
+
+                    <p align="justify">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Antigüedad</th>
+                                <th>Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>De 1 a 7 años</td>
+                                <td>4 puntos</td>
+                            </tr>
+                            <tr>
+                                <td>Más de 7 a 14 años</td>
+                                <td>8 puntos</td>
+                            </tr>
+                            <tr>
+                                <td>Más de 14 a 21 años</td>
+                                <td>12 puntos</td>
+                            </tr>
+
+                            <tr>
+                                <td>Más de 21 a 27 añoss</td>
+                                <td>16 puntos</td>
+                            </tr>
+                            <tr>
+                                <td>Más de 27 años</td>
+                                <td>20 puntos</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>¿Qué hago si gané una plaza? </strong>
+                    <br>
+                    <p align="justify">
+                        Cuentas con cinco días hábiles contados a partir de que se publiquen los resultados para
+                        presentar tu “Carta de Aceptación” o rechazo en las oficinas de la Dirección de Capital
+                        Humano y Escalafón.
+                    </p>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <strong>Si acabo de participar en un concurso, ¿puedo volver a participar? </strong>
+                    <br>
+                    <p align="justify">
+                        Si ganaste una plaza, debes esperar 6 meses a partir de tu movimiento.
+                        Si no ganaste, puedes volver a participar de inmediato.
+
+                    </p>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </p-dialog>
+</p-panel>
+
+<!-- Dialogo de detalle -->
+<p-dialog header="Detalle {{textHeaderDetalle}} " [(visible)]="displayDetallePuntos" [focusOnShow]="false"
+          [responsive]="true"
+          showEffect="fade" [modal]="true" [style]="{width: '700px', border: '0px', padding: '0px !important'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-1" *ngIf="!showCapacitacion"></div>
+        <div class="ui-g-10" *ngIf="!showCapacitacion">
+            <p class="titulo-detalle" *ngIf="showEficiencia">{{textHeaderDetalle | uppercase }}</p>
+            <p class="titulo-detalle" *ngIf="showDemeritos">{{textHeaderDetalle + ' excedentes' | uppercase }}</p>
+            <br />
+            <table class="tb_sombreado_grid" style="text-align: center;" *ngIf="showEficiencia || showDemeritos">
+                <tr class="fondo_tabla" style="font-weight: bold;">
+                    <td>AÑO</td>
+                    <td>SEMESTRE</td>
+                    <td>PUNTAJE</td>
+                </tr>
+                <ng-container *ngIf="resultConsulta?.length > 0">
+                    <tr *ngFor="let result of resultConsulta">
+                        <td>{{result.anio}}</td>
+                        <td>{{result.semestre}}</td>
+                        <td>{{result.resultado}}</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td colspan="2">TOTAL</td>
+                        <td *ngIf="showEficiencia">{{puntajeEscalafonario != null ? puntajeEscalafonario.EFICIENCIA :
+                            '0.00'}}</td>
+                        <td *ngIf="showDemeritos">{{puntajeEscalafonario != null ? puntajeEscalafonario.DEMERITOS :
+                            '0.00'}}</td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="resultConsulta?.length == 0">
+                    <td colspan="3">Sin registros</td>
+                </tr>
+            </table>
+
+            <!-- Demeritos totales -->
+            <br />
+            <p class="titulo-detalle" *ngIf="showDemeritos">DEMÉRITOS TOTALES</p>
+            <br />
+            <table class="tb_sombreado_grid" style="text-align: center; margin-top: 10px;" *ngIf="showDemeritos">
+                <tr class="fondo_tabla" style="font-weight: bold;">
+                    <td>AÑO</td>
+                    <td>SEMESTRE</td>
+                    <td>PUNTAJE</td>
+                </tr>
+                <ng-container *ngIf="puntajeDemeritosTotales?.length > 0">
+                    <tr *ngFor="let result of puntajeDemeritosTotales">
+                        <td>{{result.anio}}</td>
+                        <td>{{result.semestre}}</td>
+                        <td>{{result.resultado}}</td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="puntajeDemeritosTotales?.length == 0">
+                    <td colspan="3">Sin registros</td>
+                </tr>
+            </table>
+
+            <!-- Antiguedad -->
+            <p class="titulo-detalle" *ngIf="showAntiguedad">{{textHeaderDetalle | uppercase }}</p>
+            <br />
+            <table class="tb_sombreado_grid" style="text-align: center;" *ngIf="showAntiguedad">
+                <tr class="fondo_tabla" style="font-weight: bold;">
+                    <td>AÑOS EN SERVICIO</td>
+                    <td>RANGO</td>
+                    <td>PUNTAJE</td>
+                </tr>
+                <ng-container *ngIf="puntajeAntiguedad?.length > 0">
+                    <tr *ngFor="let result of puntajeAntiguedad">
+                        <td>{{result.antiguedad}}</td>
+                        <td>{{result.rangoAntiguedad}}</td>
+                        <td>{{result.puntajeAntiguedad}}</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td colspan="2">TOTAL</td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.ANTIGUEDAD : '0.00'}}</td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="puntajeAntiguedad?.length == 0">
+                    <td colspan="3">Sin registros</td>
+                </tr>
+            </table>
+
+            <!-- Escolaridad -->
+            <p class="titulo-detalle" *ngIf="showEscolaridad">{{textHeaderDetalle | uppercase }}</p>
+            <br />
+            <table class="tb_sombreado_grid" style="text-align: center;" *ngIf="showEscolaridad">
+                <tr class="fondo_tabla" style="font-weight: bold;">
+                    <td>GRADO</td>
+                    <td>NIVEL</td>
+                    <td>ESCOLARIDAD</td>
+                    <td>PUNTAJE</td>
+                </tr>
+                <ng-container *ngIf="puntajeEscolaridad?.length > 0">
+                    <tr *ngFor="let result of puntajeEscolaridad">
+                        <td>{{result.gradoEscolaridad}}</td>
+                        <td>{{result.nivelEscolaridad}}</td>
+                        <td>{{result.escolaridad}}</td>
+                        <td>{{result.puntosEscolaridad}}</td>
+
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td colspan="3">TOTAL</td>
+                        <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.ESCOLARIDAD : '0.00'}}</td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="puntajeEscolaridad?.length == 0">
+                    <td colspan="4">Sin registros</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="ui-g-12" *ngIf="showCapacitacion">
+            <!-- Capacitación -->
+            <p class="titulo-detalle">{{textHeaderDetalle | uppercase }}</p>
+            <br />
+            <table class="tb_sombreado_grid" style="text-align: center;" *ngIf="showCapacitacion">
+                <tr *ngIf="datosRecepcionDocumentos.length > 0">
+                    <td style="text-align: left;">INDUCCIÓN AL SERVICIO PÚBLICO</td>
+                    <td>{{ (puntajeCapaInduccion.length > 0 ) ? puntajeCapaInduccion[0].induccionSP : 'N/A' }}</td>
+                    <td>{{ (puntajeCapaInduccion.length > 0 ) ? '1 PUNTO' : '0 PUNTOS' }}</td>
+                </tr>
+
+                <tr *ngIf="datosRecepcionDocumentos.length > 0">
+                    <td style="text-align: left;">
+                        CURSOS, SEMINARIOS Y TALLERES
+                        <br />
+                        <table class="tabla_sin_bordes">
+                            <tr *ngFor="let result of puntajeCapaCursos">
+                                <td>{{result.nombreCurso}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        &nbsp;
+                        <br />
+                        <table class="tabla_sin_bordes">
+                            <tr *ngFor="let result of puntajeCapaCursos">
+                                <td>{{result.fechaCurso}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        {{(datosRecepcionDocumentos.length > 0 ? datosRecepcionDocumentos[0].puntosCursos : '0.00') + '
+                        PUNTOS'}}
+                    </td>
+                </tr>
+                <tr *ngIf="datosRecepcionDocumentos.length > 0">
+                    <td style="text-align: left;">CERTIFICADOS DE COMPETENCIA LABORAL
+                        <br />
+                        <table class="tabla_sin_bordes">
+                            <tr *ngFor="let result of puntajeCapaCetificados">
+                                <td>{{result.nombreCertificado}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        &nbsp;
+                        <br />
+                        <table class="tabla_sin_bordes">
+                            <tr *ngFor="let result of puntajeCapaCetificados">
+                                <td>{{result.fechaCurso}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>{{(datosRecepcionDocumentos.length > 0 ? datosRecepcionDocumentos[0].puntosCertificados :
+                        '0.00') + ' PUNTOS'}}</td>
+                </tr>
+                <tr *ngIf="datosRecepcionDocumentos.length > 0">
+                    <td style="text-align: left;">
+                        DIPLOMADOS
+                        <br />
+                        <table class="tabla_sin_bordes">
+                            <tr *ngFor="let result of puntajeCapaDiplomados">
+                                <td>{{result.nombreDiplomado}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        &nbsp;
+                        <br />
+                        <table class="tabla_sin_bordes">
+                            <tr *ngFor="let result of puntajeCapaDiplomados">
+                                <td>{{result.fechaDiplomado}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>{{(datosRecepcionDocumentos.length > 0 ? datosRecepcionDocumentos[0].puntosDiplomados : '0.00')
+                        + ' PUNTOS'}}</td>
+                </tr>
+
+                <tr *ngIf="datosRecepcionDocumentos.length > 0" style="font-weight: bold;">
+                    <td colspan="2">TOTAL</td>
+                    <td>{{puntajeEscalafonario != null ? puntajeEscalafonario.CAPACITACION : '0.00'}}</td>
+                </tr>
+                <tr *ngIf="datosRecepcionDocumentos.length == 0">
+                    <td colspan="3">Sin registross</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="ui-g-1" *ngIf="!showCapacitacion"></div>
+    </div>
+</p-dialog>
+
+<ngx-spinner></ngx-spinner>

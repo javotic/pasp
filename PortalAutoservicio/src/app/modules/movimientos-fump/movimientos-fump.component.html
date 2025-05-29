@@ -1,0 +1,169 @@
+<p-toast [style]="{marginTop: '1px'}" position="top-left"></p-toast>
+<p-toast key="c" (onClose)="rechazar()" [modal]="true" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div style="text-align: center">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+      <h3>{{message.summary}}</h3>
+      <p>{{message.detail}}</p>
+    </div>
+  </ng-template>
+</p-toast>
+
+
+<!-- Formulario principal -->
+<form [formGroup]="theFormGroup">
+  <p-panel header="{{etiquetasUsuario.get('ttl.titulofump')}}" [toggleable]="false">
+    <div class="row">
+      <!-- Boton de instrucciones de pantalla -->
+      <div class="col-md-12" style="text-align: end;">
+        <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle" label="Información"
+                (click)="mostrarInstrucciones = true" style="width: 150px;"></button>
+      </div>
+
+      <!-- Seccion de filtros de busqueda -->
+      <div class="col-md-12 div-panel">
+        <!-- Titulo de filtros -->
+        <h6>{{etiquetasUsuario.get('lbl.filtroFechas')}}</h6>
+        <div class="row">
+          <!-- Fecha de inicio -->
+          <div class="col-md-5" style="text-align: center;">
+            <p-fieldset legend="{{etiquetasUsuario.get('lbl.fechainicio')}}">
+              <div class="row">
+                <div class="col-md-12">
+                  <p-calendar formControlName="startDate"
+                              placeholder="{{etiquetasUsuario.get('lbl.fechainicio')}}"
+                              dateFormat="dd-MM-yy"
+                              [(ngModel)]="fechaInicio"
+                              [readonlyInput]="true"
+                              [locale]="es"
+                              [required]="true"
+                              [style]="{'width':'100%'}"
+                              [yearNavigator]="true"
+                              [monthNavigator]="true"
+                              [yearRange]="rangoAnios"
+                              ValidatorCalendar></p-calendar>
+                  <div *ngIf="!theFormGroup.valid">
+                    <p-message severity="error"
+                               text="{{etiquetasUsuario.get('lbl.finicioffin')}}"
+                               *ngIf="theFormGroup.get('startDate').hasError('startDateIsLess')">
+                    </p-message>
+                    <p-message severity="error"
+                               text="{{etiquetasUsuario.get('lbl.finicioreq')}}"
+                               *ngIf="theFormGroup.get('startDate').hasError('startDateIsRequired')">
+                    </p-message>
+                  </div>
+                </div>
+              </div>
+            </p-fieldset>
+          </div>
+          <!-- Fecha de termino -->
+          <div class="col-md-5" style="text-align: center;">
+            <p-fieldset legend="{{etiquetasUsuario.get('lbl.fechafin')}}">
+              <div class="row">
+                <div class="col-md-12">
+                  <p-calendar formControlName="endDate"
+                              placeholder="{{etiquetasUsuario.get('lbl.fechafin')}}"
+                              dateFormat="dd-MM-yy"
+                              [(ngModel)]="fechaFin"
+                              [readonlyInput]="true"
+                              [locale]="es"
+                              [required]="true"
+                              [style]="{'width':'100%'}"
+                              [yearNavigator]="true"
+                              [monthNavigator]="true"
+                              [yearRange]="rangoAnios"
+                              ValidatorCalendar></p-calendar>
+                  <div *ngIf="!theFormGroup.valid">
+                    <p-message severity="error"
+                               text="{{etiquetasUsuario.get('lbl.finicioffin')}}"
+                               *ngIf="theFormGroup.get('endDate').hasError('startDateIsLess')">
+                    </p-message>
+                    <p-message severity="error"
+                               text="{{etiquetasUsuario.get('lbl.finicioreq')}}"
+                               *ngIf="theFormGroup.get('endDate').hasError('endDateIsRequired')">
+                    </p-message>
+                  </div>
+                </div>
+              </div>
+            </p-fieldset>
+          </div>
+          <!-- Boton de buscar -->
+          <div class="col-md-2" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <button pButton type="button"
+                    label="{{etiquetasUsuario.get('btn.buscar') == null ? 'Buscar': etiquetasUsuario.get('btn.buscar') }}"
+                    [style]="{'width':'100%'}"
+                    class="ui-button-primary"
+                    icon="pi pi-search"
+                    [disabled]="theFormGroup.invalid"
+                    (click)="buscarFumps()"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seccion de resultados -->
+      <div class="col-md-12" style="margin-top: 20px;">
+        <p-table #dt [value]="lsFumps" [rows]="10"
+                 [rowsPerPageOptions]="[10,25,50]" [paginator]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Folio</th>
+              <th>Clave Unidad Administrativa</th>
+              <th>Clave Servidor Público</th>
+              <th>Número de plaza</th>
+              <th>Tipo de movimiento</th>
+              <th>Fecha</th>
+              <th>Descargar</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-fump>
+            <tr>
+              <td style="width: 100px !important;">{{fump.folio}}</td>
+              <td>{{fump.claveUnidadAdministrativa}}</td>
+              <td>{{fump.claveServidorPublico}}</td>
+              <td>{{fump.numeroPlaza}}</td>
+              <td>{{fump.tipoMovimiento}}</td>
+              <td>{{fump.fechaFirma | dateFormat}}</td>
+              <td style="text-align: center;">
+                <a (click)="onDownloadFile(fump.nombreArchivo)"
+                   style="cursor: pointer;">
+                  <img style="cursor: pointer;"
+                       src="/PortalAutoservicio/assets/Images/pdf.png" />
+                </a>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="7" style="font-weight: bold;">
+                No se encontraron registros
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+  </p-panel>
+</form>
+
+<!-- Dialogo de instrucciones -->
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+      <p style="font-weight: bold;">Funcionalidad:</p>
+      <p style="text-align: justify;">
+        Esta pantalla muestra los Formatos Únicos de Movimiento de Personal con los que cuente el servidor público.
+      </p>
+      <br />
+      <p style="font-weight: bold;">Instrucciones:</p>
+      <p style="text-align: justify;">
+        En la pantalla se visualizarón los FUMPs que se hayan firmado y autorizado por la DGP, mismos que podrán ser
+        descargados, visualizados y/o almacenados por los interesados.
+      </p>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Loader general -->
+<ngx-spinner></ngx-spinner>

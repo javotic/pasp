@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kpi_1" pageWidth="612" pageHeight="396" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e4fd44f2-1c23-480e-a741-6ba32e060129">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.331000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="nombreSP" class="java.lang.String"/>
+	<parameter name="proceso" class="java.lang.String"/>
+	<parameter name="imageE" class="java.lang.String"/>
+	<parameter name="imageP" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="396">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement mode="Transparent" x="0" y="0" width="612" height="205" uuid="397d3f24-2b17-4fd6-a9f9-5d0989564178">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imageE}]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="224" width="612" height="172" uuid="07f1e124-1d2b-4412-918f-6f49a2dd6262">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imageP}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="307" width="406" height="35" forecolor="#999999" uuid="efb65691-e21b-4edc-807f-7886a03db554"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subdirección de Proceso Escalafonario y
+Evaluación del Capital Humano]]></text>
+			</staticText>
+		</band>
+	</background>
+	<detail>
+		<band height="244">
+			<staticText>
+				<reportElement x="160" y="124" width="292" height="20" uuid="20a76f3c-aa7d-4540-ac1e-0c0d483fa4a6"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSTANCIA DE TERMINACIÓN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="171" width="331" height="20" uuid="c937a010-dec4-458a-8152-07ed6e9b9899"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreSP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="66" y="198" width="480" height="46" isPrintWhenDetailOverflows="true" uuid="9221c452-eea1-4a6e-8325-5da5ac4c25ae"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ha concluido satisfactoriamente su \""+ $P{proceso} + "\", agradecemos su disposición para realizar este proceso, le recordamos que la información proporcionada es confidencial y quedará bajo resguardo de la Subdirección de Proceso Escalafonario y Evaluación del Capital Humano."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="79" width="250" height="15" uuid="f56abcab-d3fe-4bd8-bcae-3267fed02c13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="296" y="65" width="250" height="15" uuid="2335cea1-4821-47d8-8519-21c0174a1348"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Toluca de Lerdo, México;]]></text>
+			</staticText>
+		</band>
+		<band height="96">
+			<textField>
+				<reportElement x="66" y="10" width="480" height="67" uuid="d54288d6-c9da-4bd1-ac2f-224f6de5b6e3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\"La inclusión y participación de los empleados como el interés de los jefes, es la clave del éxito en \ncualquier organización\""
++ "\n"
++ "Anónimo."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

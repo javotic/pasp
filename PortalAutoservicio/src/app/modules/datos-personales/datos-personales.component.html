@@ -1,0 +1,516 @@
+<script>
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+</script>
+
+<p-toast [style]="{marginTop: '1px'}" position="top-left" key="notifi"></p-toast>
+<p-toast position="center" key="d"></p-toast>
+<p-toast position="center" key="c" (onClose)="rechazar()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle icon-message" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="guardarDatosPersonales()" label="Si"
+                        class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="rechazar()" label="No" class="ui-button-danger"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <p-panel header="{{consultaDPtiquetas.tituloPersonales}}" [toggleable]="false">
+            <div class="col-md-12 div-panel">
+                <h4 style="text-align: center">{{idServidorPublico}} - {{dsRolUsuario}}</h4>
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle"
+                        label="Información" (click)="mostrarInstrucciones = true" style="width: 150px;"></button>
+            </div>
+            <form [formGroup]="datosPersonalesform" (ngSubmit)="confirmacionDatosPersonales()">
+                <h6 style="margin-bottom: 0;">Datos personales</h6>
+                <hr style="margin-top: 3px;" />
+                <!-- Nombre, Primer apellido, Segundo apellido -->
+                <div class="row">
+                    <!-- Nombre -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 div-panel">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input id="txtNombre" type="text" size="30"
+                                       pInputText formControlName="nombre"
+                                       placeholder="{{consultaDPtiquetas.nombre}}" />
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Primer apellido -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 div-panel">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtApellidoP" size="30" pInputText
+                                       formControlName="apellidoPaterno"
+                                       placeholder="{{consultaDPtiquetas.ApellidoPaterno}}" />
+                            </span>
+
+                        </div>
+                    </div>
+                    <!-- Segundo apellido -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 div-panel">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtApellidoM" size="30" pInputText
+                                       formControlName="apellidoMaterno"
+                                       placeholder="{{consultaDPtiquetas.ApellidoMaterno}}" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fecha nacimiento,  CURP y RFC-->
+                <div class="row">
+                    <!-- Fecha nacimiento -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtcalendar" size="30" pInputText
+                                       formControlName="fechaNacimiento"
+                                       placeholder="{{consultaDPtiquetas.fechaNacimiento}}" />
+                            </span>
+                        </div>
+                    </div>
+                    <!-- CURP -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtCurp" size="30"
+                                       pInputText formControlName="curp"
+                                       placeholder="{{consultaDPtiquetas.Curp}}" />
+                            </span>
+
+                        </div>
+                    </div>
+                    <!-- RFC -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtRfc" size="30"
+                                       pInputText formControlName="rfc"
+                                       placeholder="{{consultaDPtiquetas.Rfc}}" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ISSEMYM, Telefono, Mail -->
+                <div class="row">
+                    <!-- ISSEMYM -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtIssemym" size="30" pInputText
+                                       formControlName="issemym"
+                                       placeholder="{{consultaDPtiquetas.Issemym}}">
+                            </span>
+
+                        </div>
+                    </div>
+                    <!-- Telefono -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtTelefono" size="30"
+                                       maxlength="15" pInputText
+                                       formControlName="telefono"
+                                       placeholder="{{consultaDPtiquetas.telefono}}" />
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errtelefono}}"
+                                           *ngIf="!datosPersonalesform.controls['telefono'].valid&&datosPersonalesform.controls['telefono'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mail -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="email" id="correoElectronico"
+                                       size="30" maxlength="80"
+                                       required pattern="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}$"
+                                       maxlength="80"
+                                       formControlName="correoElectronico" pInputText
+                                       placeholder="{{consultaDPtiquetas.correlElectronico}}">
+                            </span>
+                            <div style="padding-top: 0px !important;">
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.erremail}}"
+                                           *ngIf="!datosPersonalesform.controls['correoElectronico'].valid">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nivel de estudios, Estado civil, Sexo -->
+                <div class="row">
+                    <!-- Nivel de estudios -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label" (click)="ValidarEdicion()">
+                                <p-dropdown [ngClass]='{"borde-intermitente-down": isRedirect}'
+                                            class="" [options]="cmbNivelEstudios"
+                                            formControlName="idNivelEstudios" id="idNivelEstudios"
+                                            [filter]="true" size="30" placeholder="Nivel Estudios"
+                                            [disabled]="!boEnableElements"></p-dropdown>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Estado civil -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <p-dropdown [options]="cmbEstadoCivil"
+                                            formControlName="nombreEstadoCivil"
+                                            id="nombreEstadoCivil" [filter]="true"
+                                            size="30"
+                                            placeholder="{{consultaDPtiquetas.seleccioneEstadoCivil}}">
+                                </p-dropdown>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Sexo -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <span class="ui-float-label">
+                                <p-dropdown [options]="cmbSexo"
+                                            formControlName="idSexo"
+                                            id="idSexo" [filter]="true" size="30"
+                                            placeholder="{{consultaDPtiquetas.seleccioneSexo}}">
+                                </p-dropdown>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <h6 style="margin-bottom: 0;">Domicilio personal</h6>
+                <hr style="margin-top: 3px;" />
+                <!-- Estado, Municipio y Colonia -->
+                <div class="row">
+                    <!-- Estado-->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <p-dropdown [options]="cmbEstados"
+                                            formControlName="idEstado" id="idEstado"
+                                            [filter]="true" size="30"
+                                            [disabled]="true"
+                                            placeholder="{{consultaDPtiquetas.seleccioneEstado}}">
+                                </p-dropdown>
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errestado}}"
+                                           *ngIf="!datosPersonalesform.controls['idEstado'].valid&&datosPersonalesform.controls['idEstado'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Municipio -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <p-dropdown [options]="cmbMunicipios"
+                                    (onChange)="cargaColonias($event)"
+                                    formControlName="idMunicipio" id="idMunicipio"
+                                    [filter]="true" size="30"
+                                    placeholder="{{consultaDPtiquetas.seleccioneMunicipio}}"
+                                    (onShow)="onShowMunicipios()">
+                        </p-dropdown>
+                        <div>
+                            <p-message severity="error"
+                                       text="{{consultaDPtiquetas.errmunicipio}}"
+                                       *ngIf="!datosPersonalesform.controls['idMunicipio'].valid&&datosPersonalesform.controls['idMunicipio'].dirty">
+                            </p-message>
+                        </div>
+                    </div>
+                    <!-- Colonia -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <p-dropdown [options]="cmbColonias" formControlName="colonia"
+                                            id="txtColoia" [filter]="true"
+                                            size="30" placeholder="{{consultaDPtiquetas.seleleccioneColonia}}"
+                                            (onShow)="onShowColonias()"></p-dropdown>
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errcolonia}}"
+                                           *ngIf="!datosPersonalesform.controls['colonia'].valid&&datosPersonalesform.controls['colonia'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Calle, Numero interior y Numero exterior -->
+                <div class="row">
+                    <!-- Calle -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtCalle" size="30"
+                                       name="txtCalle" maxlength="50"
+                                       formControlName="calle" pInputText required=true;
+                                       placeholder="{{consultaDPtiquetas.calle}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errcalle}}"
+                                           *ngIf="!datosPersonalesform.controls['calle'].valid&&datosPersonalesform.controls['calle'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Numero interior  -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="numeroInterior"
+                                       size="30" maxlength="10"
+                                       formControlName="numeroInterior" pInputText
+                                       placeholder="{{consultaDPtiquetas.nInterior}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errninterior}}"
+                                           *ngIf="!datosPersonalesform.controls['numeroInterior'].valid">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Numero exterior -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="numeroExterior"
+                                       size="30" maxlength="10"
+                                       formControlName="numeroExterior" pInputText
+                                       placeholder="{{consultaDPtiquetas.nExterior}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errnexterior}}"
+                                           *ngIf="!datosPersonalesform.controls['numeroExterior'].valid">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Codigo Postal -->
+                <div class="row">
+                    <!-- Codigo Postal -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="codigoPostal" size="30"
+                                       formControlName="codigoPostal" pInputText
+                                       maxlength="5" placeholder="{{consultaDPtiquetas.Cp}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errcp}}"
+                                           *ngIf="!datosPersonalesform.controls['codigoPostal'].valid&&datosPersonalesform.controls['codigoPostal'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6 style="margin-bottom: 0;">Domicilio Fiscal</h6>
+                <hr style="margin-top: 3px;" />
+                <!-- Estado, Municipio y Colonia -->
+                <div class="row">
+                    <!-- Estado-->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <p-dropdown [options]="cmbEstados"
+                                            formControlName="idEstadoFiscal"
+                                            id="idEstadoFiscal"
+                                            [filter]="true" size="30"
+                                            [disabled]="true"
+                                            placeholder="{{consultaDPtiquetas.seleccioneEstado}}">
+                                </p-dropdown>
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errestado}}"
+                                           *ngIf="!datosPersonalesform.controls['idEstadoFiscal'].valid&&datosPersonalesform.controls['idEstadoFiscal'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Municipio -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <p-dropdown [options]="cmbMunicipiosFiscales"
+                                    (onChange)="cargaColoniasFiscales($event)"
+                                    formControlName="idMunicipioFiscal"
+                                    id="idMunicipioFiscal"
+                                    [filter]="true" size="30"
+                                    placeholder="{{consultaDPtiquetas.seleccioneMunicipio}}"
+                                    (onShow)="onShowMunicipiosFiscales()">
+                        </p-dropdown>
+                        <div>
+                            <p-message severity="error"
+                                       text="{{consultaDPtiquetas.errmunicipio}}"
+                                       *ngIf="!datosPersonalesform.controls['idMunicipioFiscal'].valid&&datosPersonalesform.controls['idMunicipioFiscal'].dirty">
+                            </p-message>
+                        </div>
+                    </div>
+                    <!-- Colonia -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <p-dropdown [options]="cmbColoniasFiscales"
+                                            formControlName="coloniaFiscal"
+                                            id="txtColoiaFiscal"
+                                            [filter]="true" size="30"
+                                            placeholder="{{consultaDPtiquetas.seleleccioneColonia}}"
+                                            (onShow)="onShowColoniasFiscales()"></p-dropdown>
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errcolonia}}"
+                                           *ngIf="!datosPersonalesform.controls['coloniaFiscal'].valid&&datosPersonalesform.controls['coloniaFiscal'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Calle, Numero interior y Numero exterior -->
+                <div class="row">
+                    <!-- Calle -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="txtCalleFiscal" size="30"
+                                       name="txtCalleFiscal" maxlength="50"
+                                       formControlName="calleFiscal"
+                                       pInputText required=true;
+                                       placeholder="{{consultaDPtiquetas.calle}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errcalle}}"
+                                           *ngIf="!datosPersonalesform.controls['calleFiscal'].valid&&datosPersonalesform.controls['calleFiscal'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Numero interior  -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="numeroInteriorFiscal"
+                                       size="30" maxlength="10"
+                                       formControlName="numeroInteriorFiscal" pInputText
+                                       placeholder="{{consultaDPtiquetas.nInterior}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errninterior}}"
+                                           *ngIf="!datosPersonalesform.controls['numeroInteriorFiscal'].valid">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Numero exterior -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="numeroExteriorFiscal"
+                                       size="30" maxlength="10"
+                                       formControlName="numeroExteriorFiscal" pInputText
+                                       placeholder="{{consultaDPtiquetas.nExterior}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errnexterior}}"
+                                           *ngIf="!datosPersonalesform.controls['numeroExteriorFiscal'].valid">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Codigo Postal -->
+                <div class="row">
+                    <!-- Codigo Postal -->
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group div-message-error">
+                            <span class="ui-float-label">
+                                <input type="text" id="codigoPostalFiscal" size="30"
+                                       formControlName="codigoPostalFiscal" pInputText
+                                       maxlength="5" placeholder="{{consultaDPtiquetas.Cp}}">
+                            </span>
+                            <div>
+                                <p-message severity="error"
+                                           text="{{consultaDPtiquetas.errcp}}"
+                                           *ngIf="!datosPersonalesform.controls['codigoPostalFiscal'].valid&&datosPersonalesform.controls['codigoPostalFiscal'].dirty">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botones de gestion -->
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 pull-right"
+                         style="vertical-align:middle; text-align: right;">
+                        <button pButton type="submit"
+                                style="max-width: 200px;"
+                                label="{{consultaDPtiquetas.btnGuardar}}"
+                                class="ui-button-primary"
+                                [disabled]="!datosPersonalesform.valid"></button>
+                    </div>
+                </div>
+            </form>
+        </p-panel>
+    </div>
+</div>
+
+
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false"
+          showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <p style="font-weight: bold;">Funcionalidad:</p>
+            <p style="text-align: justify;">
+                Esta pantalla tiene la finalidad de mostrar la información personal de servidor publico para que se
+                valide y si es necesario poder actualizarla.
+            </p>
+            <br />
+            <p style="font-weight: bold;">Instrucciones:</p>
+            <p style="text-align: justify;">
+                El servidor publico podrá actualizar sus datos personales dentro de la pantalla, dirección teléfono,
+                correo electrónico, escolaridad. Si la pantalla muestra mensajes rojos bajo un campo, es necesario
+                completar esa información ya que esta es requerida como obligatoria.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Atención" [(visible)]="boActualizaInfo" [focusOnShow]="false"
+          showEffect="fade" [modal]="true">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <p style="text-align: justify;">
+                El proceso escalafonario actualmente esta en curso, por tanto no podrá actualizar sus datos
+                profesionales.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+
+
+
+<ngx-spinner></ngx-spinner>

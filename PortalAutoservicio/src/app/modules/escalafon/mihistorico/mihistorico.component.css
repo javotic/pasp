@@ -1,0 +1,106 @@
+/*body{
+  font-family: 'Roboto' !important;
+}
+:host ::ng-deep .ui-widget{
+  font-family: 'Roboto' !important;
+}
+.center-h {
+    justify-content: center;
+  }
+  .center-v {
+    align-items: center;
+  }
+  .evaluados {
+    color: rgb(22, 9, 138);
+    font-weight: bold;
+  }
+  .faltantes {
+    color: rgb(139, 9, 9);
+    font-weight: bold;
+  }
+  .child {
+    background: #60e0b0;
+    padding: .2rem;
+  }
+
+  .tabletr {
+    text-align: justify;
+    font-weight: bold;
+  }
+  .tableth {
+    text-align: center;
+    font-weight: normal;
+  }
+
+  .stylepreguntas{
+    align-items: baseline;
+  }
+
+  .izquierda {
+    align-items: left;
+  }
+
+  :host ::ng-deep .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
+    background-color: #ff0000; 
+    border: 1px solid #ff0000;
+  }
+
+  fieldset{
+    box-shadow: 5px 5px 5px;
+}
+.border {
+	border: 2px solid #dee2e6 !important;
+}
+legend{
+    background-color: #45526e;  	
+	border-radius: 5px 5px 5px 5px;	
+    color: #fff;
+    height: 70px;
+    width: 50% !important;
+    text-align: center;
+}
+
+fieldset{
+    background: white;     
+}
+
+:host ::ng-deep .ui-panel .ui-panel-titlebar {
+background-color: #484C5F !important;
+color: white;
+font-size: 20px;
+}
+
+:host ::ng-deep .ui-table .ui-table-thead > tr > th {
+    text-align: center !important;
+}
+
+div.container{
+    min-height: 750px; 
+    margin-top: 5em !important;
+}
+
+:host ::ng-deep  .ng-star-inserted th input{
+    width: 100% !important;
+    margin-top: 8px !important;
+
+}
+p-table{
+    width: 100% !important;
+    padding-top: 2em !important;
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 90em !important;
+        max-height: 90em !important;
+    }
+}
+
+:host ::ng-deep .ui-panel.ui-widget.ui-widget-content.ui-corner-all{
+    box-shadow: 6px 6px 3px -2px rgba(120,120,120,1) !important;
+}
+.div-panel{
+    padding-top: 2em !important;
+}
+
+*/

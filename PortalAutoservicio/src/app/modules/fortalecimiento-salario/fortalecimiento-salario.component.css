@@ -1,0 +1,40 @@
+#tblDatosServidorPublicoDocente tr td,
+#tblDatosServidorPublicoBurocrata tr td,
+#tblCategorias > td, 
+#tblCategorias thead tr th{
+	padding: 5px 15px 0px 15px;
+	border: 1px solid #636569;
+}
+
+#tblDatosServidorPublicoDocente tr td label,
+#tblDatosServidorPublicoBurocrata tr td label,
+#tblCategorias tr td label{
+	margin-bottom: 0;
+}
+
+.even, 
+#tblCategorias thead{
+	background-color: #f4f4f4;
+}
+
+.even label{
+	font-size: 11pt;
+	line-height: 1.0;
+}
+
+.texto-contenido{
+	font-family: Roboto-LightItalic;
+	font-size: 11pt;
+}
+
+#tblCategorias{
+	margin: 0 auto;
+}
+
+#tblCategorias thead tr th{
+	font-weight: 400;
+}
+
+th{
+	font-size: 10pt;
+}

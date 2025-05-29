@@ -1,0 +1,101 @@
+<p-toast position="center" key="cd" (onClose)="rechazar()" [modal]="true" style="z-index: 1000000; width: 450px;">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 127px"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="cerrarsession()" label="Si"
+                        class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="rechazar()" label="No" class="ui-button-danger"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="div_header">
+    <div class="logo1">
+        <!--  -->
+        <img src="/PortalAutoservicio/assets/Images/logo_edomex.svg" height="100%">
+    </div>
+    <div class="logo2">
+        <img src="/PortalAutoservicio/assets/Images/logo_edomex2.svg" height="100%">
+    </div>
+
+
+
+    <div class="notficaciones" *ngIf="(notDropDown$ | async) as notificaciones"
+         [ngStyle]="{'cursor': 'pointer'}" (click)="adminNotificaciones()">
+        <p>Notificaciones</p>
+        <span class="w3-badge">{{notificaciones.length}}</span>
+
+        <div class="det-notificacion">
+            <!--
+                    <img src="/PortalAutoservicio/assets/Images/close.svg" width="18px" height="18px" style="margin-bottom: 3px; cursor: pointer;" 
+                    (click)="adminNotificaciones()">-->
+            <div *ngFor="let noti of (notDropDown$ | async)">
+                <hr class="hr-noti" />
+                <div style="display: flex;">
+                    <span class="w3-badge-noti"></span>
+                    <a class="dropdown-item item-noti" routerLink="{{noti.urlNotificacion}}"
+                       (click)="leerNotificacion(noti)">{{noti.descNotificacion}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="usuario">
+        <div>
+            <p class="p-user" *ngIf="InpDatosPersonales!= undefined">{{InpDatosPersonales.NOMBRECOMPLETO}}</p>
+            <p class="p-puesto" *ngIf="InpDatosServidorPublico!= undefined">{{InpDatosPersonales.NPUESTO}}</p>
+        </div>
+    </div>
+    <div class="elipse">
+        <div class="figura">
+
+        </div>
+    </div>
+    <div class="salir" style="cursor: pointer;" (click)="cerrarsessionConfirm()">
+        <a>
+            Salir
+        </a>
+    </div>
+    <!--
+        <div class="col-md-10 img-edomex">
+                <img src="/PortalAutoservicio/assets/Images/logo-edomex.png" alt="">
+                <label style="color: white; font-size: 30px;  text-align: right;">{{lblPerfil}}</label> 
+        </div>
+    
+        <div class="col-md-1 pull-right img-alert">
+
+            <div class="btn-group dropleft"*ngIf="(notDropDown$ | async) as notificaciones"  >
+                <img class="img-bel dropdown-toggle" src="/PortalAutoservicio/assets/Images/notificaciones.png" alt=""
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="total-Not">{{notificaciones.length}}</i>
+                <div class="dropdown-menu">
+                <div *ngFor="let noti of notificaciones" style="background: #2B2F3D !important">
+                        <hr />
+                        <a class="dropdown-item"  routerLink="{{noti.urlNotificacion}}" (click)="leerNotificacion(noti)">{{noti.descNotificacion}}</a>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1">
+
+            <nav class="navbar navbar-expand navbar-dark" style="height: 100% !important;">
+                <button class="btn btn-link btn-sm order-1 order-lg-0"
+                data-cy="topNavToggleSideNav" (click)="toggleSideNav()">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+         </div>
+    </div>
+
+
+        -->

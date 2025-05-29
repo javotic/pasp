@@ -1,0 +1,62 @@
+<router-outlet></router-outlet>
+
+<p-dialog [(visible)]="displayErrorUser" [modal]="true" [baseZIndex]="100000" [closable]="false" [draggable]="false" [resizable]="false">
+    <div class="popup" pd-popup="popupNew" style="text-align: center;">
+        <div class="popup-inner">
+            <h3>Tiempo de espera agotado, reintente más tarde</h3>
+            <br />
+            <div class="row">
+                <div class="col-md-3" ></div>
+
+                <div class="col-md-3">
+                    <button style="width: 100;" class="btn btn-info" (click)="reintentarIngreso()" >Reintentar</button>
+                </div>
+                <div class="col-md-3">
+                    <button  style="width: 100;" class="btn btn-danger" (click)="redirectAnotherSite()" >Salir</button>
+                </div>
+                <div class="col-md-3" ></div>
+
+            </div>
+            
+            
+        </div>
+    </div>
+</p-dialog>
+
+
+<p-dialog [(visible)]="displayUserNoEncontrado" [modal]="true" [baseZIndex]="100000" [closable]="false" [draggable]="false" [resizable]="false">
+    <div class="popup" pd-popup="popupNew" style="text-align: center;">
+        <div class="popup-inner">
+            <h3>No se pudieron encontrar los datos del usuario.</h3>
+            <br />
+            <div class="row">
+                <div class="col-md-5" ></div>
+
+                <div class="col-md-2">
+                    <button  style="width: 100;" class="btn btn-danger" (click)="redirectAnotherSite()" >Salir</button>
+                </div>
+                <div class="col-md-5" ></div>
+
+            </div>
+            
+            
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="100000" [closable]="false"
+    [draggable]="false" [resizable]="false">
+    <div class="popup" pd-popup="popupNew" style="text-align: center;">
+        <div class="popup-inner">
+            <!-- <img  src="/PortalAutoservicio/assets/Images/alerta.png" style="width: 130px; height: 120px;">  -->
+            <h1 class="display-1">
+                <countdown #cd1 [config]="config" (event)="handleEvent($event)" ></countdown>
+            </h1>
+            <h2>{{cierreAutomatico}}</h2>
+            <p>{{ingresarnuevamente}}</p>
+            <p><a pd-popup-close="popupNew"  class="btn btn-danger" (click)="cerrarDialog()">Ok</a></p>
+            <a class="popup-close" pd-popup-close="popupNew" > </a>
+        </div>
+    </div>
+
+</p-dialog>

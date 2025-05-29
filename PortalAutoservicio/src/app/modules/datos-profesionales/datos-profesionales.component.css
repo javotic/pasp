@@ -1,0 +1,15 @@
+.borde-intermitente {
+  animation: 3 resplandorAnimation 2s;
+}
+
+@keyframes resplandorAnimation {
+  0%,
+  100% {
+    box-shadow: 0px 0px 0px red;
+    /*border: 1px solid #01A4A4; */
+  }
+  50% {
+    box-shadow: 0px 0px 20px red;
+    /*border: 1px solid #01A4A4;*/
+  }
+}

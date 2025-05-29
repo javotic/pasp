@@ -1,0 +1,402 @@
+/* You can add global styles to this file, and also import other style files */
+
+body,
+html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto-Medium' !important;
+    min-width: 768px !important;
+    color: #636569;
+}
+
+body .ui-widget {
+    font-family: 'Roboto-Medium' !important;
+}
+
+
+/*
+@font-face {
+    font-family: 'Roboto';
+    src: url('assets/fonts/Thin/Roboto-Thin.woff2') format('woff2'),
+      url('assets/fonts/Thin/Roboto-Thin.woff') format('woff'),
+      url('assets/fonts/Thin/Roboto-ThinItalic.woff2') format('woff2'),
+      url('assets/fonts/Thin/Roboto-ThinItalic.woff') format('woff'),
+
+      url('assets/fonts/Black/Roboto-Black.woff2') format('woff2'),
+      url('assets/fonts/Black/Roboto-Black.woff') format('woff'),
+      url('assets/fonts/Black/Roboto-BlackItalic.woff2') format('woff2'),
+      url('assets/fonts/Black/Roboto-BlackItalic.woff') format('woff'),
+
+      url('assets/fonts/Bold/Roboto-Bold.woff2') format('woff2'),
+      url('assets/fonts/Bold/Roboto-Bold.woff') format('woff'),
+      url('assets/fonts/Bold/Roboto-BoldItalic.woff2') format('woff2'),
+      url('assets/fonts/Bold/Roboto-BoldItalic.woff') format('woff'),
+
+      url('assets/fonts/Italic/Roboto-Italic.woff') format('woff2'),
+      url('assets/fonts/Italic/Roboto-Italic.woff') format('woff'),
+      
+
+      url('assets/fonts/Light/Roboto-Light.woff2') format('woff2'),
+      url('assets/fonts/Light/Roboto-Light.woff') format('woff'),
+      url('assets/fonts/Light/Roboto-LightItalic.woff2') format('woff2'),
+      url('assets/fonts/Light/Roboto-LightItalic.woff') format('woff'),
+
+      url('assets/fonts/Medium/Roboto-Medium.woff2') format('woff2'),
+      url('assets/fonts/Medium/Roboto-Medium.woff') format('woff'),
+      url('assets/fonts/Medium/Roboto-MediumItalic.woff2') format('woff2'),
+      url('assets/fonts/Medium/Roboto-MediumItalic.woff') format('woff'),
+
+      url('assets/fonts/Regular/Roboto-Regular.woff2') format('woff2'),
+      url('assets/fonts/Regular/Roboto-Regular.woff') format('woff'),
+      ;
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  */
+
+@font-face {
+    font-family: 'Roboto-Thin';
+    src: url('assets/fonts/Thin/Roboto-Thin.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto-Medium';
+    src: url('assets/fonts/Medium/Roboto-Medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto-LightItalic';
+    src: url('assets/fonts/Light/Roboto-LightItalic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url('assets/fonts/Light/Roboto-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url('assets/fonts/Bold/Roboto-Bold.woff') format('woff');
+}
+
+.ui-dialog-titlebar {
+    background: #484C5F !important;
+    color: #fff !important;
+}
+
+.tamanioIco {
+    width: 30px !important;
+    height: 30px !important;
+    cursor: pointer;
+}
+
+.tb_sombreado_gridGen {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tb_sombreado_gridGen td {
+    border: 1px solid #ddd;
+    padding: 3px;
+    height: 35px;
+}
+
+.tb_sombreado_gridGen th {
+    border: 1px solid #ddd;
+    padding: 3px;
+    height: 35px;
+    background: #484C5F !important;
+    color: #fff !important;
+    text-align: center;
+}
+
+.tb_sombreado_gridGen tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.btn-magenta {
+    box-shadow: 1px 5px 5px -3px #ff00ff !important;
+    /* background: #fff !important; */
+    background-color: #ff00ff !important;
+    /*color: #790373 !important;*/
+    color: white;
+    font-weight: bold !important;
+    border-color: #b300b3 !important;
+    /* border-color: #790373 !important ; */
+    border-width: 2px !important;
+    text-align: center;
+    width: 14em !important;
+    /* height: 2em !important; */
+}
+
+.btn-magenta:hover {
+    box-shadow: 1px 5px 5px -3px #e600e6 !important;
+    /* background: #fff !important; */
+    background-color: #e600e6 !important;
+    /*color: #790373 !important;*/
+    color: white;
+    font-weight: bold !important;
+    border-color: #b300b3 !important;
+    /* border-color: #790373 !important ; */
+    border-width: 2px !important;
+    text-align: center;
+    width: 14em !important;
+    /* height: 2em !important; */
+}
+
+.li-focus:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    border: 0px;
+    box-shadow: 0 0 0 0.2em #FF00FF !important;
+}
+
+.iconos_action {
+    width: 2em !important;
+    height: 2em !important;
+}
+
+
+/* Inician nuevos estilos */
+
+.not-mar-pad {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.titulos {
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    font-size: 24px;
+    font-family: Roboto-Medium;
+}
+
+.tooltip_custom {
+    position: relative;
+    display: inline-block;
+    /* If you want dots under the hoverable text */
+}
+
+
+/* Tooltip text */
+
+.tooltip_custom .tooltiptext_custom {
+    visibility: hidden;
+    width: auto;
+    background-color: #636569;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 100px;
+    white-space: nowrap;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+
+.tooltip_custom:hover .tooltiptext_custom {
+    visibility: visible;
+}
+
+input,
+.ui-dropdown {
+    width: 100% !important;
+    height: 3em !important;
+    font-family: 'Roboto-LightItalic' !important;
+    color: #000000 !important;
+}
+
+.ui-panel-titlebar,
+.ui-dialog-titlebar {
+    font-family: 'Roboto-Bold' !important;
+    font-size: 16px !important;
+    background-color: #636569 !important;
+    color: #ffff !important;
+}
+
+.ui-dialog-titlebar {
+    padding: .5em .75em !important;
+    border: none !important;
+}
+
+.confirmacion-msg .ui-dialog-titlebar {
+    background-color: #FFFF !important;
+    font-family: 'Roboto-Bold' !important;
+    font-size: 16px !important;
+    color: #000000 !important;
+}
+
+.confirmacion-msg .ui-dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    padding: 0.5em 1em !important;
+    font-family: 'Roboto-Medium' !important;
+}
+
+.confirmacion-msg .ui-confirmdialog .ui-dialog-content .ui-confirmdialog-icon {
+    font-size: 126px !important;
+    margin: 0px !important;
+    top: 0px !important;
+}
+
+.div-panel h4 {
+    color: #000000 !important;
+    font-family: 'Roboto-Medium' !important;
+    font-size: 26px !important;
+}
+
+.ui-button-primary {
+    background: #01A4A4 !important;
+    width: 100%;
+    font-family: 'Roboto-Bold' !important;
+    color: white !important;
+}
+
+.ui-toast-message-content {
+    background-color: #FFFF;
+}
+
+.icon-message {
+    font-size: 126px !important;
+}
+
+.header-confirmacion-hr {
+    margin-block-start: 0.5em !important;
+    margin-block-end: 0.5em !important;
+    margin-inline-start: auto !important;
+    margin-inline-end: auto !important;
+}
+
+
+/* Estilos de las tablas */
+
+.ui-inputwrapper-filled .ui-dropdown {
+    width: 50px !important;
+}
+
+.ui-table .ui-table-thead tr>th {
+    text-align: center;
+}
+
+
+/*.ui-table, .ui-table-caption, .ui-table .ui-table-thead tr > th, .ui-paginator{
+  background-color: #E2E2E2 !important;
+}
+*/
+
+
+/* swiper */
+
+
+/*
+.swiper-container {
+  z-index: -1 !important;
+}
+*/
+
+
+/* Contenedores */
+
+.contenido-pantalla {
+    padding: 15px;
+}
+
+
+/* Links */
+
+.a-regresar {
+    cursor: pointer;
+    color: #4BA6DE !important;
+    text-decoration: underline !important;
+    margin-bottom: 10px !important;
+}
+
+.ui-sidebar-left {
+    top: 0px !important;
+    height: 100% !important;
+    position: absolute !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    min-width: 25em !important;
+    width: 25em !important;
+}
+
+.ui-sidebar {
+    background-color: #E2E2E2 !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    border: none !important;
+}
+
+.active-link {
+    background-color: #636569 !important;
+}
+
+.active-link a .menu_negro {
+    display: none !important;
+}
+
+.active-link a .menu_blanco {
+    display: initial !important;
+}
+
+.txt-menu-float {
+    font-family: 'Roboto-Light';
+    color: #636569;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.active-link a .txt-menu-float {
+    color: white !important;
+}
+
+#confirma .ui-dialog .ui-dialog-footer button[ng-reflect-label="Si"] {
+    background-color: #88C425 !important;
+    border: none;
+    width: 90px !important;
+}
+
+#confirma .ui-dialog .ui-dialog-footer button[ng-reflect-label="No"] {
+    background-color: red !important;
+    border: none;
+    width: 90px !important;
+}
+
+
+/* Animaciones */
+
+.borde-intermitente,
+.borde-intermitente-down .ui-dropdown {
+    /*padding: 20px 20px;
+  box-shadow: 0px 0px 0px;
+  */
+    animation: 3 resplandorAnimation 2s;
+}
+
+@keyframes resplandorAnimation {
+    0%,
+    100% {
+        box-shadow: 0px 0px 0px red;
+        /*border: 1px solid #01A4A4; */
+    }
+    50% {
+        box-shadow: 0px 0px 20px red;
+        /*border: 1px solid #01A4A4;*/
+    }
+}

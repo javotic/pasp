@@ -1,0 +1,18 @@
+    <div class="row" style="padding: 0px; margin: 0px;">
+    <div class="col-md-12" style="padding: 0px; margin: 0px;" >
+        <app-header (hideShowMenu)="changeVisibleMenu($event)" 
+        [InpDatosPersonales]="datosPersonales" [InpDatosServidorPublico]="consultaDatosServidorPublico"></app-header>
+    </div>
+    <div class="col-md-12">
+        <div class="container_custom" style="margin-left: 130px;" >
+            <app-sidebar (outdatosPersonales)="getDatosPersonales($event)" (outDatosServidorPublico)="getServidorPublico($event)" >
+            </app-sidebar>  
+            <router-outlet class="content-router"></router-outlet>
+            <br />
+        </div>
+    </div>
+     
+   <div class="col-md-12" style="padding: 0px; margin: 0px;">
+        <app-footer> </app-footer>
+   </div>
+</div> 

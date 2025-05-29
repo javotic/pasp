@@ -1,0 +1,41 @@
+
+.panel-forma div div{
+  background-color: white !important;
+  border: none !important;
+}
+
+.panel-forma div div .ui-panel-title{
+  font-family: 'Roboto-Light' !important;
+  font-size: 24px !important;
+  color: #000000 !important;
+  font-weight: normal !important;
+}
+
+
+.ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a{
+  background-color: #AFAFAF !important;
+  border: none !important;
+  color: black !important;
+}
+
+
+.ui-steps .ui-steps-item.ui-state-highlight .ui-steps-number{
+  background: #01A4A4 !important;
+}
+
+
+.msg-preins div{
+  width: 500px !important;
+}
+
+.btn-icono, .btn-icono:focus{
+  cursor: default;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+
+.indexFocus div div{ /*.ui-table-auto-layout>.ui-table-wrapper{*/
+  overflow-x: visible !important;
+}

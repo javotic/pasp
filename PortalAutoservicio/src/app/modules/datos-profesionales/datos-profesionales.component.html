@@ -1,0 +1,383 @@
+<p-toast position="bottom-center" key="d"></p-toast>
+<p-dialog header="Atención" [(visible)]="isAddUpdate" [modal]="true" [style]="{width: '40vw'}" [baseZIndex]="10000">
+    <p style="font-weight: bold;">
+        Artículo 99 Del Reglamento del Proceso Escalafonario:
+    </p>
+    <br />
+    <p class="text-justify">
+        En caso de comprobarse alteración de datos o documentos, la Persona Servidora Pública que hubiere
+        incurrido en ello, independientemente de las sanciones que le correspondan de conformidad con la
+        normativa aplicable, quedará descalificada del concurso y suspendida para participar en los
+        concursos que se realicen en los tres años subsecuentes.
+    </p>
+</p-dialog>
+<div class="confirmacion-msg">
+    <p-confirmDialog id="confirma" header="Confirmación" acceptButtonStyleClass="btn-aceptar" acceptLabel="Si"
+                     rejectLabel="No" icon="pi pi-exclamation-triangle">
+
+    </p-confirmDialog>
+</div>
+<p-toast position="center" key="c" (onClose)="rechazar()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: left;">
+            Confirmación
+        </div>
+        <hr class="header-confirmacion-hr" />
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle icon-message" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="guardarDatosProfesionales()" label="Si"
+                        class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="rechazar()" label="No" class="ui-button-danger"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<p-toast position="center" key="confirmarSeleccion" (onClose)="btnRechazarSeleccionOnClick()"
+         [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: left;">
+            Confirmación
+        </div>
+        <hr class="header-confirmacion-hr" />
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle icon-message"
+               style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button id="bntAceptarSeleccion" type="button" pButton
+                        label="Si" class="ui-button-success"
+                        (click)="bntAceptarSeleccionOnClick()"></button>
+            </div>
+            <div class="ui-g-6">
+                <button id="btnRechazarSeleccion" type="button" pButton
+                        label="No" class="ui-button-danger"
+                        (click)="btnRechazarSeleccionOnClick()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<p-panel header="{{consultaDProfesionalesEtiquetas.titulo}}" [toggleable]="false">
+    <div class="row contenido-pantalla">
+        <div class="col-md-12 div-panel">
+            <hr />
+            <h4 style="text-align: center">{{currentUser.DESCRIESCOLARIDAD}}</h4>
+            <div class="col-md-12" style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+                <button type="button" pButton (click)="showSaveDialog()" *ngIf="boEnableElements"
+                        class="ui-button-primary" icon="pi pi-plus" label="Nuevo"
+                        style="width: 180px !important;"></button>
+
+                <button type="button" class="ui-button-primary" pButton icon="pi pi-question-circle"
+                        label="Información" (click)="mostrarInstrucciones = true" style="width: 150px;"></button>
+            </div>
+        </div>
+
+        <p-table #dt [value]="datosProfesionales" [paginator]="true" [rows]="10" [columns]="cols"
+                 dataKey="IDNIVELESTUDIOS" [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="caption">
+                Datos profesionales
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                    </th>
+                    <th>Seleccionado para proceso</th>
+                    <!-- <th style="width: 25px !important; min-width: 50px;">Archivo</th> -->
+                    <th>{{consultaDProfesionalesEtiquetas.btnEditar}}</th>
+                    <th>{{consultaDProfesionalesEtiquetas.btnEliminar}}</th>
+                    <th>Estatus</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'IDNIVELESTUDIOS'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input *ngSwitchCase="'FECHAEMISIONCERTIFICADO'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input *ngSwitchCase="'FECHAVIGENCIACERTIFICADO'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input *ngSwitchCase="'NOMBRECERTIFICADO'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input *ngSwitchCase="'IDTIPOCERTIFICADO'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input *ngSwitchCase="'NOCERTIFICADO'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        <input *ngSwitchCase="'NOMBREEMISORCERTIFICADO'" pInputText type="text"
+                               (input)="dt.filter($event.target.value, col.field, 'contains')">
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{rowData.FECHAEMISIONCERTIFICADO | dateFormat}}</td>
+                    <td>{{rowData.FECHAVIGENCIACERTIFICADO | dateFormat}}</td>
+                    <td>{{rowData.NOMBRECERTIFICADO}}</td>
+                    <td>{{rowData.DESCRIPCIONCERTIFICADO}}</td>
+                    <td>{{rowData.NOCERTIFICADO}}</td>
+                    <td>{{rowData.NOMBREEMISORCERTIFICADO}}</td>
+                    <td>
+                        <p-checkbox [(ngModel)]="rowData.SELPROCESO" binary="true"
+                                    #seleccionadoproceso
+                                    [ngClass]='{"borde-intermitente": isRedirect}'
+                                    (ngModelChange)="cboCheckCertificadoOnChange(rowData, seleccionadoproceso)">
+                        </p-checkbox>
+                    </td>
+
+                    <!-- <td style="padding: 2px; text-align: center; width: 25px !important;">
+                                                <img  src="/PortalAutoservicio/assets/Images/anadir.svg" *ngIf="rowData.IDFILE === 0 && boEnableElements" (click)="seleccionaDocumento(rowData)" class="tamanioIco" style="cursor: pointer;">
+                                                <img  src="/PortalAutoservicio/assets/Images/ver.svg" *ngIf="rowData.IDFILE !== 0 && boEnableElements" (click)="seleccionaDocumento(rowData)" class="tamanioIco" style="cursor: pointer;"> 
+                                            </td> -->
+                    <td style="padding: 2px; text-align: center; width: 30px;">
+                        <img src="/PortalAutoservicio/assets/Images/editar-icon.svg" *ngIf="boEnableElements"
+                             (click)="cargarCatByAddUpdate(false, rowData)" class="tamanioIco"
+                             style="cursor: pointer;" />
+                    </td>
+                    <td style="padding: 2px; text-align: center; width: 30px;">
+                        <img src="/PortalAutoservicio/assets/Images/borrar-icon.svg" *ngIf="boEnableElements"
+                             (click)="eliminaDatoProfesional(rowData)" class="tamanioIco" style="cursor: pointer;" />
+                    </td>
+                    <td style="padding: 2px; text-align: center; width: 30px;">
+                        <img src="/PortalAutoservicio/assets/Images/green.png"
+                             *ngIf="rowData.SEMAFORO == 1 && boEnableElements" class="tamanioIco"
+                             style="cursor: pointer;"
+                             pTooltip="Capacitación vigente" />
+                        <img src="/PortalAutoservicio/assets/Images/yellow.png"
+                             *ngIf="rowData.SEMAFORO == 2 && boEnableElements" class="tamanioIco"
+                             style="cursor: pointer;"
+                             pTooltip="Esta capacitación caducará próximamente, recuerda seguir con tu preparación." />
+                        <img src="/PortalAutoservicio/assets/Images/red.png"
+                             *ngIf="rowData.SEMAFORO == 3 && boEnableElements" class="tamanioIco"
+                             style="cursor: pointer;"
+                             pTooltip="No cumple con los requisitos mínimos, artículo 89 del Reglamento del Proceso Escalafonario." />
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length + 3">
+                        <strong> {{consultaDProfesionalesEtiquetas.noseecontraronregistros}} </strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <div class="row" style="margin-top: 30px; width: 100%">
+            <div class="col-md-12 align-right" style="text-align: right">
+                <button id="btnGuardar" type="button" pButton
+                        (click)="btnGuardarOnClick()"
+                        class="ui-button-primary" icon="pi pi-check"
+                        label="Guardar"
+                        style="width: 180px !important;"></button>
+            </div>
+        </div>
+
+        <p-dialog header="Detalle" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true"
+                  showEffect="fade" [modal]="true"
+                  [style]="{'width': '750px', 'height':'650px', 'max-height':'700px', 'max-width':'700px'}"
+                  (click)="closeDialogAdd($event)">
+            <form [formGroup]="datosProfesionalesForm" *ngIf="es != null" (ngSubmit)="confirmacionDatosProfesionales()">
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <label for="color">Tipo de Capacitación</label>
+                            <p-dropdown [options]="cmbTipoCertificado" formControlName="idTipoCertificado"
+                                        id="idTipoCertificado" [filter]="true" size="30"
+                                        (onChange)="actualizaFechaFinaliza()"
+                                        placeholder="Seleccione un Tipo de Capacitación:"></p-dropdown>
+                            <p-message severity="error" text="{{consultaDProfesionalesEtiquetas.ncertificador}}"
+                                       *ngIf="!datosProfesionalesForm.controls['idTipoCertificado'].valid&&datosProfesionalesForm.controls['idTipoCertificado'].dirty">
+                            </p-message>
+                        </div>
+                        <div class="ui-g-6">
+                            <label for="color">Nombre Capacitación</label>
+                            <input pInputText id="nombreCertificado" size="49" formControlName="nombreCertificado"
+                                   maxlength="62" />
+                            <p-message severity="error" text="Nombre Capacitación es requerido"
+                                       *ngIf="!datosProfesionalesForm.controls['nombreCertificado'].valid&&datosProfesionalesForm.controls['nombreCertificado'].dirty">
+                            </p-message>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <label for="year">Fecha Emisión Capacitación</label>
+                            <p-calendar #fechaEmisionCertificado [readonlyInput]="true"
+                                        formControlName="fechaEmisionCertificado"
+                                        id="fechaEmisionCertificado" [locale]="es" dateFormat="dd-MM-yy"
+                                        [monthNavigator]="true" [yearNavigator]="true" [yearRange]="rangoAnios"
+                                        ValidatorCalendar [style]="{'width':'100%'}"
+                                        (onSelect)="actualizaFechaFinaliza()"
+                                        placeholder="Fecha Emisión Capacitación" [autoZIndex]="true">
+                            </p-calendar>
+                            <p-message severity="error" text="Fecha Emisión Capacitación es requerido"
+                                       *ngIf="!datosProfesionalesForm.controls['fechaEmisionCertificado'].valid&&datosProfesionalesForm.controls['fechaEmisionCertificado'].dirty">
+                            </p-message>
+                        </div>
+                        <div class="ui-g-6">
+                            <label for="brand">Fecha Vigencia Capacitación</label>
+                            <p-calendar formControlName="fechaVigenciaCertificado"
+                                        dateFormat="dd-MM-yy" id="fechaVigenciaCertificado" [locale]="es"
+                                        [monthNavigator]="true" [yearNavigator]="true" [yearRange]="rangoAnios"
+                                        [style]="{'width':'100%'}" placeholder="Fecha Vigencia" [readonlyInput]="true"
+                                        [disabled]="true"></p-calendar>
+                            <p-message severity="error" text="Fecha Vigencia Capacitación es requerido"
+                                       *ngIf="!datosProfesionalesForm.controls['fechaVigenciaCertificado'].valid&&datosProfesionalesForm.controls['fechaVigenciaCertificado'].dirty">
+                            </p-message>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <label for="color">Tipo Duración</label>
+                            <p-dropdown [options]="cmbTipoDuracion" formControlName="idTipoDuracion" id="idTipoDuracion"
+                                        [filter]="true" size="30"
+                                        placeholder="Selecciona Tipo Duración"></p-dropdown>
+                        </div>
+                        <div class="ui-g-6">
+                            <label for="color"> Duración</label>
+                            <input pInputText id="duracion" size="5" maxlength="10"
+                                   formControlName="duracion" />
+                            <p-message severity="error" text="Duración es requerido"
+                                       *ngIf="!datosProfesionalesForm.controls['duracion'].valid&&datosProfesionalesForm.controls['duracion'].dirty">
+                            </p-message>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <label for="color">No Capacitación</label>
+                            <input pInputText id="noCertificado" size="49" maxlength="10"
+                                   formControlName="noCertificado" />
+                        </div>
+                        <div class="ui-g-6">
+                            <label for="color">{{consultaDProfesionalesEtiquetas.emisor}}</label>
+                            <p-dropdown [options]="cmbEmisores" formControlName="idEmisor" id="idEmisor"
+                                        [filter]="true" size="30"
+                                        placeholder="{{consultaDProfesionalesEtiquetas.seleccioneemisro}}"></p-dropdown>
+                            <p-message severity="error" text="{{consultaDProfesionalesEtiquetas.ecrequerido}}"
+                                       *ngIf="!datosProfesionalesForm.controls['idEmisor'].valid&&datosProfesionalesForm.controls['idEmisor'].dirty">
+                            </p-message>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <p-footer>
+                    <div class="row not-mar-pad" style="text-align: center;">
+                        <div class="col-md-6">
+                            <button pButton type="submit" label="Guardar"
+                                    class="ui-button-success" style="width: 150px;"
+                                    [disabled]="!datosProfesionalesForm.valid"></button>
+                        </div>
+                        <div class="col-md-6">
+                            <button style="width: 150px;" label="Cancelar" pButton type="button"
+                                    class="ui-button-danger" (click)="no()">
+                            </button>
+                        </div>
+                    </div>
+                </p-footer>
+            </form>
+            <br>
+        </p-dialog>
+
+        <!-- Dialogo para la carga de documentos -->
+        <p-dialog header="Detalle Documento" [(visible)]="dialogDocIsVisible" [focusOnShow]="false" [responsive]="true"
+                  showEffect="fade" [modal]="true"
+                  [style]="{'width': '750px', 'height':'650px', 'max-height':'700px', 'max-width':'700px'}">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p-fileUpload name="demo[]" customUpload="true" (uploadHandler)="onUpload($event)"
+                                  maxFileSize="4000000"
+                                  cancelLabel="Cancelar" uploadLabel="Subir" chooseLabel="Buscar" accept=".pdf">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <div class="ui-g-12">
+                    <pdf-viewer [original-size]="false" style="width: 100%;" [src]="srcFile" *ngIf="srcFile!=''">
+                    </pdf-viewer>
+                </div>
+                <div class="ui-g-12 align-self-end">
+                    <div class="ui-g-9"></div>
+                    <div class="ui-g-3" style="margin: 0px; padding: 0px; text-align: right;">
+                        <button type="button" pButton label="Cerrar" class="ui-button-danger"
+                                (click)="closeDialogDoc()">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </p-dialog>
+    </div>
+
+</p-panel>
+
+
+<p-dialog header="Información" [(visible)]="mostrarInstrucciones" [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true" [style]="{width: '500px', border: '0px', padding: '0px !important'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <p style="font-weight: bold;">Funcionalidad:</p>
+            <p style="text-align: justify;">
+                Esta pantalla tiene la finalidad de mostrar todos datos profesionales del servidor público, muestra
+                cursos, diplomados y seminarios.
+            </p>
+            <br />
+            <p style="font-weight: bold;">Instrucciones:</p>
+            <p style="text-align: justify; margin-bottom: 5px;">
+                1. Si deseas agregar una nueva capacitación es necesario presionar el botón nuevo,
+                llenar la información solicitada en la pantalla emergente y guardar
+            </p>
+
+            <p style="text-align: justify; margin-bottom: 5px;">
+                2. Si deseas modificar alguna capacitación es necesario posicionarse en la capacitación
+                que se desea modificar y presionar el botón modificar (lapiz con hoja), cambiar los datos
+                en la pantalla emergente y guardar.
+            </p>
+            <p style="text-align: justify; margin-bottom: 5px;">
+                3, Si se desea eliminar una de las capacitaciones es necesario posicionarse en la
+                capacitación que se desea eliminar y presionar el botón eliminar (bote de basura).
+            </p>
+            <p style="text-align: justify; margin-bottom: 5px;">
+                4. El semáforo será verde si la capacitación cumple con los requisitos para participar en
+                un proceso escalafonario
+            </p>
+            <p style="text-align: justify; margin-bottom: 5px;">
+                5. El semáforo será naranja sí la capacitación está a vencer en los próximos 30 días,
+            </p>
+
+            <p style="text-align: justify; margin-bottom: 5px;">
+                6. El semáforo será rojo si la capacitación no cumple los requisitos para participar en un
+                proceso de escalafón o bien ya cumplió si fecha de vencimiento.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+
+
+<p-dialog header="Atención" [(visible)]="boActualizaInfo" [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <p style="text-align: justify;">
+                El proceso escalafonario actualmente esta en curso, por tanto no podrá actualizar sus datos
+                profesionales.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+
+<ngx-spinner></ngx-spinner>

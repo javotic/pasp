@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carta_aceptacion" pageWidth="612" pageHeight="792" columnWidth="472" leftMargin="70" rightMargin="70" topMargin="70" bottomMargin="70" uuid="7e3177b9-141d-43c6-9480-e4794569f2e7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.9487171000000099"/>
+	<property name="ireport.x" value="44"/>
+	<property name="ireport.y" value="390"/>
+	<style name="Celdas Negras" mode="Opaque" forecolor="#FFFFFF" backcolor="#000000" hTextAlign="Left" hImageAlign="Left" vTextAlign="Middle" vImageAlign="Middle" fontSize="9">
+		<box leftPadding="2" rightPadding="2">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Celdas Blancas" hTextAlign="Left" hImageAlign="Left" vTextAlign="Middle" vImageAlign="Middle" fontSize="9">
+		<box leftPadding="2" rightPadding="2">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<parameter name="FECHA_ACTUAL" class="java.lang.String"/>
+	<parameter name="V_NOMBRE_SERVIDOR" class="java.lang.String"/>
+	<parameter name="V_PUESTO_NOMINAL" class="java.lang.String"/>
+	<parameter name="V_CATEGORIA" class="java.lang.String"/>
+	<parameter name="V_NUMERO_PLAZA_ACTUAL" class="java.lang.String"/>
+	<parameter name="V_ADSCRIPCION" class="java.lang.String"/>
+	<parameter name="V_NUMERO_PLAZA_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_PUESTO_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_CATEGORIA_CONCURSA" class="java.lang.String"/>
+	<parameter name="V_ADSCRIPCION_CONCURSA" class="java.lang.String"/>
+	<parameter name="FECHA_PUBLICACION" class="java.lang.String"/>
+	<parameter name="ACEPTO_CARTA" class="java.lang.String"/>
+	<parameter name="V_ID_PROCESO" class="java.lang.String"/>
+	<parameter name="V_CLAVE_SERVIDOR" class="java.lang.String"/>
+	<parameter name="LUGAR_PROCESO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="Field_1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="325">
+			<staticText>
+				<reportElement x="0" y="0" width="472" height="30" forecolor="#FF051E" uuid="252fe6fa-37ce-4b15-8321-5b44c74a284a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[ESTE DOCUMENTO ES ORIENTATIVO, SE RECOMIENDA COPIAR Y PEGAR EN UN NUEVO ARCHIVO CON EL FIN DE ACTUALIZAR LOS DATOS CUANDO ASÍ SE REQUIERA Y ELIMINAR LAS NOTAS EN COLOR ROJO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="28" width="472" height="26" forecolor="#FF051E" uuid="93753afa-86dc-4f6a-bed2-ccafcd2e8b9b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[El presente escrito debe entregarse en primer lugar a quien va dirigido (ISAAC PÉREZ QUIROZ).
+Y en segundo lugar a las copias de conocimiento (C.c.p.).]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="55" width="472" height="15" uuid="914054cd-f1f7-4b96-9cd3-0c235382ad9f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{FECHA_ACTUAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="66" width="324" height="60" uuid="2e0327d8-5353-4aff-8630-581f94edb680"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ISAAC PÉREZ QUIROZ
+COORDINADOR DEL SECRETARIADO TÉCNICO
+DE LA COMISIÓN MIXTA DE ESCALAFÓN
+P R E S E N T E]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="130" width="472" height="170" isPrintWhenDetailOverflows="true" uuid="d78a06a4-9ac1-4b70-938d-239a3fefa0f1"/>
+				<textElement textAlignment="Justified" markup="html"/>
+				<textFieldExpression><![CDATA["Con base en el artículo 72 del Reglamento del Proceso Escalafonario de las Personas Servidoras Públicas Generales del Poder Ejecutivo del Estado de México, quien suscribe, " + $P{V_NOMBRE_SERVIDOR} + ", con categoría actual de "+ $P{V_PUESTO_NOMINAL} +", "+ $P{V_CATEGORIA} +", número de plaza "+ $P{V_NUMERO_PLAZA_ACTUAL} +", adscrita a "+ $P{V_ADSCRIPCION} + ", me permito informar a usted que por así convenir a mis intereses, <b>"+ $P{ACEPTO_CARTA} +"</b> la promoción de ascenso a la plaza "+ $P{V_NUMERO_PLAZA_CONCURSA} +", de "+ $P{V_PUESTO_CONCURSA} +", " + $P{V_CATEGORIA_CONCURSA} + ", adscrita a "+ $P{V_ADSCRIPCION_CONCURSA} +", que me fue otorgada por mi participación favorable en el concurso escalafonario " + $P{V_ID_PROCESO} + " el pasado " + $P{FECHA_PUBLICACION} + " quedando en el " + $P{LUGAR_PROCESO} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="300" width="472" height="20" uuid="8820b74c-7d4e-4d55-82be-39f3fabad234"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Sin más por el momento, aprovecho la ocasión para enviarle un cordial saludo.]]></text>
+			</staticText>
+		</band>
+		<band height="291">
+			<staticText>
+				<reportElement x="180" y="1" width="100" height="20" uuid="a044089e-d147-408b-8ca1-0a4747c89ef4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ATENTAMENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="39" width="472" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="7d0c29e3-741c-4702-8831-fb1c26448785"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_NOMBRE_SERVIDOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="53" width="472" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="9059f5b8-b995-493c-a19c-6a44860068a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{V_CLAVE_SERVIDOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="85" width="472" height="40" forecolor="#FF051E" uuid="192afada-4489-442b-b3b9-176d87191488"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Favor de requisitar los nombres de las personas a quienes van dirigidas las copias de conocimiento a continuación. Es importante entregar todas las copias de conocimiento con el fin de que tu movimiento de promoción no se vea afectado. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="121" width="472" height="30" forecolor="#FF051E" uuid="96b684d7-cb9c-4c30-976a-105bc1e1e74d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Si no conoces los nombres de las personas titulares de las Coordinaciones Administrativas o equivalentes, consulta en el “Directorio de servidoras Públicas y Servidores Públicos” en el siguiente enlace:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="147" width="472" height="20" forecolor="#FF051E" uuid="d0418a82-ca0f-4a00-b04a-479fa6938160"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Edomex.gob.mx/directorio_servidores_públicos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="164" width="472" height="15" uuid="f8b5b845-9315-4d3c-a362-857932f185ce"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[C.c.p.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="181" width="472" height="110" uuid="ac7cc669-3d59-4306-ad0e-e8899d414d35"/>
+				<box leftPadding="10"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[• Titular de la Coordinación Administrativa o equivalente, de la dependencia a la que se encuentra adscrita la persona servidora pública actualmente.
+• Titular de la Coordinación Administrativa o equivalente, de la dependencia a la que se encuentra adscrita la plaza vacante.
+• Titular de la Secretaría General del Sindicato Único de Trabajadores del Estado y Municipios y Vicepresidente de la Comisión Mixta de Escalafón, en caso de que la persona servidora pública sea sindicalizada.
+• Titular de la Secretaría de Escalafón e Inserción Laboral del Sindicato Único de Trabajadores del Estado y Municipios y Vocal Propietario de la Comisión Mixta de Escalafón, en caso de que la persona servidora pública sea sindicalizada.
+• Interesada o interesado. ]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

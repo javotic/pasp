@@ -1,0 +1,118 @@
+<p-toast position="center" key="errorToast" (onClose)="cerrarDialog()" [modal]="true" [baseZIndex]="5000"></p-toast>
+<p-toast position="center" key="kpirequired" (onClose)="cerrarDialog()" [modal]="true" [baseZIndex]="5000"></p-toast>
+<p-toast position="center" key="kpiQuiz"  [modal]="true" [baseZIndex]="5000"  (onClose)="redirecToPage()">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 120px"></i>
+            <h3>Su evaluación de Encuesta ha finalizado</h3>
+            <h4>“Gracias por su Participación”</h4>
+            <p>Para regresar a la pantalla principal de Procesos de Encuesta, seleccione el botón “ACEPTAR”</p>
+
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="col-md-12" style="padding: auto; margin: auto; text-align: center; width: 180px;">
+                <button type="button" pButton (click)="redirecToPage()" label="Aceptar"
+                    class="ui-button-primary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<p-toast position="center" key="kpiQuizTimer"  [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 120px"></i>
+            <h3>¡Quedan solo 5 minutos para que el tiempo finalice!</h3>
+            <h4></h4>
+            <p>Da clic el boton "Aceptar" para continuar con la ejecución del formulario.</p>
+
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="col-md-12" style="padding: auto; margin: auto; text-align: center; width: 180px;">
+                <button type="button" pButton (click)="cerrarDialog()" label="Aceptar"
+                    class="ui-button-primary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<p-toast position="center" key="kpiQuizTimerEnd"  [modal]="true" [baseZIndex]="5000" (onClose)="redirecToPage()">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 120px"></i>
+            <h3>El tiempo para contestar el formulario a finalizado.</h3>
+            <h4>Su avance hasta este punto será guardado y enviado, pero su proceso quedara marcado como incompleto.
+            </h4>
+            <p>Da clic el boton "Aceptar" para regresar a la pantalla principal.</p>
+
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="col-md-12" style="padding: auto; margin: auto; text-align: center; width: 180px;">
+                <button type="button" pButton (click)="redirecToPage()" label="Aceptar"
+                    class="ui-button-primary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-12">
+        <p-panel header="EJECUCIÓN PROCESO ENCUESTA" [toggleable]="false">
+            <div class="row contenido-pantalla">
+                <div class="col-md-12 titulo-kpi">
+                    {{question2.IDPROCESOKPI}} - {{question2.NOMBREPROCESOKPI}}
+                </div>
+                <div class="col-md-12 subtitulo-kpi">
+                    {{question2.IDSERVIDORPUBLICO}} - {{question2.NOMBRESERVIDORPUBLICO}}
+                </div>
+                <div class="col-md-6">
+                    <countdown #cd1 [config]="configtimer" (event)="handleEvent($event)" style="color:white;"></countdown>
+                </div>
+                <div class="col-md-12" >
+                    <p class="detalle-kpi">No hay respuestas correctas o incorrectas, esta encuesta tiene un tiempo establecido para ser respondida,
+                        suficiente para que usted lea cada enunciado cuidadosamente y seleccione una opción de respuesta, una
+                        vez que ingrese debe concluirla, en caso de no hacerlo esta quedará registrada como incompleta. Le
+                        sugerimos que designe un espacio en el que pueda responder tranquilamente, evitando ser interrumpida(o).
+                    </p>
+                </div>
+                <div class="col-md-12" style="padding-top: 3em;">
+                    <div class="row">
+                        <div class="col-md-6" style="margin-bottom: 15px;">
+                                <p-progressBar [value]="progressbar"></p-progressBar>
+                        </div>
+                        <div class="col-md-12" *ngFor="let question of filteredQuestions;">
+                            <div class="badge badge-info" style="font-size: medium !important; font-weight: 400 !important;">
+                                Pregunta {{pager.index + 1}}.
+                            </div>
+                            <p class="pregunta-kpi">{{question.DESCRIPCION}}</p>
+                            <div class="row text-left respuestas">
+                            
+                                <div class="col-12" *ngFor="let option of question.RESPUESTASKPI" style="padding-top: 1em;">
+                                
+                                    <div *ngIf="question.MAXRESPUESTA > 1" style="display: flex;">
+                                        <input id="{{option.IDRESPUESTA}}" name="option.IDPREGUNTA" class="tamanio-check" 
+                                        type="checkbox" [(ngModel)]="option.selected" (change)="onSelect(question, option);" />
+                                        <label style="margin-left: 5px;" class="label-respuesta">{{option.RESPUESTA}}</label>
+                                    </div> 
+                                        
+                                    <div *ngIf="question.MAXRESPUESTA == 1" style="display: flex;">
+                                        <p-radioButton name="{{option.IDPREGUNTA}}" (onClick)="onSelect(question, option)"
+                                            value="option.selected" [(ngModel)]="option.selected">
+                                        </p-radioButton>
+                                        <label style="margin-left: 5px;" for="{{option.IDPREGUNTA}}" class="label-respuesta">{{option.RESPUESTA}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="col-md-12 text-right">
+                            <button (click)="goTo(pager.index + 1);" pButton label="Siguiente" type="button"  class="ui-button-primary" 
+                                [hidden]="hideButon"  style="width: 180px !important; background-color: #027D7F;"></button>
+                            <button (click)="redirecToPage()" pButton label="Finalizar" type="button" class="ui-button-primary" 
+                                [hidden]="!hideButon" style="width: 180px !important; background-color: #027D7F;"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>

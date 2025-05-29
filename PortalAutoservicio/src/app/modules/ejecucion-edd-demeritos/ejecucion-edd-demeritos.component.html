@@ -1,0 +1,94 @@
+<p-toast position="center" key="FinalizarEv" [modal]="true" [baseZIndex]="5000"
+         class="wide-toast">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>Has concluido la Evaluación del Desempeño de la Persona Servidora Pública.</h3>
+            <p>Da clic al botón de REGRESAR si deseas volver a los criterios de evaluación.</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div classtartEvals="ui-g-12" style="margin: auto;">
+                <button type="button" pButton (click)="terminaEvaluacion()" label="Aceptar"
+                        class="ui-button-rounded btn-yes"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<p-toast [style]="{marginTop: '1px'}" position="top-left" key="notifi"></p-toast>
+<p-toast position="center" key="d"></p-toast>
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row">
+    <div class="col-md-12 text-right" style="margin-bottom: 10px;">
+        <a class="a-regresar" (click)="showRegresar()">Regresar</a>
+    </div>
+    <div class="col-md-12">
+        <p-panel header="Evaluación del desempeño" [toggleable]="false">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">REPORTE DE EVALUACIÓN DEL DESEMPEÑO</div>
+                <div class="col-md-12" style="text-align: center;">{{precesoSesion.claveProceso}}
+                    -{{precesoSesion.nombreProceso}}</div>
+                <div class="col-md-12" style="text-align: center;">{{precesoSesion.claveUnidad}}
+                    -{{precesoSesion.nombreUnidad}}</div>
+                <div class="col-md-12" style="text-align: center;">Evaluador: {{currentUser.CLAVESERVIDOR}} -
+                    {{currentUser.MOMBRE}} {{currentUser.APELLIDOPATERNO}} {{currentUser.APELLIDOMATERNO}}</div>
+                <div class="col-md-12" style="text-align: center;">Evaluado: {{precesoSesion.claveEvaluado}} -
+                    {{precesoSesion.nombreEvaluado}}</div>
+            </div>
+            <div class="row" style="align-content: center; padding-top: 2em !important;">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="text-align: center;">
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <pdf-viewer [src]="src"></pdf-viewer>
+            <div class=" row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <!-- <button type="button" pButton    label="Finalizar proceso"></button> -->
+                    <button [disabled]="disableFinalizar" pButton type="button" label="Finalizar"
+                            [style]="{'width':'100%'}" (click)="finalizarEDD()"
+                            class="ui-button-primary btn-primary-search"></button>
+                </div>
+                <div class="col-md-2">
+                    <!-- <button type="button" pButton (click)="descargar()"   label="Descargar"></button> -->
+                    <button pButton type="button" label="Descargar" [style]="{'width':'100%'}" *ngIf="hiddenDescargar"
+                            class="ui-button-primary btn-primary-search" (click)="descargar()"></button>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+</div>
+
+
+<p-dialog header="Advertencia" [(visible)]="MsgAlertFinaliza" [focusOnShow]="false" [responsive]="true"
+          showEffect="fade" [modal]="true"
+          [style]="{'width': '320px', 'height':'150px', 'max-height':'150px', 'max-width':'320px'}">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-3">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3rem;"></i>
+        </div>
+        <div class="ui-g-9">
+            <p style="text-align: justify; ">
+                No olvides que para concluir tu evaluación deberás presionar el botón Finalizar.
+            </p>
+        </div>
+    </div>
+</p-dialog>
+<ngx-spinner></ngx-spinner>

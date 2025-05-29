@@ -1,0 +1,16 @@
+.tb_sombreado_gridGen th {
+  border: 1px solid #ddd;
+  padding: 3px;
+  height: 35px;
+  background: #f4f4f4 !important;
+  color: black !important;
+  text-align: center;
+}
+
+.green {
+  color: #3c9136;
+}
+
+.red {
+  color: #ff0000;
+}

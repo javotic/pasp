@@ -1,0 +1,29 @@
+  
+    <div class="row" style="padding: 0px; margin: 0px;">
+        <div class="col-md-12" style="padding: 0px; margin: 0px;" >
+            <app-header (hideShowMenu)="changeVisibleMenu($event)" 
+            [InpDatosPersonales]="datosPersonales" [InpDatosServidorPublico]="consultaDatosServidorPublico"></app-header>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col" style="padding: 0px 0px 0px 0px; vertical-align: top;">
+                    <router-outlet></router-outlet>
+                </div>
+
+                <div [ngClass]='{"sb-nav-modify": !isVisibleMenu}'>
+                    <div class="divSidebar" id="divSidebar" style="margin: 0px; padding: 0px;" >
+                            <app-sidebar (outdatosPersonales)="getDatosPersonales($event)" 
+                                         (outDatosServidorPublico)="getServidorPublico($event)" >
+                            </app-sidebar>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+         
+       <div class="col-md-12" style="padding: 0px; margin: 0px;">
+            <app-footer> </app-footer>
+       </div>
+    </div> 
+    

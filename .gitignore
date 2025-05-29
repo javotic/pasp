@@ -1,0 +1,59 @@
+# ===========================
+# IGNORAR GLOBALES
+# ===========================
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# ===========================
+# IGNORAR JAVA / MAVEN
+# ===========================
+# Para todos los microservicios
+microservicios-*/target/
+microservicios-*/**/target/
+microservicios-*/**/*.class
+microservicios-*/**/*.jar
+microservicios-*/**/*.war
+microservicios-*/**/*.ear
+microservicios-*/.mvn/timing.properties
+microservicios-*/**/.DS_Store
+**/src/main/resources/application-*.properties
+
+# ===========================
+# IGNORAR ANGULAR
+# ===========================
+PortalAutoservicio/node_modules/
+PortalAutoservicio/dist/
+PortalAutoservicio/.angular/
+PortalAutoservicio/.env
+PortalAutoservicio/.env.*.local
+PortalAutoservicio/.DS_Store
+
+# Archivos de log en Angular
+PortalAutoservicio/npm-debug.log*
+PortalAutoservicio/yarn-debug.log*
+PortalAutoservicio/yarn-error.log*
+PortalAutoservicio/pnpm-debug.log*
+
+# IDEs en Angular
+PortalAutoservicio/.idea/
+PortalAutoservicio/.vscode/
+
+# Archivos de lock (opcional, si no deseas versionarlos)
+# PortalAutoservicio/package-lock.json
+# PortalAutoservicio/yarn.lock
+# PortalAutoservicio/pnpm-lock.yaml

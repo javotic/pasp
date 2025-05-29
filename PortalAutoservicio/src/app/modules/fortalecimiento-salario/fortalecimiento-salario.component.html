@@ -1,0 +1,167 @@
+<p-panel header="Fortalecimiento al salario docente"
+	    *ngIf="mostrarSeccionDocentes">
+	<div class="row">
+		<div class="col-md-12">
+			<table id="tblDatosServidorPublicoDocente">
+				<tbody>
+					<tr>
+						<td class="even">
+							<label>Clave de SP</label>
+						</td>
+						<td>
+							<label class="texto-contenido">{{ idServidorPublico }}</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="even">
+							<label>Nombre</label>
+						</td>
+						<td>
+							<label class="texto-contenido">{{ nombreServidorPublico }}</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+		<div class="col-md-12" style="width: 100%;">
+			<div style="margin-bottom: 50px;">
+				<p-table id="tblTabuladorDocente" #dt
+					    [value]="lsTabuladorDocente">
+					<ng-template pTemplate="header">
+						<tr>
+							<th>SALARIO MENSUAL TABULAR</th>
+							<th style="width:100px">ISR MENSUAL</th>
+							<th>SALARIO MENSUAL TABULAR DESPUES DE IMPUESTOS</th>
+							<th style="width: 115px">PORCENTAJE A APLICAR</th>
+							<th>IMPORTE SUELDO BASE MENSUAL</th>
+							<th>INCREMENTO PORCENTUAL MENSUAL</th>
+							<th>IMPORTE SUELDO BASE FINAL</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-tabulador>
+						<tr>
+							<td>{{tabulador.salarioMensual | currency}}</td>
+							<td>{{tabulador.isr | currency}}</td>
+							<td>{{tabulador.salarioMensualDespuesImpuestos | currency}}</td>
+							<td>{{tabulador.porcentajeIncremento | percent}}</td>
+							<td>{{tabulador.sueldoBase | currency}}</td>
+							<td>{{tabulador.incrementoPorcentual | currency}}</td>
+							<td>{{tabulador.sueldoBaseFinal | currency}}</td>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="emptymessage" let-columns>
+						<tr>
+							<td [attr.colspan]="6" style="font-weight: bold;">
+								No se encontraron registros
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+			<br />
+			<div style="width: 70%;text-align: center;margin: 0 auto;">
+				<p-table id="tblCategorias" #dt
+					    [value]="lsCategoriaIncrementoSalarial">
+					<ng-template pTemplate="header">
+						<tr>
+							<th>CATEGORIA</th>
+							<th>PORCENTAJE A APLICAR</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-categoria>
+						<tr>
+							<td>{{categoria.categoria}}</td>
+							<td>{{categoria.porcentaje | percent}}</td>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="emptymessage" let-columns>
+						<tr>
+							<td [attr.colspan]="2" style="font-weight: bold;">
+								No se encontraron registros
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</div>
+	</div>
+</p-panel>
+<p-panel header="Fortalecimiento al salario burócrata"
+	    *ngIf="mostrarSeccionBurocrata">
+	<div class="row">
+		<div class="col-md-12">
+			<table id="tblDatosServidorPublicoBurocrata">
+				<tbody>
+					<tr>
+						<td class="even">
+							<label>Clave de SP</label>
+						</td>
+						<td>
+							<label class="texto-contenido">{{ idServidorPublico }}</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="even">
+							<label>Nombre</label>
+						</td>
+						<td>
+							<label class="texto-contenido">{{ nombreServidorPublico }}</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="even">
+							<label>Puesto</label>
+						</td>
+						<td>
+							<label class="texto-contenido">{{ puesto }}</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="col-md-12" style="width: 100%;">
+		<p-table id="tblTabuladorBurocrata" #dt
+			    [value]="lsTabuladorBurocrata">
+			<ng-template pTemplate="header">
+				<tr>
+					<th style="width: 60px">AÑO</th>
+					<th>SUELDO BASE</th>
+					<th>GRATIFICACIÓN</th>
+					<th style="width: 180px;">FORTALECIMIENTO AL SALARIO</th>
+					<th>DESPENSA</th>
+					<th>TOTAL BRUTO</th>
+					<th style="width: 110px;">I.S.R.</th>
+					<th>ISSEMYM</th>
+					<th>TOTAL NETO</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-tabulador>
+				<tr>
+					<td>{{tabulador.anio}}</td>
+					<td>{{tabulador.sueldoBase | currency}}</td>
+					<td>{{tabulador.gratificacion | currency}}</td>
+					<td>{{tabulador.fortalecimientoSalario | currency}}</td>
+					<td>{{tabulador.despensa | currency}}</td>
+					<td>{{tabulador.totalBruto | currency}}</td>
+					<td>{{tabulador.isr | currency}}</td>
+					<td>{{tabulador.issemym | currency}}</td>
+					<td>{{tabulador.totalNeto | currency}}</td>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="emptymessage" let-columns>
+				<tr>
+					<td [attr.colspan]="9" style="font-weight: bold;">
+						No se encontraron registros
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</p-panel>

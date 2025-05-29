@@ -1,0 +1,50 @@
+<p-toast position="bottom-center" key="d"></p-toast>
+<p-confirmDialog header="Confirmación" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="row not-mar-pad">
+    <div class="col-md-12 not-mar-pad">
+        <p-panel header="Proceso escalafonario" [toggleable]="false">
+            <div class="row contenido-pantalla">
+                <div class="col-md-12 not-mar-pad">
+                    <p-tabView [(activeIndex)]="activeTabIndex" style="width: 100% !important;">
+                        <p-tabPanel header="Mi información actual" class="not-mar-pad">
+                           <app-proceso-escalafonario *ngIf="cargarComponenteProceso"></app-proceso-escalafonario>
+                        </p-tabPanel>
+                        <p-tabPanel header="Proceso escalafonario vigente" style="width: 100%;" class="not-mar-pad" >
+                            <app-proceso-escalafonario-vigente *ngIf="cargarComponentes"  [tabSeleccion]="activeTabIndex">
+                            </app-proceso-escalafonario-vigente>
+                            <div class="row" style="padding: 5px;" *ngIf="!cargarComponentes">
+                                <label>
+                                    Actualmente no existe un proceso escalafonario vigente.
+                                </label>
+                            </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Mi histórico" class="not-mar-pad">
+                          <app-mihistorico></app-mihistorico>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+            </div>    
+    </p-panel>
+    </div>
+</div>
+    
+<ngx-spinner></ngx-spinner>
